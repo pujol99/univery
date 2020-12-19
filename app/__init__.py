@@ -5,15 +5,11 @@ from flask_login import LoginManager
 from flask_admin.contrib.sqla import ModelView
 from app.config import Config
 
-
-
-
 db = SQLAlchemy()
 bcrypt = Bcrypt()
 login_manager = LoginManager()
 login_manager.login_view = 'users.login'
 login_manager.login_message_category = 'info'
-
 
 
 def create_app(config_class=Config):

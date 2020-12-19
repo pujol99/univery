@@ -1,44 +1,43 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="login-box">
-    <form method="POST" action="">
-        {{ form.hidden_tag() }}
-        <h1 class="head">Login</h1>
-        <div class="form-group">
-            {{ form.identification.label(class="form-control-label") }}
-            {% if form.identification.errors %}
-            {{ form.identification(class="form-control form-control-lg is-invalid") }}
-            <div class="invalid-feedback">
-                {% for error in form.identification.errors %}
-                <span>{{ error }}</span>
-                {% endfor %}
+<div class="login-page">
+    <div class="login-box centered">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <h1 class="head-legend">Login</h1>
+            <div class="form-group sm-margin">
+                {{ form.identification.label(class="form-control-label") }}
+                {% if form.identification.errors %}
+                {{ form.identification(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.identification.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.identification(class="form-control form-control-lg") }}
+                {% endif %}
             </div>
-            {% else %}
-            {{ form.identification(class="form-control form-control-lg") }}
-            {% endif %}
-        </div>
-        <div class="form-group">
-            {{ form.password.label(class="form-control-label") }}
-            {% if form.password.errors %}
-            {{ form.password(class="form-control form-control-lg is-invalid") }}
-            <div class="invalid-feedback">
-                {% for error in form.password.errors %}
-                <span>{{ error }}</span>
-                {% endfor %}
+            <div class="form-group sm-margin">
+                {{ form.password.label(class="form-control-label") }}
+                {% if form.password.errors %}
+                {{ form.password(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.password.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.password(class="form-control form-control-lg") }}
+                {% endif %}
             </div>
-            {% else %}
-            {{ form.password(class="form-control form-control-lg") }}
-            {% endif %}
-        </div>
-        <div class="form-group-btn">
-            {{ form.submit(class="btn") }}
-        </div>
-        <a href="{{ url_for('users.register') }}">
-            <div class="forgot">
-                <p>Need an account?</p>
+            <div class="btn btn-primary sm-margin">
+                {{ form.submit(class="btn login-btn") }}
             </div>
-        </a>
-    </form>
+            <div class="sm-margin">
+                <p>Dont an account? <a href="{{url_for('users.register')}}">Register</a></p>
+            </div>
+        </form>
+    </div>
 </div>
-
 {% endblock content %}
