@@ -25,13 +25,9 @@ def create_app(config_class=Config):
     login_manager.init_app(app)
 
     from app.users.routes import users
-    from app.reviews.routes import reviews_bp
-    from app.movies.routes import movies_bp
     from app.main.routes import main
     from app.errors.handlers import errors
     app.register_blueprint(users)
-    app.register_blueprint(movies_bp)
-    app.register_blueprint(reviews_bp)
     app.register_blueprint(main)
     app.register_blueprint(errors)
 

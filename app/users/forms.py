@@ -7,50 +7,21 @@ from app.models import User
 
 
 class RegistrationForm(FlaskForm):
-    username = StringField('Username',
-                           validators=[DataRequired(), Length(min=2, max=20)])
-    email = StringField('Email',
-                        validators=[DataRequired(), Email()])
+    fullname = StringField('Fullname', validators=[
+        DataRequired(), Length(max=40)])
+    identification = StringField('Identification', validators=[
+        DataRequired(), Length(max=15)])
     password = PasswordField('Password', validators=[DataRequired()])
-    confirm_password = PasswordField('Confirm password', 
-                    validators=[DataRequired(), EqualTo('password')])
-    submit = SubmitField('Sign Up')
+    submit = SubmitField('Sign up')
 
-    def validate_username(self, username):
-        user = User.query.filter_by(username=username.data).first()
+    def validate_identification(self, identification):
+        user = User.query.filter_by(identification=identification.data).first()
         if user:
-            raise ValidationError('That username is taken. Please choose a different one.')
-
-    def validate_email(self, email):
-        user = User.query.filter_by(email=email.data).first()
-        if user:
-            raise ValidationError('That email is taken. Please choose a different one.')
-
+            raise ValidationError('That identification is taken. Please choose a different one.')
 
 class LoginForm(FlaskForm):
-    email = StringField('Email',
-                        validators=[DataRequired(), Email()])
+    identification = StringField('Identification', validators=[
+        DataRequired(), Length(max=15)])
     password = PasswordField('Password', validators=[DataRequired()])
+    remember = BooleanField('Remember me')
     submit = SubmitField('Login')
-    
-
-class UpdateAccountForm(FlaskForm):
-    username = StringField('Username',
-                           validators=[DataRequired(), Length(min=2, max=20)])
-    email = StringField('Email',
-                        validators=[DataRequired(), Email()])
-    description = TextAreaField('Personal description', validators=[Length(max=100)])
-    picture = FileField('Update Profile Picture', validators=[FileAllowed(['jpg', 'png'])])
-    submit = SubmitField('Update')
-
-    def validate_username(self, username):
-        if username.data != current_user.username:
-            user = User.query.filter_by(username=username.data).first()
-            if user:
-                raise ValidationError('That username is taken. Please choose a different one.')
-
-    def validate_email(self, email):
-        if email.data != current_user.email:
-            user = User.query.filter_by(email=email.data).first()
-            if user:
-                raise ValidationError('That email is taken. Please choose a different one.')
