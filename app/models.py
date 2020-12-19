@@ -13,6 +13,7 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(60), nullable=False)
     deliveries = db.relationship('Delivery', backref='user', lazy=True)
     subjects = db.relationship('Subject', backref='user', lazy=True)
+    last_update = db.Column(db.DateTime, nullable=True)
 
     def __repr__(self):
         return f"User('{self.fullname}', '{self.identification }')"
