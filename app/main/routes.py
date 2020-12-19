@@ -1,5 +1,5 @@
 from flask import Blueprint
-from app.models import Movie, User
+from app.models import *
 import random
 from flask import render_template
 
