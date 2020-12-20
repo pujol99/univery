@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="login-page">
+    <div class="login-box centered">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <h1 class="head-legend">Add Subject</h1>
+            <div class="form-group sm-margin">
+                {{ form.subject_id.label(class="form-control-label") }}
+                {% if form.subject_id.errors %}
+                {{ form.subject_id(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.subject_id.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.subject_id(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+            <div class="btn btn-primary sm-margin">
+                {{ form.submit(class="btn login-btn") }}
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock content %}

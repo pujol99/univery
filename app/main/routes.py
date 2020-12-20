@@ -11,4 +11,6 @@ main = Blueprint('main', __name__)
 def home():
     if not current_user.is_authenticated:
         return redirect(url_for('users.login'))
+    if not len(current_user.deliveries):
+        return redirect(url_for('subjects.add_subject'))
     return render_template('home.html')
