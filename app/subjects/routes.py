@@ -15,7 +15,6 @@ def add_subject():
     form = AddSubjectForm()
     if form.validate_on_submit():
         correct, identification, name = check_subject(form.subject_id.data)
-        print(correct)
         if correct:
             subject = Subject(identification=identification, name=name, user_id=current_user.id)
             db.session.add(subject)

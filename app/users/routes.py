@@ -1,6 +1,7 @@
 from flask import Blueprint
 from flask import render_template, url_for, redirect, request
 from app import db, bcrypt
+from ..users.utils import check_user
 from app.users.forms import *
 from app.models import *
 from flask_login import login_user, current_user, logout_user, login_required
@@ -12,7 +13,7 @@ def register():
     if current_user.is_authenticated:
         return redirect(url_for('main.home'))
     form = RegistrationForm()
-    if form.validate_on_submit():
+    if form.validate_on_submit() and check_user(form.identification.data, form.password.data):
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         user = User(fullname=form.fullname.data, identification=form.identification.data, password=hashed_password)
         db.session.add(user)
