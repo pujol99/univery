@@ -26,7 +26,7 @@ class Subject(db.Model):
     deliveries = db.relationship('Delivery', backref='subject', lazy=True)
 
     def __repr__(self):
-        return f"Subject('{self.name}', '{self.toDate }')"
+        return f"Subject('{self.name}', '{self.identification }')"
 
 class Delivery(db.Model):
     id = db.Column(db.Integer, primary_key=True)
