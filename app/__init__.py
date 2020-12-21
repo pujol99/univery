@@ -24,9 +24,11 @@ def create_app(config_class=Config):
     from app.main.routes import main
     from app.errors.handlers import errors
     from app.subjects.routes import subjects
+    from app.deliveries.routes import deliveries
     app.register_blueprint(users)
     app.register_blueprint(main)
     app.register_blueprint(errors)
     app.register_blueprint(subjects)
+    app.register_blueprint(deliveries)
 
     return app

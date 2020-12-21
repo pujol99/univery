@@ -4,7 +4,5 @@ from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, EqualTo, Length, Email, ValidationError
 
 
-class AddSubjectForm(FlaskForm):
-    subject_id = StringField('Subject ID', validators=[
-        DataRequired(), Length(max=15)])
-    submit = SubmitField('Add')
+class AddDeliveryForm(FlaskForm):
+    pass

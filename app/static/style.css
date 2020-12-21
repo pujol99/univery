@@ -100,7 +100,7 @@
 }
 
 .delivery-name{
-    width: 60%;
+    width: 75%;
     float: left;
     height: 100px;
     line-height: 100px;
@@ -108,7 +108,7 @@
 
 .vcenter{
     font-family: sans-serif;
-    font-size: 20px;
+    font-size: 18px;
     /*margin-left: 30px;
     margin-bottom: 0px !important;*/
     display: inline-block;

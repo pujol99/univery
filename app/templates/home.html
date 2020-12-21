@@ -1,55 +1,20 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="home">
+    <div class="refresh_box">
+        <a href="{{ url_for('deliveries.update_deliveries') }}">Refresh updates</a>
+    </div>
     <div class="delivery-container">
+        {% for delivery in current_user.deliveries %}
         <div class="delivery-block">
             <div class="delivery-name">
-                <p class="vcenter">Assigment 1</p>
+                <p class="vcenter">{{delivery.name}}</p>
             </div>
             <div class="delivery-date">
-                <p>21/12 23:59</p>
+                <p>{{delivery.toDate}}</p>
             </div>
         </div>
-        <div class="delivery-block">
-            <div class="delivery-name">
-                <p class="vcenter">Assigment 2</p>
-            </div>
-            <div class="delivery-date">
-                <p>21/12 23:59</p>
-            </div>
-        </div>
-        <div class="delivery-block">
-            <div class="delivery-name">
-                <p class="vcenter">Assigment 2</p>
-            </div>
-            <div class="delivery-date">
-                <p>21/12 23:59</p>
-            </div>
-        </div>
-        <div class="delivery-block">
-            <div class="delivery-name">
-                <p class="vcenter">Assigment 2</p>
-            </div>
-            <div class="delivery-date">
-                <p>21/12 23:59</p>
-            </div>
-        </div>
-        <div class="delivery-block">
-            <div class="delivery-name">
-                <p class="vcenter">Assigment 2</p>
-            </div>
-            <div class="delivery-date">
-                <p>21/12 23:59</p>
-            </div>
-        </div>
-        <div class="delivery-block">
-            <div class="delivery-name">
-                <p class="vcenter">1EDS-full: Event Driven Simulation Full Submission</p>
-            </div>
-            <div class="delivery-date">
-                <p>21/12 23:59</p>
-            </div>
-        </div>
+        {% endfor %}
     </div>
 </div>
 

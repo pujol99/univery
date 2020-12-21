@@ -1,8 +1,7 @@
 from flask import Blueprint
 from app.models import *
-from app.subjects.forms import *
-import random
-from .utils import check_subject
+from .forms import *
+from ..main.utils import check_subject
 from flask_login import current_user
 from flask import render_template, redirect, url_for
 

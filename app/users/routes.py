@@ -1,8 +1,8 @@
 from flask import Blueprint
 from flask import render_template, url_for, redirect, request
 from app import db, bcrypt
-from ..users.utils import check_user
-from app.users.forms import *
+from ..main.utils import check_user
+from .forms import *
 from app.models import *
 from flask_login import login_user, current_user, logout_user, login_required
 
