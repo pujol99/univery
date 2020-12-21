@@ -1,4 +1,8 @@
 Create welcome page for users not logged in
     Showing web image and description of the web
-Nice refresh button
+add manually a delivery
 Notify better user when subject was added
+delivery done + eliminate delivery
+visualize done deliveries
+modify password user
+last_update update

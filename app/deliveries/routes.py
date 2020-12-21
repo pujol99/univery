@@ -28,6 +28,6 @@ def update_deliveries():
             db.session.commit()
         elif not existent_delivery:
             db.session.add(Delivery(name=delivery_name, toDate=toDate, 
-                user_id=current_user.id, subject_id=subject_id, isDone=False))
+                user_id=current_user.id, subject_id=subject_id))
             db.session.commit()
     return redirect(url_for('main.home'))

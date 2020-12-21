@@ -1,8 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="home">
-    <div class="refresh_box">
-        <a href="{{ url_for('deliveries.update_deliveries') }}">Refresh updates</a>
+    <div id="waiting" class="refresh-box">    
+        <p><a id="refresh-text" href="{{ url_for('deliveries.update_deliveries') }}">Refresh deliveries</a></p>
+    </div>
+    <div id="loading" class="refresh-box">    
+        <p><a id="refresh-text">Loading deliveries</a></p>
     </div>
     <div class="delivery-container">
         {% if deliveries|length > 1 %}

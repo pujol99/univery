@@ -33,4 +33,13 @@
 
 </html>
 <script src="/static/scripts.js"></script>
+<script>
+    var waitin = document.getElementById('waiting');
+    var loadin = document.getElementById('loading');
+    loadin.style.display = "none";
+    document.getElementById('refresh-text').onclick = function () {
+        waitin.style.display = "none";
+        loadin.style.display = "block";
+    }
+</script>
 </html>

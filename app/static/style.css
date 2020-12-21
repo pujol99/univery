@@ -86,7 +86,7 @@
 .delivery-container{
     background-color:brown;
     width: min(80%, 900px);
-    margin: 100px auto;
+    margin: 0 auto;
     height: 400px;
     overflow-y: scroll;
 }
@@ -126,4 +126,23 @@
     font-size: 20px;
     line-height: 100px;
     margin-bottom: 0px !important;
+}
+
+.refresh-box{
+    height: 100px;
+    text-align: center;
+    line-height: 100px;
+    vertical-align: middle;
+}
+
+#refresh-text{
+    background-color: #1c273a;
+    padding: 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: white;
+}
+
+#refresh-text:hover{
+    color: white;
 }

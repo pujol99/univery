@@ -36,6 +36,7 @@ class Delivery(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     subject_id = db.Column(db.Integer, db.ForeignKey('subject.id'), nullable=False)
     isDone = db.Column(db.Boolean, nullable=False, default=False)
+    isEliminated = db.Column(db.Boolean, nullable=False, default=False)
 
     def __repr__(self):
         return f"Delivery('{self.name}', '{self.toDate }')"
