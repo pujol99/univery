@@ -1,6 +1,7 @@
 from ..subjects.utils import Subject
 from ..deliveries.utils import Delivery
 from flask_login import current_user
+from datetime import datetime
 
 import requests
 from bs4 import BeautifulSoup
@@ -68,3 +69,13 @@ def get_deliveries():
             delivery.scrape_delivery()
 
         return [delivery for delivery in deliveries if delivery.date]
+
+def clean_deliveries(deliveries):
+    deliveries = [i for i in deliveries if not i.isDone]
+    # Remove past ones
+    #deliveries = [i for i in deliveries if is_future(i.toDate)]
+    # Sort
+    return sorted(deliveries, key=lambda x: x.toDate)
+
+def is_future(date):
+    return date > datetime.now()

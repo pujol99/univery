@@ -1,6 +1,7 @@
 from flask import Blueprint
 from flask_login import current_user
 from flask import render_template, redirect, url_for
+from .utils import clean_deliveries
 
 main = Blueprint('main', __name__)
 
@@ -11,4 +12,4 @@ def home():
         return redirect(url_for('users.login'))
     if len(current_user.subjects) == 0:
         return redirect(url_for('subjects.add_subject'))
-    return render_template('home.html')
+    return render_template('home.html', deliveries=clean_deliveries(current_user.deliveries))

@@ -5,16 +5,24 @@
         <a href="{{ url_for('deliveries.update_deliveries') }}">Refresh updates</a>
     </div>
     <div class="delivery-container">
-        {% for delivery in current_user.deliveries %}
-        <div class="delivery-block">
-            <div class="delivery-name">
-                <p class="vcenter">{{delivery.name}}</p>
+        {% if deliveries|length > 1 %}
+            {% for delivery in deliveries %}
+                <div class="delivery-block">
+                    <div class="delivery-name">
+                        <p class="vcenter">{{delivery.name}}</p>
+                    </div>
+                    <div class="delivery-date">
+                        <p class="time">{{delivery.toDate}}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="delivery-block">
+                    <div class="delivery-name">
+                        <p class="vcenter">No future deliveries</p>
+                    </div>
             </div>
-            <div class="delivery-date">
-                <p>{{delivery.toDate}}</p>
-            </div>
-        </div>
-        {% endfor %}
+        {% endif %}
     </div>
 </div>
 
