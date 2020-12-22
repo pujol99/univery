@@ -75,14 +75,14 @@ def get_deliveries_todo(deliveries):
     # Remove past ones
     #deliveries = [i for i in deliveries if is_future(i.toDate)]
     # Sort
-    return sorted(deliveries, key=lambda x: x.toDate)
+    return list(reversed(sorted(deliveries, key=lambda x: x.toDate)))
 
 def get_deliveries_done(deliveries):
     deliveries = [i for i in deliveries if i.isDone and not i.isEliminated]
     # Remove past ones
     #deliveries = [i for i in deliveries if is_future(i.toDate)]
     # Sort
-    return sorted(deliveries, key=lambda x: x.toDate)
+    return list(reversed(sorted(deliveries, key=lambda x: x.toDate)))
 
 def is_future(date):
     return date > datetime.now()

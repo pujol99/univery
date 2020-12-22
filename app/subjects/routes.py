@@ -7,14 +7,25 @@ from flask import render_template, redirect, url_for
 
 subjects = Blueprint('subjects', __name__)
 
-@subjects.route("/add-subject", methods=['GET', 'POST'])
+@subjects.route("/subjects", methods=['GET', 'POST'])
 @login_required
-def add_subject():
+def subjects_page():
     form = AddSubjectForm()
     if form.validate_on_submit():
         correct, name, identification = check_subject(form.subject_id.data)
-        if correct:
+        if correct and not Subject.query.filter_by(identification=identification, user_id=current_user.id).first():
             subject = Subject(identification=identification, name=name, user_id=current_user.id)
             db.session.add(subject)
             db.session.commit()
     return render_template('subject/add-subject.html', form=form)
+
+@subjects.route("/subject-remove/<int:id>")
+@login_required
+def subject_remove(id):
+    s = Subject.query.filter_by(id=id)
+
+    Delivery.query.filter_by(subject_id=s.first().identification).delete()
+    s.delete()
+    db.session.commit()
+
+    return redirect(url_for('subjects.subjects_page'))

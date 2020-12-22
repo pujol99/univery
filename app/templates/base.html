@@ -19,7 +19,7 @@
         <div class="mycontainer right">
             <ul>
                 {% if current_user.is_authenticated %}
-                <li><a class="link" href="#">Account</a></li>
+                <li><a class="link" href="{{ url_for('subjects.subjects_page') }}">Subjects</a></li>
                 <li><a class="link" href="{{ url_for('users.logout') }}">Logout</a></li>
                 {% else %}
                 <li><a class="link" href="{{ url_for('users.login') }}">Login</a></li>

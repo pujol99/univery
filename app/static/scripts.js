@@ -14,12 +14,15 @@ function computeTime() {
     );
     var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-    item.textContent =
-      days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+    
+    if (days < 1){
+      item.textContent = days + "d " + hours + "h " + minutes + "m ";
+    }else{
+      item.textContent = days + "d " + hours + "h ";
+    }
+    
   });
 }
 
 computeTime();
 setInterval(computeTime, 1000);
-

@@ -174,3 +174,44 @@
     border: 2px solid black;
     border-radius: 15px;
 }
+
+.your-subjects{
+    background-color: white;
+    width: 90%;
+    margin: 0 auto;
+    overflow-y: scroll;
+    height: 200px;
+    margin-top: 20px;
+    
+}
+
+.your-subjects p{
+    height: 30px;
+    padding-top: 20px;
+}
+
+.subject-name{
+    float: left; width: 90%;
+}
+
+.subject-action{
+    float: left;
+    width: 10%;
+}
+
+.subject-action img{
+    width: 35px;
+    height: 45px;
+    padding-top: 20px;
+}
+.subject-box{
+    height: fit-content;
+}
+
+#loading-text{
+    background-color: aquamarine;
+    padding: 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: black;
+}
