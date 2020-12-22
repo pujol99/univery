@@ -5,14 +5,14 @@
         <p><a id="refresh-text" href="{{ url_for('deliveries.update_deliveries') }}">Refresh deliveries</a></p>
     </div>
     <div id="loading" class="refresh-box">    
-        <p><a id="refresh-text">Loading deliveries</a></p>
+        <p><a id="refresh-text">Loading deliveries...</a></p>
     </div>
-    <div class="delivery-container">
-        {% if deliveries|length > 1 %}
-            {% for delivery in deliveries %}
+    <div id="notdone" class="delivery-container">
+        {% if deliveries_todo|length > 0 %}
+            {% for delivery in deliveries_todo %}
                 <div class="delivery-block">
                     <div class="delivery-name">
-                        <p class="vcenter">{{delivery.name}}</p>
+                        <p class="">{{delivery.name}}</p>
                     </div>
                     <div class="delivery-date">
                         <p class="time">{{delivery.toDate}}</p>
@@ -23,6 +23,27 @@
             <div class="delivery-block">
                     <div class="delivery-name">
                         <p class="vcenter">No future deliveries</p>
+                    </div>
+            </div>
+        {% endif %}
+    </div>
+    <br>
+    <div id="done" class="delivery-container">
+        {% if deliveries_done|length > 0 %}
+            {% for delivery in deliveries_done %}
+                <div class="delivery-block">
+                    <div class="delivery-name">
+                        <p class="">{{delivery.name}}</p>
+                    </div>
+                    <div class="delivery-date">
+                        <p class="time">{{delivery.toDate}}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="delivery-block">
+                    <div class="delivery-name">
+                        <p class="vcenter">No done deliveries</p>
                     </div>
             </div>
         {% endif %}

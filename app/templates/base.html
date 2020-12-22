@@ -13,7 +13,7 @@
     <header class="secondary-header">
         <div class="mycontainer left">
             <ul>
-                <li><a class="link" href="{{ url_for('main.home') }}">Univery</a></li>
+                <li><a id="logo" class="link" href="{{ url_for('main.home') }}">Univery</a></li>
             </ul>
         </div>
         <div class="mycontainer right">
@@ -37,6 +37,7 @@
     var waitin = document.getElementById('waiting');
     var loadin = document.getElementById('loading');
     loadin.style.display = "none";
+
     document.getElementById('refresh-text').onclick = function () {
         waitin.style.display = "none";
         loadin.style.display = "block";

@@ -70,8 +70,15 @@ def get_deliveries():
 
         return [delivery for delivery in deliveries if delivery.date]
 
-def clean_deliveries(deliveries):
-    deliveries = [i for i in deliveries if not i.isDone]
+def get_deliveries_todo(deliveries):
+    deliveries = [i for i in deliveries if not i.isDone and not i.isEliminated]
+    # Remove past ones
+    #deliveries = [i for i in deliveries if is_future(i.toDate)]
+    # Sort
+    return sorted(deliveries, key=lambda x: x.toDate)
+
+def get_deliveries_done(deliveries):
+    deliveries = [i for i in deliveries if i.isDone and not i.isEliminated]
     # Remove past ones
     #deliveries = [i for i in deliveries if is_future(i.toDate)]
     # Sort
