@@ -105,7 +105,7 @@
 }
 
 .delivery-name{
-    width: 75%;
+    width: 70%;
     float: left;
     height: 100px;
     vertical-align: middle;
@@ -117,12 +117,25 @@
 
 
 .delivery-date{
-    width: 25%;
+    width: 20%;
     float: left;
     height: 100px;
     vertical-align: middle;
     display: inline-block;
     padding-top: 30px;
+}
+
+.actions{
+    padding-top: 13px;
+    width: 10%;
+    float: left;
+    height: 100px;
+    text-align: center;
+}
+
+.actions img{
+    width: 30px;
+    height: 30px;
 }
 
 .refresh-box{
@@ -146,4 +159,18 @@
 
 .time{
     color: chartreuse;
+}
+
+.dropdown{
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+.delivery-dropdown{
+    float: center;
+    background-color: skyblue;
+    padding: 5px;
+    border: 2px solid black;
+    border-radius: 15px;
 }

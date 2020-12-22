@@ -3,9 +3,17 @@
 <div class="home">
     <div id="waiting" class="refresh-box">    
         <p><a id="refresh-text" href="{{ url_for('deliveries.update_deliveries') }}">Refresh deliveries</a></p>
+        
     </div>
     <div id="loading" class="refresh-box">    
         <p><a id="refresh-text">Loading deliveries...</a></p>
+        
+    </div>
+    <div class="dropdown">
+        <select onchange="deliveryType()" class="delivery-dropdown" id="delivery-type">
+            <option value="undone">Undone deliveries</option>
+            <option value="done">Done deliveries</option>
+        </select>
     </div>
     <div id="notdone" class="delivery-container">
         {% if deliveries_todo|length > 0 %}
@@ -16,6 +24,10 @@
                     </div>
                     <div class="delivery-date">
                         <p class="time">{{delivery.toDate}}</p>
+                    </div>
+                    <div class="actions">
+                        <a href="{{url_for('deliveries.delivery_done', id=delivery.id)}}"><img src="/static/web_pics/done.png" alt="" srcset=""></a>
+                        <a href="#"><img src="/static/web_pics/remove.png" alt="" srcset=""></a>
                     </div>
                 </div>
             {% endfor %}
@@ -37,6 +49,10 @@
                     </div>
                     <div class="delivery-date">
                         <p class="time">{{delivery.toDate}}</p>
+                    </div>
+                    <div class="actions">
+                        <a href="{{url_for('deliveries.delivery_undone', id=delivery.id)}}"><img src="/static/web_pics/undone.png" alt="" srcset=""></a>
+                        <a href="#"><img src="/static/web_pics/remove.png" alt="" srcset=""></a>
                     </div>
                 </div>
             {% endfor %}

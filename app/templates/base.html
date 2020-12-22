@@ -36,11 +36,29 @@
 <script>
     var waitin = document.getElementById('waiting');
     var loadin = document.getElementById('loading');
+    var done = document.getElementById("done");
+    var undone = document.getElementById("notdone");
+
     loadin.style.display = "none";
+    done.style.display = "none";
+    undone.style.display = "block";
 
     document.getElementById('refresh-text').onclick = function () {
         waitin.style.display = "none";
         loadin.style.display = "block";
     }
+
+    function deliveryType () {
+        var dropdown_value = document.getElementById("delivery-type").value;
+        console.log(dropdown_value);
+        if(dropdown_value === "undone"){
+            done.style.display = "none";
+            undone.style.display = "block";
+        }else{
+            done.style.display = "block";
+            undone.style.display = "none";
+        }
+    }
+
 </script>
 </html>

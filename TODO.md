@@ -7,3 +7,6 @@ visualize done deliveries
 modify password user
 last_update update
 check errors in upf login at any moment change password problem...
+remove subject
+distinguix subject deliveries
+turning done -> undone keeps user in done deliveries
