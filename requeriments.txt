@@ -15,3 +15,5 @@ six
 SQLAlchemy
 Werkzeug
 WTForms
+bs4
+requests

@@ -11,7 +11,18 @@ deliveries = Blueprint('deliveries', __name__)
 @deliveries.route("/add-delivery", methods=['GET', 'POST'])
 @login_required
 def add_delivery():
-    return redirect(url_for('main.home'))
+    form = AddDeliveryForm()
+    form.subject_id.choices = [subject.name for subject in 
+                               db.session.query(Subject).filter_by(user_id=current_user.id).all()]
+    if form.validate_on_submit():
+        delivery = Delivery(
+            name=form.delivery_name.data, description=form.delivery_description.data, 
+            toDate=form.toDate.data, user_id=current_user.id, 
+            subject_id=form.subject_id.data)
+        db.session.add(delivery)
+        db.session.commit()
+        return redirect(url_for('main.home'))
+    return render_template('delivery/add-delivery.html', form=form)
 
 @deliveries.route("/delivery-done/<int:id>")
 @login_required

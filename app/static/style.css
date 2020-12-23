@@ -215,3 +215,7 @@
     text-decoration: none;
     color: black;
 }
+
+.text-area-small{
+    max-height: 140px;
+}
