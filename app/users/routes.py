@@ -34,7 +34,7 @@ def login():
         if user and user.password == form.password.data:
             login_user(user, remember=form.remember.data)
             return redirect(url_for('main.home'))
-    return render_template('user/login.html', form=form)
+    return render_template('user/login.html', title="Login", form=form)
 
 @users.route("/logout")
 @login_required

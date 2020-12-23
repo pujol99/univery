@@ -23,7 +23,7 @@ def add_delivery():
         db.session.add(delivery)
         db.session.commit()
         return redirect(url_for('main.home'))
-    return render_template('delivery/add-delivery.html', form=form)
+    return render_template('delivery/add-delivery.html', title="Add delivery", form=form)
 
 @deliveries.route("/delivery-done/<int:id>")
 @login_required

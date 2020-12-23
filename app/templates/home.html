@@ -11,10 +11,11 @@
     </div>
     <div class="dropdown">
         <select onchange="deliveryType()" class="delivery-dropdown" id="delivery-type">
-            <option value="undone">Undone deliveries</option>
+            <option value="undone">Deliveries</option>
             <option value="done">Done deliveries</option>
         </select>
     </div>
+    <p id="is-done">{{done}}</p>
     <div id="notdone" class="delivery-container">
         {% if deliveries_todo|length > 0 %}
             {% for delivery in deliveries_todo %}
