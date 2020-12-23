@@ -8,6 +8,6 @@ from datetime import datetime
 class AddDeliveryForm(FlaskForm):
     delivery_name = StringField('Delivery name', validators=[DataRequired(), Length(max=50)])
     delivery_description = TextAreaField('Delivery description', validators=[DataRequired()])
-    subject_id = SelectField('Subject', choices=[])
+    subject_id = SelectField('Subject', choices=[], validators=[DataRequired()])
     toDate = DateTimeLocalField('Delivery date', format='%Y-%m-%dT%H:%M', validators=[InputRequired()])
     submit = SubmitField('Add')
