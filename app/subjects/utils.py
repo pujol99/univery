@@ -23,6 +23,7 @@ class Subject:
                             if "assign" in activity.find('a')['href']]
         
         self.deliveries = [Delivery(url, self.session, self.name, self.id) for url in deliveries_url]
+    
 
     def __str__(self):
         return "Subject " + self.name + "\n\tdeliveries: " + str(len(self.deliveries))

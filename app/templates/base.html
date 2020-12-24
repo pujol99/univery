@@ -37,6 +37,7 @@
 <script>
     var waitin = document.getElementById('waiting');
     var loadin = document.getElementById('loading');
+    var popup = document.getElementById('popup');
     var divsToHide = document.getElementsByClassName("toHide");
     
     var done = document.getElementById("done");
@@ -44,6 +45,7 @@
 
     loadin.style.display = "none";
     done.style.display = "none";
+    popup.style.display = "none";
     undone.style.display = "block";
     
     for(var i = 0; i < divsToHide.length; i++){
@@ -69,8 +71,16 @@
         }
     }
 
-    function openPopup () {
+    function openPopup (delivery) {
         document.getElementById('popup').style.display = "block";
+        document.getElementById('popup-name').textContent = delivery[0];
+        document.getElementById('popup-descr').textContent = delivery[1];
+        document.getElementById('popup-date').textContent = delivery[2];
+        document.getElementById('popup-done').textContent = delivery[3];
+        var id = String(delivery[5].toString(10));
+        var start = "{{url_for('deliveries.delivery_done', id=";
+        var end = ")}}";
+        document.getElementById('popup-done').href = start.concat(id, end);
     }
 
     document.getElementById('closePopup').onclick = function () {

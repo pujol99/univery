@@ -11,6 +11,8 @@ deliveries = Blueprint('deliveries', __name__)
 @deliveries.route("/add-delivery", methods=['GET', 'POST'])
 @login_required
 def add_delivery():
+    if not len(current_user.subjects):
+        return redirect(url_for('subjects.subjects_page'))
     form = AddDeliveryForm()
     form.subject_id.choices = [subject.name for subject in 
                                db.session.query(Subject).filter_by(user_id=current_user.id).all()]

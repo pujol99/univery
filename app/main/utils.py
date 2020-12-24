@@ -1,5 +1,7 @@
 from ..subjects.utils import Subject
 from ..deliveries.utils import Delivery
+from ..models import Subject as SubjectModel
+from app import db
 from flask_login import current_user
 from datetime import datetime
 
@@ -27,7 +29,7 @@ def check_subject(id):
         soup = BeautifulSoup(req.text, "html.parser")
         name = soup.find("a", {"href":req_url})
         if name:
-            return True, name.text, id
+            return True, clean_name(name.text), id
         return False, "", ""
 
 def check_user(identification, password):
@@ -71,18 +73,27 @@ def get_deliveries():
         return [delivery for delivery in deliveries if delivery.date]
 
 def get_deliveries_todo(deliveries):
-    deliveries = [i for i in deliveries if not i.isDone and not i.isEliminated]
+    deliveries = [(i, db.session.query(SubjectModel).filter_by(identification=i.subject_id).first())
+        for i in deliveries if not i.isDone and not i.isEliminated]
     # Remove past ones
     #deliveries = [i for i in deliveries if is_future(i.toDate)]
     # Sort
-    return list(reversed(sorted(deliveries, key=lambda x: x.toDate)))
+    return list(reversed(sorted(deliveries, key=lambda x: x[0].toDate)))
 
 def get_deliveries_done(deliveries):
-    deliveries = [i for i in deliveries if i.isDone and not i.isEliminated]
+    deliveries = [(i, db.session.query(SubjectModel).filter_by(identification=i.subject_id).first())
+        for i in deliveries if i.isDone and not i.isEliminated]
     # Remove past ones
     #deliveries = [i for i in deliveries if is_future(i.toDate)]
     # Sort
-    return list(reversed(sorted(deliveries, key=lambda x: x.toDate)))
+    return list(reversed(sorted(deliveries, key=lambda x: x[0].toDate)))
 
 def is_future(date):
     return date > datetime.now()
+
+def clean_name(name):
+    words = []
+    for word in name.split():
+        if not any(letter.isdigit() for letter in word):
+            words.append(word)
+    return " ".join(words)
