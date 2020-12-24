@@ -1,9 +1,8 @@
 *{
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
-
-
 
 .sm-margin{
     margin: 15px;
@@ -96,7 +95,6 @@
 .delivery-block{
     border: 2px solid black;
     height: 100px;
-    box-sizing: content-box;
     margin-bottom: 0px;
     
 }
@@ -215,4 +213,58 @@
 
 .text-area-small{
     max-height: 140px;
+}
+
+.popup-del{
+    position: absolute;
+    left: 50%;
+    top: 300px;
+    width: min(70%, 500px);
+    height: 400px;
+    transform: translate(-50%, 0);
+    background-color: rgb(36, 32, 32);
+    color: wheat;
+    font-family: Georgia;
+    border-radius: 20px;
+}
+
+.popup-del-name{
+    text-align:center;
+    font-size: 32px;
+    height: fit-content;
+}
+
+.popup-del-descr{
+    height: 150px;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.popup-del-date{
+    background-color: orangered;
+    text-align:center;
+    font-size: 28px;
+}
+.popup-del-action{
+    height: 80px;
+    width: 50%;
+    float: left;
+    text-align: center;
+    padding-top: 30px;
+}
+
+.popup-del-action a{
+    border: 2px solid red;
+    background-color: lightsalmon;
+    border-radius: 10px;
+    padding: 10px 50px;
+    vertical-align: middle;
+    text-decoration: none;
+    color: black;
+}
+
+
+.popup-del-action a:hover{
+    color: black;
+    box-shadow: 5px 5px;
 }

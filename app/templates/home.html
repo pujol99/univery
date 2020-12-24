@@ -39,7 +39,6 @@
             </div>
         {% endif %}
     </div>
-    <br>
     <div id="done" class="delivery-container">
         {% if deliveries_done|length > 0 %}
             {% for delivery in deliveries_done %}
@@ -63,6 +62,30 @@
                     </div>
             </div>
         {% endif %}
+    </div>
+    <div class="popup-del">
+        <div class="popup-del-name">
+            <p>Seminar 1 presentation</p>
+        </div>
+        <div class="popup-del-descr">
+            <p><b>Description:</b></p>
+            <p>Lorem ipsum dolor sit amet, 
+                consectetur adipisicing elit. Quae, qui.
+                consectetur adipisicing elit. Quae, qui.
+                consectetur adipisicing elit. Quae, qui.
+            </p>
+        </div>
+        <div class="popup-del-date">
+            <p>12/10/2020</p>
+        </div>
+        <div class="popup-del-actions">
+            <div class="popup-del-action">
+                <a href="#">done</a>
+            </div>
+            <div class="popup-del-action">
+                <a href="#">remove</a>
+            </div>
+        </div>
     </div>
 </div>
 
