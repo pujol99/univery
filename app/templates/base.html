@@ -37,12 +37,20 @@
 <script>
     var waitin = document.getElementById('waiting');
     var loadin = document.getElementById('loading');
+    var divsToHide = document.getElementsByClassName("toHide");
+    
     var done = document.getElementById("done");
     var undone = document.getElementById("notdone");
 
     loadin.style.display = "none";
     done.style.display = "none";
     undone.style.display = "block";
+    
+    for(var i = 0; i < divsToHide.length; i++){
+        divsToHide[i].style.visibility = "hidden"; 
+        divsToHide[i].style.display = "none";
+    }
+    
 
     document.getElementById('refresh-text').onclick = function () {
         waitin.style.display = "none";
@@ -59,6 +67,14 @@
             done.style.display = "block";
             undone.style.display = "none";
         }
+    }
+
+    function openPopup () {
+        document.getElementById('popup').style.display = "block";
+    }
+
+    document.getElementById('closePopup').onclick = function () {
+        document.getElementById('popup').style.display = "none";
     }
 
 </script>

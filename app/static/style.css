@@ -100,7 +100,7 @@
 }
 
 .delivery-name{
-    width: 70%;
+    width: 80%;
     float: left;
     height: 100px;
     vertical-align: middle;
@@ -120,18 +120,6 @@
     padding-top: 30px;
 }
 
-.actions{
-    padding-top: 13px;
-    width: 10%;
-    float: left;
-    height: 100px;
-    text-align: center;
-}
-
-.actions img{
-    width: 30px;
-    height: 30px;
-}
 
 .refresh-box{
     height: 100px;
@@ -220,22 +208,24 @@
     left: 50%;
     top: 300px;
     width: min(70%, 500px);
-    height: 400px;
+    height: fit-content;
     transform: translate(-50%, 0);
     background-color: rgb(36, 32, 32);
     color: wheat;
     font-family: Georgia;
     border-radius: 20px;
+    padding-bottom: 50px;
 }
 
 .popup-del-name{
     text-align:center;
     font-size: 32px;
     height: fit-content;
+    padding: 5px 10px;
 }
 
 .popup-del-descr{
-    height: 150px;
+    height: fit-content;
     width: 80%;
     margin: 0 auto;
 }
@@ -247,14 +237,12 @@
 }
 .popup-del-action{
     height: 80px;
-    width: 50%;
-    float: left;
     text-align: center;
-    padding-top: 30px;
+    padding-top: 20px;
 }
 
 .popup-del-action a{
-    border: 2px solid red;
+    border: 3px solid orangered;
     background-color: lightsalmon;
     border-radius: 10px;
     padding: 10px 50px;
@@ -267,4 +255,9 @@
 .popup-del-action a:hover{
     color: black;
     box-shadow: 5px 5px;
+}
+
+.half-left{
+    width: 50%;
+    float: left;
 }
