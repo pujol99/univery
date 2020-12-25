@@ -1,6 +1,6 @@
 # Features
 
-click delivery to show more details
+click delivery to show more detailsD
 confirm remove delivery
 Create welcome page for users not logged in Showing web image and description of the web
 Notify better user when subject was added

@@ -4,6 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <title>Univery | {{title}}</title>
     <link rel="icon" href="../static/web_pics/done.png">
@@ -43,6 +44,8 @@
     var done = document.getElementById("done");
     var undone = document.getElementById("notdone");
 
+    var closePopupBool = false;
+
     loadin.style.display = "none";
     done.style.display = "none";
     popup.style.display = "none";
@@ -60,7 +63,6 @@
 
     function deliveryType () {
         var dropdown_value = document.getElementById("delivery-type").value;
-        console.log(dropdown_value);
         if(dropdown_value === "undone"){
             done.style.display = "none";
             undone.style.display = "block";
@@ -70,6 +72,20 @@
         }
     }
 
+    $(function() {
+        $("body").click(function(e) {
+            if(popup.style.display === "block"){
+                if (!(e.target.id == "popup" || $(e.target).parents("#popup").length)) {
+                    if(closePopupBool){
+                        popup.style.display = "none";
+                        closePopupBool = false;
+                    }else{
+                        closePopupBool = true;
+                    }
+                }
+            }
+        });
+    })
 
     function openPopup (delivery) {
         document.getElementById('popup').style.display = "block";
