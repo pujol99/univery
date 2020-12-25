@@ -48,8 +48,7 @@
     popup.style.display = "none";
     undone.style.display = "block";
     
-    for(var i = 0; i < divsToHide.length; i++){
-        divsToHide[i].style.visibility = "hidden"; 
+    for(var i = 0; i < divsToHide.length; i++){ 
         divsToHide[i].style.display = "none";
     }
     
@@ -71,16 +70,30 @@
         }
     }
 
+
     function openPopup (delivery) {
         document.getElementById('popup').style.display = "block";
         document.getElementById('popup-name').textContent = delivery[0];
         document.getElementById('popup-descr').textContent = delivery[1];
         document.getElementById('popup-date').textContent = delivery[2];
-        document.getElementById('popup-done').textContent = delivery[3];
-        var id = String(delivery[5].toString(10));
-        var start = "{{url_for('deliveries.delivery_done', id=";
-        var end = ")}}";
-        document.getElementById('popup-done').href = start.concat(id, end);
+        if(delivery[3] === "Done"){
+            document.getElementById('popup-done-div').style.display = "block";
+            document.getElementById('popup-undone-div').style.display = "none";
+            
+            var textDone = document.getElementById('popup-done').href;
+            var textDoneID = textDone.slice(0, textDone.length-1) + delivery[6].toString();
+            document.getElementById('popup-done').href = textDoneID;
+        }else{
+            document.getElementById('popup-done-div').style.display = "none";
+            document.getElementById('popup-undone-div').style.display = "block";
+
+            var textDone = document.getElementById('popup-undone').href;
+            var textDoneID = textDone.slice(0, textDone.length-1) + delivery[6].toString();
+            document.getElementById('popup-undone').href = textDoneID;
+        }
+        var textDelete = document.getElementById('popup-delete').href;
+        var textDeleteID = textDelete.slice(0, textDelete.length-1) + delivery[6].toString();
+        document.getElementById('popup-delete').href = textDeleteID;
     }
 
     document.getElementById('closePopup').onclick = function () {

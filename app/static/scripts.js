@@ -1,5 +1,4 @@
 var items = [].slice.call(document.getElementsByClassName("time"));
-
 var toDates = [];
 items.forEach((item) => toDates.push(new Date(item.textContent).getTime()));
 
@@ -28,4 +27,3 @@ function computeTime() {
 
 computeTime();
 setInterval(computeTime, 1000);
-
