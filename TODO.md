@@ -10,6 +10,7 @@ faster delivery read
 show when was last update
 Add color string attribute to each subject
 Show information in home about subject colors
+validator for color subject form
 
 Create welcome page for users not logged in Showing web image and description of the web
 ---

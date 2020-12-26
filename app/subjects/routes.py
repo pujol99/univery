@@ -14,7 +14,7 @@ def subjects_page():
     if form.validate_on_submit():
         correct, name, identification = check_subject(form.subject_id.data)
         if correct and not Subject.query.filter_by(identification=identification, user_id=current_user.id).first():
-            subject = Subject(identification=identification, name=name, user_id=current_user.id)
+            subject = Subject(identification=identification, name=name, user_id=current_user.id, color="#"+form.subject_color.data)
             db.session.add(subject)
             db.session.commit()
     return render_template('subject/add-subject.html', title="Subjects", form=form)

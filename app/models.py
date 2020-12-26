@@ -24,6 +24,7 @@ class Subject(db.Model):
     name = db.Column(db.String(50), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     deliveries = db.relationship('Delivery', backref='subject', lazy=True)
+    color = db.Column(db.String(10), nullable=False, default="#ffffff")
 
     def __repr__(self):
         return f"Subject('{self.name}', '{self.identification }')"
@@ -31,7 +32,7 @@ class Subject(db.Model):
 class Delivery(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
-    description = db.Column(db.String(400), nullable=True)
+    description = db.Column(db.String(400))
     toDate = db.Column(db.DateTime, nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     subject_id = db.Column(db.Integer, db.ForeignKey('subject.id'), nullable=False)

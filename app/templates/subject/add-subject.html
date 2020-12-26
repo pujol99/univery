@@ -32,7 +32,22 @@
                 {{ form.subject_id(class="form-control form-control-lg") }}
                 {% endif %}
             </div>
-            <div class="btn btn-primary sm-margin">
+            <div class="form-group sm-margin">
+                {{ form.subject_color.label(class="form-control-label left-3") }}
+                {% if form.subject_color.errors %}
+                {{ form.subject_color(id="color-content", placeholder="fc773e (orange)", class="left-3 is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.subject_color.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.subject_color(id="color-content", placeholder="fc773e (orange)", class="left-3") }}
+                {% endif %}
+                <div onclick="randomColor()" class="left-3 random-btn">Random</div>
+            </div>
+            <br>
+            <div class="btn btn-primary sm-margin left-3">
                 {{ form.submit(class="btn login-btn") }}
             </div>
         </form>
