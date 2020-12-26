@@ -17,6 +17,9 @@ def subjects_page():
             subject = Subject(identification=identification, name=name, user_id=current_user.id, color="#"+form.subject_color.data)
             db.session.add(subject)
             db.session.commit()
+        else:
+            return render_template('subject/add-subject.html',
+                title="Subjects", form=form, message="Subject not found")
     return render_template('subject/add-subject.html', title="Subjects", form=form)
 
 @subjects.route("/subject-remove/<int:id>")

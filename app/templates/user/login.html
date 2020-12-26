@@ -5,6 +5,11 @@
         <form method="POST" action="">
             {{ form.hidden_tag() }}
             <h1 class="head-legend">Login</h1>
+            {% if message %}
+            <div id="warning-message" class="alert alert-danger" role="alert">
+                {{message}}
+            </div>
+            {% endif %}
             <div class="form-group sm-margin">
                 {{ form.identification.label(class="form-control-label") }}
                 {% if form.identification.errors %}

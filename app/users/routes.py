@@ -13,13 +13,21 @@ def register():
     if current_user.is_authenticated:
         return redirect(url_for('main.home'))
     form = RegistrationForm()
-    if form.validate_on_submit() and check_user(form.identification.data, form.password.data):
-        #hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        user = User(fullname=form.fullname.data, identification=form.identification.data, password=form.password.data)
-        db.session.add(user)
-        db.session.commit()
-        login_user(user)
-        return redirect(url_for('main.home'))
+    if form.validate_on_submit():
+        if check_user(form.identification.data, form.password.data):
+            #hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+            user = User(
+                fullname=form.fullname.data, 
+                identification=form.identification.data, 
+                password=form.password.data)
+            db.session.add(user)
+            db.session.commit()
+            login_user(user)
+            return redirect(url_for('main.home'))
+        return render_template('user/register.html', 
+                title='Register', 
+                form=form, 
+                message="Incorrect identification or password for universty login")
     return render_template('user/register.html', title='Register', form=form)
 
 
@@ -27,6 +35,7 @@ def register():
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('main.home'))
+
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(identification=form.identification.data).first()
@@ -34,6 +43,8 @@ def login():
         if user and user.password == form.password.data:
             login_user(user, remember=form.remember.data)
             return redirect(url_for('main.home'))
+        return render_template('user/login.html', title="Login", 
+                                    form=form, message="Incorrect identification or password")
     return render_template('user/login.html', title="Login", form=form)
 
 @users.route("/logout")

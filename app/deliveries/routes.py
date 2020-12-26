@@ -17,7 +17,6 @@ def add_delivery():
     form.subject_id.choices = [subject.name for subject in 
                                db.session.query(Subject).filter_by(user_id=current_user.id).all()]
     if form.validate_on_submit():
-        
         delivery = Delivery(
             name=form.delivery_name.data, description=form.delivery_description.data, 
             toDate=form.toDate.data, user_id=current_user.id, 
