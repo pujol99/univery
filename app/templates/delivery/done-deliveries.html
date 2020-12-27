@@ -1,0 +1,39 @@
+{% extends "home.html" %}
+{% block deliveries %}
+<div class="dropdown">
+    <select class="delivery-dropdown" id="delivery-type"  onchange="deliveryType()">
+        <option selected value="done">Done deliveries</option>
+        <option value="undone">Deliveries</option>
+        <option value="removed">Removed deliveries</option>
+    </select>
+</div>
+<div id="done" class="delivery-container">
+    {% if deliveries|length > 0 %}
+        {% for delivery, subject in deliveries %}
+            <div onclick="openPopup([
+                    '{{delivery.name}}',
+                    '{{delivery.description}}',
+                    '{{delivery.toDate}}',
+                    'Undone',
+                    '{{subject.name}}',
+                    '{{subject.id}}',
+                    '{{delivery.id}}'
+                    ])"
+                    class="delivery-block" style="background-color: {{subject.color}};">
+                <div class="delivery-name">
+                    <p>{{delivery.name}}</p>
+                </div>
+                <div class="delivery-date">
+                    <p class="time">{{delivery.toDate}}</p>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="delivery-block">
+                <div class="delivery-name">
+                    <p class="vcenter">No done deliveries</p>
+                </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock deliveries %}

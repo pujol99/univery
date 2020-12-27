@@ -54,7 +54,7 @@ def delivery_undone(id):
     if delivery:
         delivery.isDone = False
         db.session.commit()
-    return redirect(url_for('main.home'))
+    return redirect(url_for('main.done_deliveries'))
 
 @deliveries.route("/delivery-remove/<int:id>")
 @login_required
@@ -65,6 +65,16 @@ def delivery_remove(id):
         delivery.isEliminated = True
         db.session.commit()
     return redirect(url_for('main.home'))
+
+@deliveries.route("/delivery-restore/<int:id>")
+@login_required
+def delivery_restore(id):
+    # Mark delivery as not eliminated
+    delivery = Delivery.query.filter_by(id=id).first()
+    if delivery:
+        delivery.isEliminated = False
+        db.session.commit()
+    return redirect(url_for('main.removed_deliveries'))
 
 @deliveries.route("/update-deliveries")
 @login_required

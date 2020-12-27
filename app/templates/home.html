@@ -1,75 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="home">
-    <div id="waiting" class="refresh-box">    
-        <p><a id="refresh-text" href="{{ url_for('deliveries.update_deliveries') }}">Refresh deliveries</a></p>
-        
+    <div class="waiting-loading">
+        <div id="waiting" class="refresh-box">    
+            <p><a id="refresh-text" href="{{ url_for('deliveries.update_deliveries') }}">Refresh deliveries</a></p>
+        </div>
+        <div id="loading" class="refresh-box">    
+            <p><a id="loading-text">Loading deliveries...</a></p>
+        </div>
     </div>
-    <div id="loading" class="refresh-box">    
-        <p><a id="loading-text">Loading deliveries...</a></p>
-        
-    </div>
-    <div class="dropdown">
-        <select onchange="deliveryType()" class="delivery-dropdown" id="delivery-type">
-            <option value="undone">Deliveries</option>
-            <option value="done">Done deliveries</option>
-        </select>
-    </div>
-    <div id="notdone" class="delivery-container">
-        {% if deliveries_todo|length > 0 %}
-            {% for delivery, subject in deliveries_todo %}
-                <div onclick="openPopup([
-                        '{{delivery.name}}',
-                        '{{delivery.description}}',
-                        '{{delivery.toDate}}',
-                        'Done',
-                        '{{subject.name}}',
-                        '{{subject.id}}',
-                        '{{delivery.id}}'
-                        ])"
-                        class="delivery-block" style="background-color: {{subject.color}};">
-                    <div class="delivery-name">
-                        <p>{{delivery.name}}</p>
-                    </div>
-                    <div class="delivery-date">
-                        <p class="time">{{delivery.toDate}}</p>
-                    </div>
-                </div>
-            {% endfor %}
-        {% else %}
-            <div class="delivery-block">
-                <div class="delivery-name">
-                    <p class="vcenter">No future deliveries</p>
-                </div>
-            </div>
-        {% endif %}
-    </div>
-    <div id="done" class="delivery-container">
-        {% if deliveries_done|length > 0 %}
-            {% for delivery, subject in deliveries_done %}
-                <div onclick="openPopup([
-                        '{{delivery.name}}',
-                        '{{delivery.description}}',
-                        '{{delivery.toDate}}',
-                        'Undone',
-                        '{{subject.name}}',
-                        '{{subject.id}}',
-                        '{{delivery.id}}'
-                        ])"
-                        class="delivery-block" style="background-color: {{subject.color}};">
-                    <div class="delivery-name">
-                        <p>{{delivery.name}}</p>
-                    </div>
-                </div>
-            {% endfor %}
-        {% else %}
-            <div class="delivery-block">
-                    <div class="delivery-name">
-                        <p class="vcenter">No done deliveries</p>
-                    </div>
-            </div>
-        {% endif %}
-    </div>
+    {% block deliveries %}{% endblock deliveries %}
     <div id="popup" class="popup-del">
         <div class="popup-del-name">
             <p id="popup-name">
@@ -94,8 +34,11 @@
         <div id="popup-undone-div" class="popup-del-action half-left">
             <a id="popup-undone" href="{{ url_for('deliveries.delivery_undone', id=0) }}">Not done</a>
         </div>
-        <div class="popup-del-action half-left">
-            <a id="popup-delete" href="{{ url_for('deliveries.delivery_remove', id=0) }}">remove</a>
+        <div  id="popup-delete-div" class="popup-del-action half-left">
+            <a id="popup-delete" href="{{ url_for('deliveries.delivery_remove', id=0) }}">Remove</a>
+        </div>
+        <div  id="popup-restore-div" class="popup-del-action half-left">
+            <a id="popup-restore" href="{{ url_for('deliveries.delivery_restore', id=0) }}">Restore</a>
         </div>
     </div>
 </div>

@@ -24,9 +24,7 @@ def register():
             db.session.commit()
             login_user(user)
             return redirect(url_for('main.home'))
-        return render_template('user/register.html', 
-                title='Register', 
-                form=form, 
+        return render_template('user/register.html', title='Register', form=form, 
                 message="Incorrect identification or password for universty login")
     return render_template('user/register.html', title='Register', form=form)
 

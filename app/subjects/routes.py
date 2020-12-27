@@ -12,9 +12,9 @@ subjects = Blueprint('subjects', __name__)
 def subjects_page():
     form = AddSubjectForm()
     if form.validate_on_submit():
-        # If exists add subject else display error message
+        # If exists in user university subjects add subject else display error message
         exists, name, id = check_subject(form.subject_id.data)
-        if exists and not Subject.query.filter_by(identification=id, user_id=current_user.id).first():
+        if exists:
             db.session.add(Subject(
                 identification=id, 
                 name=name, user_id=current_user.id, 

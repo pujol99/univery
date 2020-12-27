@@ -39,37 +39,15 @@
     var waitin = document.getElementById('waiting');
     var loadin = document.getElementById('loading');
     var popup = document.getElementById('popup');
-    var divsToHide = document.getElementsByClassName("toHide");
-    
-    var done = document.getElementById("done");
-    var undone = document.getElementById("notdone");
 
     var closePopupBool = false;
 
     loadin.style.display = "none";
-    done.style.display = "none";
     popup.style.display = "none";
-    undone.style.display = "block";
-    
-    for(var i = 0; i < divsToHide.length; i++){ 
-        divsToHide[i].style.display = "none";
-    }
-    
 
     document.getElementById('refresh-text').onclick = function () {
         waitin.style.display = "none";
         loadin.style.display = "block";
-    }
-
-    function deliveryType () {
-        var dropdown_value = document.getElementById("delivery-type").value;
-        if(dropdown_value === "undone"){
-            done.style.display = "none";
-            undone.style.display = "block";
-        }else{
-            done.style.display = "block";
-            undone.style.display = "none";
-        }
     }
 
     $(function() {
@@ -87,6 +65,17 @@
         });
     })
 
+    function deliveryType () {
+        var dropdown_value = document.getElementById("delivery-type").value;
+        if(dropdown_value === "undone"){
+            window.location = "/";
+        }else if(dropdown_value === "done"){
+            window.location = "/done";
+        }else{
+            window.location = "/removed";
+        }
+    }
+
     function openPopup (delivery) {
         document.getElementById('popup').style.display = "block";
         document.getElementById('popup-name').textContent = delivery[0];
@@ -96,21 +85,39 @@
         if(delivery[3] === "Done"){
             document.getElementById('popup-done-div').style.display = "block";
             document.getElementById('popup-undone-div').style.display = "none";
+            document.getElementById('popup-delete-div').style.display = "block";
+            document.getElementById('popup-restore-div').style.display = "none";
             
             var textDone = document.getElementById('popup-done').href;
             var textDoneID = textDone.slice(0, textDone.length-1) + delivery[6].toString();
             document.getElementById('popup-done').href = textDoneID;
-        }else{
+
+            var textDelete = document.getElementById('popup-delete').href;
+            var textDeleteID = textDelete.slice(0, textDelete.length-1) + delivery[6].toString();
+            document.getElementById('popup-delete').href = textDeleteID;
+        }else if(delivery[3] === "Undone"){
             document.getElementById('popup-done-div').style.display = "none";
             document.getElementById('popup-undone-div').style.display = "block";
+            document.getElementById('popup-delete-div').style.display = "block";
+            document.getElementById('popup-restore-div').style.display = "none";
 
             var textDone = document.getElementById('popup-undone').href;
             var textDoneID = textDone.slice(0, textDone.length-1) + delivery[6].toString();
             document.getElementById('popup-undone').href = textDoneID;
+
+            var textDelete = document.getElementById('popup-delete').href;
+            var textDeleteID = textDelete.slice(0, textDelete.length-1) + delivery[6].toString();
+            document.getElementById('popup-delete').href = textDeleteID;
+        }else{
+            document.getElementById('popup-done-div').style.display = "none";
+            document.getElementById('popup-undone-div').style.display = "none";
+            document.getElementById('popup-delete-div').style.display = "none";
+            document.getElementById('popup-restore-div').style.display = "block";
+
+            var textDelete = document.getElementById('popup-restore').href;
+            var textDeleteID = textDelete.slice(0, textDelete.length-1) + delivery[6].toString();
+            document.getElementById('popup-restore').href = textDeleteID;
         }
-        var textDelete = document.getElementById('popup-delete').href;
-        var textDeleteID = textDelete.slice(0, textDelete.length-1) + delivery[6].toString();
-        document.getElementById('popup-delete').href = textDeleteID;
     }
 
     function randomColor() {

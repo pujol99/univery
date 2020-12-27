@@ -82,6 +82,14 @@ def get_deliveries_done(deliveries):
     # Sort
     return list(reversed(sorted(deliveries, key=lambda x: x[0].toDate)))
 
+def get_deliveries_removed(deliveries):
+    deliveries = [(i, db.session.query(SubjectModel).filter_by(identification=i.subject_id).first())
+        for i in deliveries if i.isEliminated]
+    # Remove past ones
+    #deliveries = [i for i in deliveries if is_future(i.toDate)]
+    # Sort
+    return list(reversed(sorted(deliveries, key=lambda x: x[0].toDate)))
+
 def is_future(date):
     return date > datetime.now()
 
