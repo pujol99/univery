@@ -6,6 +6,7 @@ from ..main.utils import get_deliveries
 from .utils import clean_description
 from flask_login import current_user, login_required
 from flask import render_template, redirect, url_for
+from datetime import datetime
 
 deliveries = Blueprint('deliveries', __name__)
 
@@ -76,6 +77,7 @@ def update_deliveries():
         # Check if the delivery is already on our database
         subject_id = delivery.subject_id
         delivery_name = delivery.name
+        delivery_description = delivery.description
         toDate = delivery.date
         existent_delivery = Delivery.query.filter_by(
             name=delivery_name,
@@ -86,7 +88,8 @@ def update_deliveries():
             existent_delivery.toDate = toDate
         elif not existent_delivery:
             db.session.add(Delivery(
-                name=delivery_name, 
+                name=delivery_name,
+                description=delivery_description,
                 toDate=toDate, 
                 user_id=current_user.id, 
                 subject_id=subject_id))

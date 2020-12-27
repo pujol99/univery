@@ -9,7 +9,7 @@ class AddDeliveryForm(FlaskForm):
         validators=[DataRequired(), Length(max=50)])
 
     delivery_description = TextAreaField('Delivery description', 
-        validators=[Length(max=1000)])
+        validators=[Length(max=3000)])
 
     subject_id = SelectField('Subject', 
         validators=[DataRequired()],

@@ -29,7 +29,13 @@ class Delivery:
         soup = BeautifulSoup(req.text, "html.parser")
 
         self.name = soup.find('h2').text
-        self.description = soup
+        description = soup.find(id='intro')
+        if description:
+            self.description = description.text
+        else:
+            self.description = None
+        print(40*"-")
+        print(self.description)
 
         info_cols = soup.findAll('tr')
         for col in info_cols:
