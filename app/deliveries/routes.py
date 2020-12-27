@@ -76,21 +76,22 @@ def update_deliveries():
     for delivery in get_deliveries():
         # Check if the delivery is already on our database
         subject_id = delivery.subject_id
-        delivery_name = delivery.name
-        delivery_description = delivery.description
-        toDate = delivery.date
+        name = delivery.name
+        description = delivery.description
+        date = delivery.date
+
         existent_delivery = Delivery.query.filter_by(
-            name=delivery_name,
+            name=name,
             subject_id=subject_id).first()
 
         # If it exists check for date changes else add the new delivery to our db
-        if existent_delivery and existent_delivery.toDate != toDate:
-            existent_delivery.toDate = toDate
+        if existent_delivery and existent_delivery.toDate != date:
+            existent_delivery.toDate = date
         elif not existent_delivery:
             db.session.add(Delivery(
-                name=delivery_name,
-                description=delivery_description,
-                toDate=toDate, 
+                name=name,
+                description=description,
+                toDate=date, 
                 user_id=current_user.id, 
                 subject_id=subject_id))
     db.session.commit()

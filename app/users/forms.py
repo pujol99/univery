@@ -7,21 +7,23 @@ from app.models import User
 
 
 class RegistrationForm(FlaskForm):
-    fullname = StringField('Fullname', validators=[
-        DataRequired(), Length(max=40)])
-    identification = StringField('Identification', validators=[
-        DataRequired(), Length(max=15)])
-    password = PasswordField('Password', validators=[DataRequired()])
+    fullname = StringField('Fullname',
+        validators=[DataRequired(), Length(max=40)])
+    identification = StringField('Identification', 
+        validators=[DataRequired(), Length(max=15)])
+    password = PasswordField('Password', 
+        validators=[DataRequired()])
     submit = SubmitField('Sign up')
 
     def validate_identification(self, identification):
-        user = User.query.filter_by(identification=identification.data).first()
-        if user:
+        # If user identification exists -> error
+        if User.query.filter_by(identification=identification.data).first():
             raise ValidationError('That identification is taken. Please choose a different one.')
 
 class LoginForm(FlaskForm):
-    identification = StringField('Identification', validators=[
-        DataRequired(), Length(max=15)])
-    password = PasswordField('Password', validators=[DataRequired()])
+    identification = StringField('Identification', 
+        validators=[DataRequired(), Length(max=15)])
+    password = PasswordField('Password', 
+        validators=[DataRequired()])
     remember = BooleanField('Remember me')
     submit = SubmitField('Login')

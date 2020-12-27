@@ -14,31 +14,26 @@ MONTHS = {
 }
 
 class Delivery:
-    def __init__(self, url, session, subject_name, subject_id):
+    def __init__(self, url, session, subject_id):
         self.url = url
         self.session = session
 
-        self.subject_name = subject_name
         self.subject_id = subject_id
         self.name = None
         self.description = None
         self.date = None
 
     def scrape_delivery(self):
-        req = self.session.get(self.url)
-        soup = BeautifulSoup(req.text, "html.parser")
+        request = self.session.get(self.url)
+        soup = BeautifulSoup(request.text, "html.parser")
 
         self.name = soup.find('h2').text
         description = soup.find(id='intro')
-        if description:
-            self.description = description.text
-        else:
-            self.description = None
-        print(40*"-")
-        print(self.description)
+        self.description = description.text if description else None
 
-        info_cols = soup.findAll('tr')
-        for col in info_cols:
+        # Find to do date information
+        info_columns = soup.findAll('tr')
+        for col in info_columns:
             if not col.find('th'):
                 continue
             if "Data de venciment" in col.find('th').text:    

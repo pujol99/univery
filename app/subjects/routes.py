@@ -12,21 +12,24 @@ subjects = Blueprint('subjects', __name__)
 def subjects_page():
     form = AddSubjectForm()
     if form.validate_on_submit():
-        correct, name, identification = check_subject(form.subject_id.data)
-        if correct and not Subject.query.filter_by(identification=identification, user_id=current_user.id).first():
-            subject = Subject(identification=identification, name=name, user_id=current_user.id, color="#"+form.subject_color.data)
-            db.session.add(subject)
+        # If exists add subject else display error message
+        exists, name, id = check_subject(form.subject_id.data)
+        if exists and not Subject.query.filter_by(identification=id, user_id=current_user.id).first():
+            db.session.add(Subject(
+                identification=id, 
+                name=name, user_id=current_user.id, 
+                color="#"+form.subject_color.data))
             db.session.commit()
         else:
-            return render_template('subject/add-subject.html',
-                title="Subjects", form=form, message="Subject not found")
+            return render_template('subject/add-subject.html', title="Subjects", form=form, 
+                message="Subject not found")
     return render_template('subject/add-subject.html', title="Subjects", form=form)
 
 @subjects.route("/subject-remove/<int:id>")
 @login_required
 def subject_remove(id):
     s = Subject.query.filter_by(id=id)
-
+    # Delete all the deliveries and the subject
     Delivery.query.filter_by(subject_id=s.first().identification).delete()
     s.delete()
     db.session.commit()

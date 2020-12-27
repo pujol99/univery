@@ -10,59 +10,53 @@ from bs4 import BeautifulSoup
 
 
 LOGIN = "https://sso.upf.edu/CAS/index.php/login?service=https://www.upf.edu/c/portal/login"
-HEADERS = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36"}
+HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36"}
 REQUEST = "https://aulaglobal.upf.edu/course/view.php?id="
+PAYLOAD = {
+    "adAS_i18n_theme": "ca",
+    "adAS_mode": "authn",
+    "adAS_username": None,
+    "adAS_password": None}
 
 def check_subject(id):
-    payload = {
-        "adAS_i18n_theme": "ca",
-        "adAS_mode": "authn",
-        "adAS_username": current_user.identification,
-        "adAS_password": current_user.password,
-    }
+    PAYLOAD["adAS_username"] = current_user.identification
+    PAYLOAD["adAS_password"] = current_user.password
     req_url = "https://aulaglobal.upf.edu/course/view.php?id=" + str(id)
 
     with requests.Session() as session:
-        session.post(LOGIN, headers=HEADERS, data=payload)
+        session.post(LOGIN, headers=HEADERS, data=PAYLOAD)
         req = session.get(req_url)
         soup = BeautifulSoup(req.text, "html.parser")
+
+        # If we found the an a tag with name -> subject exists
         name = soup.find("a", {"href":req_url})
         if name:
             return True, clean_name(name.text), id
         return False, "", ""
 
 def check_user(identification, password):
-    payload = {
-        "adAS_i18n_theme": "ca",
-        "adAS_mode": "authn",
-        "adAS_username": identification,
-        "adAS_password": password,
-    }
+    PAYLOAD["adAS_username"] = identification
+    PAYLOAD["adAS_password"] = password
 
     with requests.Session() as session:
-        session.post(LOGIN, headers=HEADERS, data=payload)
+        session.post(LOGIN, headers=HEADERS, data=PAYLOAD)
         req = session.get("https://www.upf.edu/intranet/campus-global")
         soup = BeautifulSoup(req.text, "html.parser")
+
+        # If this message is found login is incorrect
         return not("Identificació d'usuaris" in soup.find('h1').text)
 
 def get_deliveries():
-    payload = {
-        "adAS_i18n_theme": "ca",
-        "adAS_mode": "authn",
-        "adAS_username": current_user.identification,
-        "adAS_password": current_user.password,
-    }
+    PAYLOAD["adAS_username"] = current_user.identification
+    PAYLOAD["adAS_password"] = current_user.password
 
     with requests.Session() as session:
-        session.post(LOGIN, headers=HEADERS, data=payload)
+        session.post(LOGIN, headers=HEADERS, data=PAYLOAD)
 
         deliveries = []
-        subject_ids = []
-        for subject in current_user.subjects:
-            subject_ids.append(subject.identification)
-
+        subject_ids = [subject.identification for subject in current_user.subjects]
         subjects = [Subject(REQUEST+id, session, id) for id in subject_ids]
+
         for subject in subjects:
             subject.scrape_subject()
             deliveries += subject.deliveries
@@ -92,6 +86,7 @@ def is_future(date):
     return date > datetime.now()
 
 def clean_name(name):
+    # Remove words in name that contain a number
     words = []
     for word in name.split():
         if not any(letter.isdigit() for letter in word):
