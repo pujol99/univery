@@ -91,7 +91,7 @@
         document.getElementById('popup').style.display = "block";
         document.getElementById('popup-name').textContent = delivery[0];
         document.getElementById('popup-subject').textContent = delivery[4];
-        document.getElementById('popup-descr').textContent = delivery[1];
+        document.getElementById('popup-descr').textContent = delivery[1].replaceAll("~", "\n");
         document.getElementById('popup-date').textContent = delivery[2];
         if(delivery[3] === "Done"){
             document.getElementById('popup-done-div').style.display = "block";

@@ -21,6 +21,7 @@ class Delivery:
         self.subject_name = subject_name
         self.subject_id = subject_id
         self.name = None
+        self.description = None
         self.date = None
 
     def scrape_delivery(self):
@@ -28,6 +29,7 @@ class Delivery:
         soup = BeautifulSoup(req.text, "html.parser")
 
         self.name = soup.find('h2').text
+        self.description = soup
 
         info_cols = soup.findAll('tr')
         for col in info_cols:
@@ -37,11 +39,6 @@ class Delivery:
                 self.date = to_datetime_ca(col.find('td').text)
             elif "Due date" in col.find('th').text:
                 self.date = to_datetime_en(col.find('td').text)
-
-    def __str__(self):
-        if self.date:
-            return print_date(self.date) + " | " + self.subject_name + "\n\t" + self.name + "\n" + "-"*55
-        return "No date found"
 
 def to_datetime_ca(date):
     # Parse date time from catalan
@@ -68,13 +65,5 @@ def to_datetime_en(date):
     
     return date
 
-def print_date(date):
-    days_left = (date - datetime.now()).days
-    if days_left == 0:
-        days_left_str = " (today)"
-    elif days_left == 1:
-        days_left_str = " (tomorrow)"
-    else:
-        days_left_str = " (" + str(days_left) + " days)"
-
-    return date.strftime("%d/%m %H:%M") + days_left_str
+def clean_description(description):
+    return '~'.join(description.splitlines())

@@ -9,6 +9,7 @@ optimize {upf: delivery, subject, user} read
 show when was last update
 Show information in home about subject colors
 validator for color subject form
+check that {name+subject} information of delivery manually created doesnt exists
 
 Create welcome page for users not logged in Showing web image and description of the web
 ---

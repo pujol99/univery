@@ -8,7 +8,7 @@
             {% for subject in current_user.subjects %}
             <div class="subject-box">
                 <div class="subject-name">
-                    <p><b>{{subject.identification}}</b> - {{subject.name}}</p>
+                    <p style="background-color: {{subject.color}};"><b>{{subject.identification}}</b> - {{subject.name}}</p>
                 </div>
                 <div class="subject-action">
                     <a href="{{url_for('subjects.subject_remove', id=subject.id)}}"><img src="/static/web_pics/remove.png" alt="" srcset=""></a>

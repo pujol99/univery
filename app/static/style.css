@@ -245,6 +245,16 @@
     margin: 0 auto;
 }
 
+.popup-del-descr textarea{
+    background-color: #242020;
+    max-height: 150px;
+    min-height: 50px;
+    height: 100px;
+    width: 95%;
+    color: #F5DEB3;
+    border: none;
+}
+
 .popup-del-date{
     background-color: orangered;
     text-align:center;
