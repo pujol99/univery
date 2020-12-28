@@ -3,7 +3,7 @@
 <div class="home">
     <div class="waiting-loading">
         <div id="waiting" class="refresh-box">    
-            <p><a id="refresh-text" href="{{ url_for('deliveries.update_deliveries') }}">Refresh deliveries</a></p>
+            <p><a id="refresh-text" href="{{ url_for('deliveries.update_deliveries', next=request.endpoint) }}">Refresh deliveries</a></p>
         </div>
         <div id="loading" class="refresh-box">    
             <p><a id="loading-text">Loading deliveries...</a></p>

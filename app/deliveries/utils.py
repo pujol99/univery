@@ -73,7 +73,7 @@ def to_datetime_en(date):
 def clean_description(description):
     return '~'.join(description.splitlines())
 
-def get_days(size):
+def get_days(ndays):
     """
         List starting in this week's monday 
             for element in list : element -> {
@@ -82,12 +82,18 @@ def get_days(size):
                 bool:isToday,
                 bool:past}
     """
-    today = datetime.now()
+    today = datetime.strptime('23-11-2020', '%d-%m-%Y')
     first_day = today - timedelta(days=today.weekday())
 
     days = []
-    for i in range(0, 10):
+    for i in range(0, ndays):
         i_day = first_day + timedelta(days=i)
+        if i_day < today:
+            color = '#000'
+        elif i_day == today:
+            color = '#bbb'
+        else:
+            color =  '#fff'
         elements = {
             'deliveries':[
                 (delivery, db.session.query(SubjectModel).filter_by(
@@ -96,10 +102,11 @@ def get_days(size):
                 ).first()) for delivery in 
                 db.session.query(DeliveryModel).filter_by(
                     user_id=current_user.id,
-                    toDateStr=str(i_day.date())
-                ).all()],
+                    toDateStr=str(i_day.date()),
+                    isDone=False,
+                    isEliminated=False
+                ).all()] if i_day >= today else [],
             'day': i_day.day,
-            'isToday': today.day == i_day.day,
-            'isPast': today > i_day}
+            'color': color}
         days.append(elements)
     return days

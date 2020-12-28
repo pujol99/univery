@@ -5,7 +5,7 @@ from .forms import *
 from ..main.utils import get_deliveries
 from .utils import clean_description, get_days
 from flask_login import current_user, login_required
-from flask import render_template, redirect, url_for
+from flask import render_template, redirect, url_for, request
 from datetime import datetime
 
 deliveries = Blueprint('deliveries', __name__)
@@ -46,7 +46,8 @@ def delivery_done(id):
     if delivery:
         delivery.isDone = True
         db.session.commit()
-    return redirect(url_for('main.home'))
+    next_page = request.args.get('next')
+    return redirect(next_page) if next_page else redirect(url_for('main.home'))
 
 @deliveries.route("/delivery-undone/<int:id>")
 @login_required
@@ -56,7 +57,8 @@ def delivery_undone(id):
     if delivery:
         delivery.isDone = False
         db.session.commit()
-    return redirect(url_for('main.done_deliveries'))
+    next_page = request.args.get('next')
+    return redirect(next_page) if next_page else redirect(url_for('main.done_deliveries'))
 
 @deliveries.route("/delivery-remove/<int:id>")
 @login_required
@@ -66,7 +68,8 @@ def delivery_remove(id):
     if delivery:
         delivery.isEliminated = True
         db.session.commit()
-    return redirect(url_for('main.home'))
+    next_page = request.args.get('next')
+    return redirect(next_page) if next_page else redirect(url_for('main.home'))
 
 @deliveries.route("/delivery-restore/<int:id>")
 @login_required
@@ -76,13 +79,14 @@ def delivery_restore(id):
     if delivery:
         delivery.isEliminated = False
         db.session.commit()
-    return redirect(url_for('main.removed_deliveries'))
+    next_page = request.args.get('next')
+    return redirect(next_page) if next_page else redirect(url_for('main.removed_deliveries'))
 
 @deliveries.route("/calendar")
 @login_required
 def calendar():
     return render_template('delivery/calendar.html', title="Calendar",
-        days=get_days(5))
+        days=get_days(14))
 
 @deliveries.route("/update-deliveries")
 @login_required
@@ -117,4 +121,5 @@ def update_deliveries():
                 user_id=current_user.id, 
                 subject_id=subject_id))
     db.session.commit()
-    return redirect(url_for('main.home'))
+    next_page = request.args.get('next')
+    return redirect(url_for(next_page)) if next_page else redirect(url_for('main.home'))

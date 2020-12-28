@@ -1,16 +1,28 @@
-{% extends "base.html" %}
-{% block content %}
+{% extends "home.html" %}
+{% block deliveries %}
 <div class="calendar">
-    <div class="day">
-    {% for day in days %}
-        <div class="day-element">
-        {% for delivery, subject in day['deliveries'] %}
-            <p>{{delivery.name}}</p>
-            <p>{{subject.name}}</p>
-        {% endfor %}
-        </div>
-    {% endfor %}
+    <div class="colors-calendar">
+        <p class="colors-calendar-content" id="colors-btn">Show colors</p>
     </div>
+    {% for day in days %}
+    <div class="day" style="background-color: {{day['color']}};">
+        <p class="day-corner">{{day['day']}}</p>
+        {% for delivery, subject in day['deliveries'] %}
+        <div onclick="openPopup([
+                    '{{delivery.name}}',
+                    '{{delivery.description}}',
+                    '{{delivery.toDate}}',
+                    '{{delivery.url}}',
+                    'Done',
+                    '{{subject.name}}',
+                    '{{subject.id}}',
+                    '{{delivery.id}}'
+                    ], 'calendar')" style="background-color: {{subject.color}};" class="day-element">
+            <p class="day-element-name">{{delivery.name}}</p>
+        </div>
+        {% endfor %}
+    </div>
+    {% endfor %}
 </div>
 
-{% endblock %}
+{% endblock deliveries %}
