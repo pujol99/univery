@@ -2,6 +2,7 @@
 
 ### Next TODOS
 optimize {upf: delivery, subject, user} read
+add deliveries that dont have todo date 
 
 ### Next big features
 Do a calendar view of deliveries

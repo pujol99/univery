@@ -94,7 +94,7 @@ def update_deliveries():
         existent_delivery = Delivery.query.filter_by(
             name=name,
             subject_id=subject_id,
-            user_id=current_user.identification).first()
+            user_id=current_user.id).first()
 
         # If it exists check for date changes else add the new delivery to our db
         if existent_delivery and existent_delivery.toDate != date:
