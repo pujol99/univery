@@ -35,10 +35,15 @@
 
 .login-box{
     width: 500px;
-    height: 600px;
+    height: fit-content;
     margin: 0 auto;
     margin-top: 50px;
     background-color: aliceblue;
+}
+
+.center{
+    width: fit-content;
+    margin: 0 auto;
 }
 
 .login-btn{

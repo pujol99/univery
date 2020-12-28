@@ -45,6 +45,18 @@ def login():
                                     form=form, message="Incorrect identification or password")
     return render_template('user/login.html', title="Login", form=form)
 
+@users.route("/account", methods=['GET', 'POST'])
+@login_required
+def account():
+    form = UpdatePassword()
+    if form.validate_on_submit():
+        current_user.password = form.password.data
+        db.session.commit()
+        return redirect(url_for('main.home'))
+    return render_template('user/account.html', title="Account", form=form)
+    
+
+
 @users.route("/logout")
 @login_required
 def logout():

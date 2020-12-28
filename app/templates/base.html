@@ -22,7 +22,7 @@
                 {% if current_user.is_authenticated %}
                 <li><a class="link" href="{{ url_for('deliveries.add_delivery') }}">Add delivery</a></li>
                 <li><a class="link" href="{{ url_for('subjects.subjects_page') }}">Subjects</a></li>
-                <li><a class="link" href="{{ url_for('users.logout') }}">Logout</a></li>
+                <li><a class="link" href="{{ url_for('users.account') }}">Account</a></li>
                 {% else %}
                 <li><a class="link" href="{{ url_for('users.login') }}">Login</a></li>
                 <li><a class="link" href="{{ url_for('users.register') }}">Register</a></li>

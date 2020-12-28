@@ -1,10 +1,7 @@
 # Features
 
 ### Next TODOS
-modify password user
-check errors in upf login at any moment change password problem..
 optimize {upf: delivery, subject, user} read
-check that {name+subject} information of delivery manually created doesnt exists
 when checking if X exists remember that other users will have same X (check user id too)
 
 ### Next big features
