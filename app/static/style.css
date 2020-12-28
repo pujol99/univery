@@ -259,6 +259,25 @@
     padding: 5px 10px;
 }
 
+#popup-subject{
+    text-align: center;
+}
+
+.popup-del-url{
+    border: 3px solid orangered;
+    background-color: lightsalmon;
+    border-radius: 10px;
+    width: 45px;
+    margin: 5px auto;
+}
+
+.popup-del-url a img{
+    display: block;
+    margin: auto;
+    width: 35px;
+    height: 35px;
+}
+
 .popup-del-descr{
     height: fit-content;
     width: 80%;
@@ -269,7 +288,7 @@
     background-color: #242020;
     max-height: 150px;
     min-height: 50px;
-    height: 100px;
+    height: 50px;
     width: 95%;
     color: #F5DEB3;
     border: none;

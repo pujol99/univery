@@ -79,34 +79,34 @@
     function openPopup (delivery) {
         document.getElementById('popup').style.display = "block";
         document.getElementById('popup-name').textContent = delivery[0];
-        document.getElementById('popup-subject').textContent = delivery[4];
+        document.getElementById('popup-subject').textContent = delivery[5];
         document.getElementById('popup-descr').textContent = delivery[1].replaceAll("~", "\n");
         document.getElementById('popup-date').textContent = delivery[2];
-        if(delivery[3] === "Done"){
+        if(delivery[4] === "Done"){
             document.getElementById('popup-done-div').style.display = "block";
             document.getElementById('popup-undone-div').style.display = "none";
             document.getElementById('popup-delete-div').style.display = "block";
             document.getElementById('popup-restore-div').style.display = "none";
             
             var textDone = document.getElementById('popup-done').href;
-            var textDoneID = textDone.slice(0, textDone.length-1) + delivery[6].toString();
+            var textDoneID = textDone.slice(0, textDone.length-1) + delivery[7].toString();
             document.getElementById('popup-done').href = textDoneID;
 
             var textDelete = document.getElementById('popup-delete').href;
-            var textDeleteID = textDelete.slice(0, textDelete.length-1) + delivery[6].toString();
+            var textDeleteID = textDelete.slice(0, textDelete.length-1) + delivery[7].toString();
             document.getElementById('popup-delete').href = textDeleteID;
-        }else if(delivery[3] === "Undone"){
+        }else if(delivery[4] === "Undone"){
             document.getElementById('popup-done-div').style.display = "none";
             document.getElementById('popup-undone-div').style.display = "block";
             document.getElementById('popup-delete-div').style.display = "block";
             document.getElementById('popup-restore-div').style.display = "none";
 
             var textDone = document.getElementById('popup-undone').href;
-            var textDoneID = textDone.slice(0, textDone.length-1) + delivery[6].toString();
+            var textDoneID = textDone.slice(0, textDone.length-1) + delivery[7].toString();
             document.getElementById('popup-undone').href = textDoneID;
 
             var textDelete = document.getElementById('popup-delete').href;
-            var textDeleteID = textDelete.slice(0, textDelete.length-1) + delivery[6].toString();
+            var textDeleteID = textDelete.slice(0, textDelete.length-1) + delivery[7].toString();
             document.getElementById('popup-delete').href = textDeleteID;
         }else{
             document.getElementById('popup-done-div').style.display = "none";
@@ -117,6 +117,14 @@
             var textDelete = document.getElementById('popup-restore').href;
             var textDeleteID = textDelete.slice(0, textDelete.length-1) + delivery[6].toString();
             document.getElementById('popup-restore').href = textDeleteID;
+        }
+        
+        
+        if(delivery[3] === "None"){
+            document.getElementById('show-url').style.display = "none";
+        }else{
+            document.getElementById('popup-url').href = delivery[3];
+            document.getElementById('show-url').style.display = "block";
         }
     }
 

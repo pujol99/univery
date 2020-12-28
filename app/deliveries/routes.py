@@ -89,6 +89,7 @@ def update_deliveries():
         name = delivery.name
         description = delivery.description
         date = delivery.date
+        url = delivery.url
 
         existent_delivery = Delivery.query.filter_by(
             name=name,
@@ -100,6 +101,7 @@ def update_deliveries():
         elif not existent_delivery:
             db.session.add(Delivery(
                 name=name,
+                url=url,
                 description=description,
                 toDate=date, 
                 user_id=current_user.id, 

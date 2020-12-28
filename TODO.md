@@ -13,6 +13,7 @@ canceling load of page while doing deliveries refresh makes button fail
 cant store hashed password bc of use recurrency
 display color when choosing subject color
 add link to university site delivery in delivery's popup
+when checking if X exists remember that other users will have same X (check user id too)
 
 Create welcome page for users not logged in Showing web image and description of the web
 ---

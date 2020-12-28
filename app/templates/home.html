@@ -18,15 +18,18 @@
             </p>
         </div>
         <div class="popup-del-descr">
-            <p><b>Subject:</b></p>
             <p id="popup-subject"></p>
         </div>
         <div class="popup-del-descr">
             <p><b>Description:</b></p>
             <textarea disabled id="popup-descr"></textarea>
         </div>
+        
         <div class="popup-del-date">
             <p id="popup-date">12/10/2020</p>
+        </div>
+        <div id="show-url" class="popup-del-url">
+            <a id="popup-url" target="_blank" href="#"><img src="../static/web_pics/link.png" alt=""></a>
         </div>
         <div id="popup-done-div" class="popup-del-action half-left">
             <a id="popup-done" href="{{ url_for('deliveries.delivery_done', id=0) }}">Done</a>
