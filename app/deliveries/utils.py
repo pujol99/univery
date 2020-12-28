@@ -2,6 +2,10 @@ import requests
 from bs4 import BeautifulSoup
 import re
 from datetime import datetime
+from datetime import timedelta
+from flask_login import current_user
+from ..models import Delivery as DeliveryModel, Subject as SubjectModel
+from .. import db
 
 
 MONTHS = {
@@ -68,3 +72,34 @@ def to_datetime_en(date):
 
 def clean_description(description):
     return '~'.join(description.splitlines())
+
+def get_days(size):
+    """
+        List starting in this week's monday 
+            for element in list : element -> {
+                deliveries:(delivery, subject) of that day,
+                day:day of the month,
+                bool:isToday,
+                bool:past}
+    """
+    today = datetime.now()
+    first_day = today - timedelta(days=today.weekday())
+
+    days = []
+    for i in range(0, 10):
+        i_day = first_day + timedelta(days=i)
+        elements = {
+            'deliveries':[
+                (delivery, db.session.query(SubjectModel).filter_by(
+                    user_id=current_user.id,
+                    identification=delivery.subject_id
+                ).first()) for delivery in 
+                db.session.query(DeliveryModel).filter_by(
+                    user_id=current_user.id,
+                    toDateStr=str(i_day.date())
+                ).all()],
+            'day': i_day.day,
+            'isToday': today.day == i_day.day,
+            'isPast': today > i_day}
+        days.append(elements)
+    return days

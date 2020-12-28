@@ -3,7 +3,7 @@ from app import db
 from app.models import *
 from .forms import *
 from ..main.utils import get_deliveries
-from .utils import clean_description
+from .utils import clean_description, get_days
 from flask_login import current_user, login_required
 from flask import render_template, redirect, url_for
 from datetime import datetime
@@ -24,12 +24,14 @@ def add_delivery():
     
     # POST method
     if form.validate_on_submit():
-        db.session.add(Delivery(
+        delivery = Delivery(
             name=form.delivery_name.data, 
             description=clean_description(form.delivery_description.data), 
-            toDate=form.toDate.data, 
+            toDate=form.toDate.data,
+            toDateStr=str(form.toDate.data.date()),
             user_id=current_user.id, 
-            subject_id=db.session.query(Subject).filter_by(name=form.subject_id.data).first().identification))
+            subject_id=db.session.query(Subject).filter_by(name=form.subject_id.data).first().identification)
+        db.session.add(delivery)
         db.session.commit()
         return redirect(url_for('main.home'))
 
@@ -76,6 +78,12 @@ def delivery_restore(id):
         db.session.commit()
     return redirect(url_for('main.removed_deliveries'))
 
+@deliveries.route("/calendar")
+@login_required
+def calendar():
+    return render_template('delivery/calendar.html', title="Calendar",
+        days=get_days(5))
+
 @deliveries.route("/update-deliveries")
 @login_required
 def update_deliveries():
@@ -104,7 +112,8 @@ def update_deliveries():
                 name=name,
                 url=url,
                 description=description,
-                toDate=date, 
+                toDate=date,
+                toDateStr=str(date.date()),
                 user_id=current_user.id, 
                 subject_id=subject_id))
     db.session.commit()

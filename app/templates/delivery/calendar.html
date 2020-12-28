@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="calendar">
+    <div class="day">
+    {% for day in days %}
+        <div class="day-element">
+        {% for delivery, subject in day['deliveries'] %}
+            <p>{{delivery.name}}</p>
+            <p>{{subject.name}}</p>
+        {% endfor %}
+        </div>
+    {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

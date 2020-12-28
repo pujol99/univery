@@ -34,6 +34,7 @@ class Delivery(db.Model):
     name = db.Column(db.String(50), nullable=False)
     description = db.Column(db.String(400))
     toDate = db.Column(db.DateTime, nullable=True)
+    toDateStr = db.Column(db.String(20), nullable=True)
     url = db.Column(db.String(300), nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     subject_id = db.Column(db.Integer, db.ForeignKey('subject.id'), nullable=False)
@@ -41,4 +42,4 @@ class Delivery(db.Model):
     isEliminated = db.Column(db.Boolean, nullable=False, default=False)
 
     def __repr__(self):
-        return f"Delivery('{self.name}', '{self.toDate }')"
+        return f"Delivery('{self.name}', '{self.toDateStr }')"

@@ -11,9 +11,11 @@
             <option value="removed">Removed deliveries</option>
         </select>
     </div>
-    <div class="last-update">
-        <p>Last update: <br>{{current_user.last_update.strftime("%H:%M - %d/%m") }}</p>
-    </div>
+    {% if current_user.last_update %}
+        <div class="last-update">
+            <p>Last update: <br>{{current_user.last_update.strftime("%H:%M - %d/%m") }}</p>
+        </div>
+    {% endif %}
 </div>
 <div id="notdone" class="delivery-container">
     {% if deliveries|length > 0 %}
