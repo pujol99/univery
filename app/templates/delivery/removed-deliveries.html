@@ -1,11 +1,19 @@
 {% extends "home.html" %}
 {% block deliveries %}
-<div class="dropdown">
-    <select class="delivery-dropdown" id="delivery-type" onchange="deliveryType()">
-        <option seleceted value="removed">Removed deliveries</option>
-        <option value="undone">Deliveries</option>
-        <option value="done">Done deliveries</option>
-    </select>
+<div class="menu">
+    <div class="colors">
+        <p id="colors-btn">Show colors</p>
+    </div>
+    <div class="dropdown">
+        <select class="delivery-dropdown" id="delivery-type"  onchange="deliveryType()">
+            <option selected value="removed">Removed deliveries</option>
+            <option value="done">Done deliveries</option>
+            <option value="undone">Deliveries</option>
+        </select>
+    </div>
+    <div class="last-update">
+        <p>Last update: <br>{{current_user.last_update.strftime("%H:%M - %d/%m") }}</p>
+    </div>
 </div>
 <div id="done" class="delivery-container">
     {% if deliveries|length > 0 %}

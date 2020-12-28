@@ -180,18 +180,89 @@
     color: chartreuse;
 }
 
-.dropdown{
-    text-align: center;
-    margin-bottom: 20px;
+.menu{
+    width: min(80%, 900px);
+    margin: 0 auto;
+    height: 70px;
+}
+
+.colors{
+    float: left;
+    width: 30%;
+    height: 100%;
+}
+
+.colors p{
+    width: fit-content;
+    margin-left: 20px;
+    margin-top: 20px;
+    padding: 3px 10px;
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: white;
+    cursor: help;
+}
+
+.last-update{
+    float: left;
+    width: 30%;
+    height: 100%;
+}
+
+.last-update p{
+    text-align: right;
     font-size: 18px;
+    color: #1c273a;
+    font-weight: 600;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+.dropdown{
+    height: 100%;
+    float: left;
+    width: 40%;
+    text-align: center;
 }
 
 .delivery-dropdown{
+    margin-top: 20px;
     float: center;
     background-color: skyblue;
     padding: 5px;
     border: 2px solid black;
     border-radius: 15px;
+}
+
+.popup-col{
+    position: absolute;
+    left: 50%;
+    top: 300px;
+    width: 300px;
+    height: fit-content;
+    transform: translate(-50%, 0);
+    background-color: whitesmoke;
+    padding: 5px 30px 30px 30px;
+    border: 3px solid black;
+}
+
+.popup-col h3{
+    text-align: center;
+}
+
+.popup-col-subject{
+    height: fit-content;
+    padding: 15px 0;
+}
+
+.popup-col-subject p{
+    margin: 0 10px;
+    font-weight: 500;
+    background-color: #f1f1f1;
+    width: fit-content;
+    border-radius: 20px;
+    padding: 0 10px;
+    font-size: 18px;
 }
 
 .your-subjects{

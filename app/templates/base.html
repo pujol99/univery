@@ -39,11 +39,14 @@
     var waitin = document.getElementById('waiting');
     var loadin = document.getElementById('loading');
     var popup = document.getElementById('popup');
+    var popupColor = document.getElementById('popup-colors');
+    var popupColorTrigger = document.getElementById('colors-btn');
 
     var closePopupBool = false;
 
     loadin.style.display = "none";
     popup.style.display = "none";
+    popupColor.style.display = "none";
 
     document.getElementById('refresh-text').onclick = function () {
         waitin.style.display = "none";
@@ -135,5 +138,11 @@
         color.style.backgroundColor = color.value;
     }
 
+    popupColorTrigger.onmouseover = function () {
+        popupColor.style.display = "block";
+    };
+    popupColorTrigger.onmouseout = function () {
+        popupColor.style.display = "none";
+    };
 </script>
 </html>
