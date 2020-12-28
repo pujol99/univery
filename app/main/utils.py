@@ -67,24 +67,30 @@ def get_deliveries():
         return [delivery for delivery in deliveries if delivery.date]
 
 def get_deliveries_todo(deliveries):
-    deliveries = [(i, db.session.query(SubjectModel).filter_by(identification=i.subject_id).first())
-        for i in deliveries if not i.isDone and not i.isEliminated]
+    deliveries = [(i, db.session.query(SubjectModel).filter_by(
+        identification=i.subject_id,
+        user_id=current_user.id).first()
+        ) for i in deliveries if not i.isDone and not i.isEliminated]
     # Remove past ones
     #deliveries = [i for i in deliveries if is_future(i.toDate)]
     # Sort
     return list(reversed(sorted(deliveries, key=lambda x: x[0].toDate)))
 
 def get_deliveries_done(deliveries):
-    deliveries = [(i, db.session.query(SubjectModel).filter_by(identification=i.subject_id).first())
-        for i in deliveries if i.isDone and not i.isEliminated]
+    deliveries = [(i, db.session.query(SubjectModel).filter_by(
+        identification=i.subject_id,
+        user_id=current_user.id).first()
+        ) for i in deliveries if i.isDone and not i.isEliminated]
     # Remove past ones
     #deliveries = [i for i in deliveries if is_future(i.toDate)]
     # Sort
     return list(reversed(sorted(deliveries, key=lambda x: x[0].toDate)))
 
 def get_deliveries_removed(deliveries):
-    deliveries = [(i, db.session.query(SubjectModel).filter_by(identification=i.subject_id).first())
-        for i in deliveries if i.isEliminated]
+    deliveries = [(i, db.session.query(SubjectModel).filter_by(
+        identification=i.subject_id,
+        user_id=current_user.id).first()
+        ) for i in deliveries if i.isEliminated]
     # Remove past ones
     #deliveries = [i for i in deliveries if is_future(i.toDate)]
     # Sort

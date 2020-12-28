@@ -2,10 +2,9 @@
 
 ### Next TODOS
 optimize {upf: delivery, subject, user} read
-when checking if X exists remember that other users will have same X (check user id too)
 
 ### Next big features
-do a calendar view of deliveries
+Do a calendar view of deliveries
 Create welcome page for users not logged in Showing web image and description of the web
 
 ### Problems

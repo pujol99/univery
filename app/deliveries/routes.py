@@ -40,7 +40,7 @@ def add_delivery():
 @login_required
 def delivery_done(id):
     # Mark delivery as done
-    delivery = Delivery.query.filter_by(id=id).first()
+    delivery = Delivery.query.filter_by(id=id, user_id=current_user.id).first()
     if delivery:
         delivery.isDone = True
         db.session.commit()
@@ -50,7 +50,7 @@ def delivery_done(id):
 @login_required
 def delivery_undone(id):
     # Mark delivery as not done
-    delivery = Delivery.query.filter_by(id=id).first()
+    delivery = Delivery.query.filter_by(id=id, user_id=current_user.id).first()
     if delivery:
         delivery.isDone = False
         db.session.commit()
@@ -60,7 +60,7 @@ def delivery_undone(id):
 @login_required
 def delivery_remove(id):
     # Mark delivery as eliminated
-    delivery = Delivery.query.filter_by(id=id).first()
+    delivery = Delivery.query.filter_by(id=id, user_id=current_user.id).first()
     if delivery:
         delivery.isEliminated = True
         db.session.commit()
@@ -70,7 +70,7 @@ def delivery_remove(id):
 @login_required
 def delivery_restore(id):
     # Mark delivery as not eliminated
-    delivery = Delivery.query.filter_by(id=id).first()
+    delivery = Delivery.query.filter_by(id=id, user_id=current_user.id).first()
     if delivery:
         delivery.isEliminated = False
         db.session.commit()
@@ -93,7 +93,8 @@ def update_deliveries():
 
         existent_delivery = Delivery.query.filter_by(
             name=name,
-            subject_id=subject_id).first()
+            subject_id=subject_id,
+            user_id=current_user.identification).first()
 
         # If it exists check for date changes else add the new delivery to our db
         if existent_delivery and existent_delivery.toDate != date:

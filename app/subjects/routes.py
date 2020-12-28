@@ -28,9 +28,14 @@ def subjects_page():
 @subjects.route("/subject-remove/<int:id>")
 @login_required
 def subject_remove(id):
-    s = Subject.query.filter_by(id=id)
+    s = Subject.query.filter_by(
+        id=id,
+        user_id=current_user.id)
     # Delete all the deliveries and the subject
-    Delivery.query.filter_by(subject_id=s.first().identification).delete()
+    Delivery.query.filter_by(
+        subject_id=s.first().identification,
+        user_id=current_user.id
+    ).delete()
     s.delete()
     db.session.commit()
 
