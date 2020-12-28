@@ -2,20 +2,17 @@
 
 modify password user
 check errors in upf login at any moment change password problem..
-turning done -> undone keeps user in done deliveries
 optimize {upf: delivery, subject, user} read
 show when was last update
-validator for color subject form
-update subject color
-random color button show clickable cursor
+show subject colors in home page when cursor hover
 check that {name+subject} information of delivery manually created doesnt exists
+when checking if X exists remember that other users will have same X (check user id too)
+do a calendar view of deliveries
+Create welcome page for users not logged in Showing web image and description of the web
+
+if load is slow the popup can be seen before it disappears
 canceling load of page while doing deliveries refresh makes button fail
 cant store hashed password bc of use recurrency
-display color when choosing subject color
-add link to university site delivery in delivery's popup
-when checking if X exists remember that other users will have same X (check user id too)
-
-Create welcome page for users not logged in Showing web image and description of the web
 ---
 
 # Design

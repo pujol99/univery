@@ -124,6 +124,7 @@
     height: 100px;
     vertical-align: middle;
     padding-left: 10px;
+    padding-right: 10px;
     display: inline-block;
     padding-top: 30px;
     
@@ -200,30 +201,37 @@
     overflow-y: scroll;
     height: 200px;
     margin-top: 20px;
-    
 }
 
-.your-subjects p{
-    height: 30px;
-    padding-top: 20px;
-}
-
-.subject-name{
-    float: left; width: 90%;
+.subject-name p{
+    background-color: #f1f1f1;
+    width: fit-content;
+    margin-top: 10px;
+    border-radius: 20px;
+    padding: 0 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 18px;
 }
 
 .subject-action{
-    float: left;
-    width: 10%;
+    display: inline-block;
+    vertical-align: middle;
 }
 
 .subject-action img{
     width: 35px;
-    height: 45px;
-    padding-top: 20px;
+    height: 40px;
+    margin-top: 15%;
 }
+
 .subject-box{
     height: fit-content;
+}
+
+.row {
+  display: flex; /* equal height of the children */
+  width: 100%;
 }
 
 #loading-text{
@@ -338,4 +346,5 @@
     border: none;
     padding: 5px;
     margin-left: 40px;
+    cursor: pointer;
 }
