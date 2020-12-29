@@ -1,8 +1,8 @@
 import requests
 from bs4 import BeautifulSoup
-from ..deliveries.utils import Delivery
+from ..deliveries.utils import DeliveryObject
 
-class Subject:
+class SubjectObject:
     def __init__(self, url, session, id):
         self.url = url
         self.session = session
@@ -19,5 +19,4 @@ class Subject:
         deliveries_url = [activity.find('a')['href'] for activity in activities 
                             if "assign" in activity.find('a')['href']]
         
-        self.deliveries = [Delivery(url, self.session, self.id) for url in deliveries_url]
-
+        self.deliveries = [DeliveryObject(url, self.session, self.id) for url in deliveries_url]

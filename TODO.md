@@ -2,7 +2,10 @@
 
 ### Next TODOS
 optimize {upf: delivery, subject, user} read
-add deliveries that dont have todo date 
+add deliveries that dont have todo date
+implement calendar/+-i (i: how many weeks after/before)
+show name of month or day in calendar
+move calendar to main maybe
 
 ### Next big features
 Do a calendar view of deliveries

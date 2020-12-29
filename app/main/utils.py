@@ -1,12 +1,14 @@
-from ..subjects.utils import Subject
-from ..deliveries.utils import Delivery
-from ..models import Subject as SubjectModel
+from ..subjects.utils import SubjectObject
+from ..deliveries.utils import DeliveryObject
+from ..models import Subject
 from app import db
 from flask_login import current_user
 from datetime import datetime
 
 import requests
 from bs4 import BeautifulSoup
+
+DATE_FORMAT = "%d-%m %H:%M" 
 
 
 LOGIN = "https://sso.upf.edu/CAS/index.php/login?service=https://www.upf.edu/c/portal/login"
@@ -21,12 +23,12 @@ PAYLOAD = {
 def check_subject(id):
     PAYLOAD["adAS_username"] = current_user.identification
     PAYLOAD["adAS_password"] = current_user.password
-    req_url = "https://aulaglobal.upf.edu/course/view.php?id=" + str(id)
+    request_url = "https://aulaglobal.upf.edu/course/view.php?id=" + str(id)
 
     with requests.Session() as session:
         session.post(LOGIN, headers=HEADERS, data=PAYLOAD)
-        req = session.get(req_url)
-        soup = BeautifulSoup(req.text, "html.parser")
+        request = session.get(request_url)
+        soup = BeautifulSoup(request.text, "html.parser")
 
         # If we found the an a tag with name -> subject exists
         name = soup.find("a", {"href":req_url})
@@ -37,11 +39,12 @@ def check_subject(id):
 def check_user(identification, password):
     PAYLOAD["adAS_username"] = identification
     PAYLOAD["adAS_password"] = password
+    request_url = "https://www.upf.edu/intranet/campus-global"
 
     with requests.Session() as session:
         session.post(LOGIN, headers=HEADERS, data=PAYLOAD)
-        req = session.get("https://www.upf.edu/intranet/campus-global")
-        soup = BeautifulSoup(req.text, "html.parser")
+        request = session.get(request_url)
+        soup = BeautifulSoup(request.text, "html.parser")
 
         # If this message is found login is incorrect
         return not("Identificació d'usuaris" in soup.find('h1').text)
@@ -55,7 +58,7 @@ def get_deliveries():
 
         deliveries = []
         subject_ids = [subject.identification for subject in current_user.subjects]
-        subjects = [Subject(REQUEST+id, session, id) for id in subject_ids]
+        subjects = [SubjectObject(REQUEST+id, session, id) for id in subject_ids]
 
         for subject in subjects:
             subject.scrape_subject()
@@ -66,8 +69,18 @@ def get_deliveries():
 
         return [delivery for delivery in deliveries if delivery.date]
 
+def filter_deliveries(deliveries, restriction):
+    deliveries = [(i, db.session.query(Subject).filter_by(
+        identification=i.subject_id,
+        user_id=current_user.id).first()
+        ) for i in deliveries if restriction(i)]
+    # Remove past ones
+    #deliveries = [i for i in deliveries if is_future(i.toDate)]
+    # Sort
+    return list(reversed(sorted(deliveries, key=lambda x: x[0].toDate)))
+
 def get_deliveries_todo(deliveries):
-    deliveries = [(i, db.session.query(SubjectModel).filter_by(
+    deliveries = [(i, db.session.query(Subject).filter_by(
         identification=i.subject_id,
         user_id=current_user.id).first()
         ) for i in deliveries if not i.isDone and not i.isEliminated]
@@ -77,7 +90,7 @@ def get_deliveries_todo(deliveries):
     return list(reversed(sorted(deliveries, key=lambda x: x[0].toDate)))
 
 def get_deliveries_done(deliveries):
-    deliveries = [(i, db.session.query(SubjectModel).filter_by(
+    deliveries = [(i, db.session.query(Subject).filter_by(
         identification=i.subject_id,
         user_id=current_user.id).first()
         ) for i in deliveries if i.isDone and not i.isEliminated]
@@ -87,7 +100,7 @@ def get_deliveries_done(deliveries):
     return list(reversed(sorted(deliveries, key=lambda x: x[0].toDate)))
 
 def get_deliveries_removed(deliveries):
-    deliveries = [(i, db.session.query(SubjectModel).filter_by(
+    deliveries = [(i, db.session.query(Subject).filter_by(
         identification=i.subject_id,
         user_id=current_user.id).first()
         ) for i in deliveries if i.isEliminated]

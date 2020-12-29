@@ -4,7 +4,7 @@ import re
 from datetime import datetime
 from datetime import timedelta
 from flask_login import current_user
-from ..models import Delivery as DeliveryModel, Subject as SubjectModel
+from ..models import *
 from .. import db
 
 
@@ -17,15 +17,15 @@ MONTHS = {
     "novembre": "11", "desembre": "12",
 }
 
-class Delivery:
+class DeliveryObject:
     def __init__(self, url, session, subject_id):
-        self.url = url
         self.session = session
 
-        self.subject_id = subject_id
         self.name = None
         self.description = None
         self.date = None
+        self.url = url
+        self.subject_id = subject_id
 
     def scrape_delivery(self):
         request = self.session.get(self.url)
@@ -75,38 +75,42 @@ def clean_description(description):
 
 def get_days(ndays):
     """
-        List starting in this week's monday 
-            for element in list : element -> {
-                deliveries:(delivery, subject) of that day,
-                day:day of the month,
-                bool:isToday,
-                bool:past}
+    List starting in this week's monday 
+        for element in list : element -> {
+            deliveries:[(delivery1, subject1),...] of that day,
+            day:day of the month,
+            str:color}
     """
-    today = datetime.strptime('23-11-2020', '%d-%m-%Y')
+    # today = datetime.strptime('2-11-2020', '%d-%m-%Y')
+    today = datetime.today()
     first_day = today - timedelta(days=today.weekday())
 
     days = []
     for i in range(0, ndays):
         i_day = first_day + timedelta(days=i)
-        if i_day < today:
-            color = '#000'
-        elif i_day == today:
-            color = '#bbb'
-        else:
-            color =  '#fff'
         elements = {
             'deliveries':[
-                (delivery, db.session.query(SubjectModel).filter_by(
+                (delivery, db.session.query(Subject).filter_by(
                     user_id=current_user.id,
                     identification=delivery.subject_id
                 ).first()) for delivery in 
-                db.session.query(DeliveryModel).filter_by(
+                db.session.query(Delivery).filter_by(
                     user_id=current_user.id,
                     toDateStr=str(i_day.date()),
                     isDone=False,
                     isEliminated=False
                 ).all()] if i_day >= today else [],
             'day': i_day.day,
-            'color': color}
+            'color': day_color(today, i_day)}
         days.append(elements)
     return days
+
+def day_color(today, iday):
+    if iday == today: 
+        return '#d6ceba'    # Color for today 
+    elif iday.weekday() > 4:
+        return '#ffb600'    # Color for weekend 
+    elif iday < today:
+        return '#000'       # Color for past   
+    else:
+        return '#fff'       # Color for future

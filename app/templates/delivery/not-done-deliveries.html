@@ -23,13 +23,13 @@
             <div onclick="openPopup([
                     '{{delivery.name}}',
                     '{{delivery.description}}',
-                    '{{delivery.toDate}}',
+                    '{{delivery.toDate.strftime(date_format)}}',
                     '{{delivery.url}}',
                     'Done',
                     '{{subject.name}}',
                     '{{subject.id}}',
                     '{{delivery.id}}'
-                    ], '/')"
+                    ], '{{request.endpoint}}')"
                     class="delivery-block" style="background-color: {{subject.color}};">
                 <div class="delivery-name">
                     <p>{{delivery.name}}</p>

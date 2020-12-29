@@ -120,7 +120,7 @@
     border: 2px solid black;
     height: 100px;
     margin-bottom: 0px;
-    
+    cursor: pointer;
 }
 
 .delivery-name{
@@ -440,6 +440,7 @@
 .day-element{
     margin: 10px 0;
     width: 100%;
+    cursor: pointer;
 }
 
 .day-element-name{

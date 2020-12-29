@@ -21,7 +21,7 @@
             <ul>
                 {% if current_user.is_authenticated %}
                 <li><a class="link" href="{{ url_for('deliveries.calendar') }}">Calendar</a></li>
-                <li><a class="link" href="{{ url_for('deliveries.add_delivery') }}">Add delivery</a></li>
+                <li><a class="link" href="{{ url_for('deliveries.add_delivery', next=request.endpoint) }}">Add delivery</a></li>
                 <li><a class="link" href="{{ url_for('subjects.subjects_page') }}">Subjects</a></li>
                 <li><a class="link" href="{{ url_for('users.account') }}">Account</a></li>
                 {% else %}
@@ -86,6 +86,9 @@
         document.getElementById('popup-subject').textContent = delivery[5];
         document.getElementById('popup-descr').textContent = delivery[1].replaceAll("~", "\n");
         document.getElementById('popup-date').textContent = delivery[2];
+
+        var next_url = delivery[7].toString() + '?next=' + next;
+
         if(delivery[4] === "Done"){
             document.getElementById('popup-done-div').style.display = "block";
             document.getElementById('popup-undone-div').style.display = "none";
@@ -93,11 +96,11 @@
             document.getElementById('popup-restore-div').style.display = "none";
             
             var textDone = document.getElementById('popup-done').href;
-            var textDoneID = textDone.slice(0, textDone.length-1) + delivery[7].toString() + '?next=%2F' + next;
+            var textDoneID = textDone.slice(0, textDone.length-1) + next_url;
             document.getElementById('popup-done').href = textDoneID;
 
             var textDelete = document.getElementById('popup-delete').href;
-            var textDeleteID = textDelete.slice(0, textDelete.length-1) + delivery[7].toString() + '?next=%2F' + next;
+            var textDeleteID = textDelete.slice(0, textDelete.length-1) + next_url;
             document.getElementById('popup-delete').href = textDeleteID;
         }else if(delivery[4] === "Undone"){
             document.getElementById('popup-done-div').style.display = "none";
@@ -106,11 +109,11 @@
             document.getElementById('popup-restore-div').style.display = "none";
 
             var textDone = document.getElementById('popup-undone').href;
-            var textDoneID = textDone.slice(0, textDone.length-1) + delivery[7].toString();
+            var textDoneID = textDone.slice(0, textDone.length-1) + next_url;
             document.getElementById('popup-undone').href = textDoneID;
 
             var textDelete = document.getElementById('popup-delete').href;
-            var textDeleteID = textDelete.slice(0, textDelete.length-1) + delivery[7].toString();
+            var textDeleteID = textDelete.slice(0, textDelete.length-1) + next_url;
             document.getElementById('popup-delete').href = textDeleteID;
         }else{
             document.getElementById('popup-done-div').style.display = "none";
@@ -119,7 +122,7 @@
             document.getElementById('popup-restore-div').style.display = "block";
 
             var textDelete = document.getElementById('popup-restore').href;
-            var textDeleteID = textDelete.slice(0, textDelete.length-1) + delivery[7].toString();
+            var textDeleteID = textDelete.slice(0, textDelete.length-1) + next_url;
             document.getElementById('popup-restore').href = textDeleteID;
         }
         
