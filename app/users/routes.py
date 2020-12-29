@@ -1,7 +1,6 @@
-from flask import Blueprint
-from flask import render_template, url_for, redirect, request
+from flask import Blueprint, render_template, url_for, redirect, request
 from app import db, bcrypt
-from ..main.utils import check_user
+from .utils import check_user
 from .forms import *
 from app.models import *
 from flask_login import login_user, current_user, logout_user, login_required
@@ -41,8 +40,8 @@ def login():
         if user and user.password == form.password.data:
             login_user(user, remember=form.remember.data)
             return redirect(url_for('main.home'))
-        return render_template('user/login.html', title="Login", 
-                                    form=form, message="Incorrect identification or password")
+        return render_template('user/login.html', title="Login", form=form,
+            message="Incorrect identification or password")
     return render_template('user/login.html', title="Login", form=form)
 
 @users.route("/account", methods=['GET', 'POST'])

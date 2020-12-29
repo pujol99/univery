@@ -1,9 +1,8 @@
-from flask import Blueprint, request
-from app import db
+from flask import Blueprint, request, render_template, redirect, url_for
 from app.models import *
 from flask_login import current_user, login_required
-from flask import render_template, redirect, url_for
-from .utils import *
+from ..deliveries.utils import *
+from .utils import DATE_FORMAT
 
 main = Blueprint('main', __name__)
 
@@ -20,12 +19,16 @@ def home():
 @login_required
 def done_deliveries():
     return render_template('delivery/done-deliveries.html', title="Done",
-            deliveries=get_deliveries_done(current_user.deliveries),
+            deliveries=filter_deliveries(
+                current_user.deliveries,
+                lambda d: d.isDone and not d.isEliminated),
             date_format=DATE_FORMAT)
 
 @main.route("/removed")
 @login_required
 def removed_deliveries():
     return render_template('delivery/removed-deliveries.html', title="Removed",
-            deliveries=get_deliveries_removed(current_user.deliveries),
+            deliveries=filter_deliveries(
+                current_user.deliveries,
+                lambda d: d.isEliminated == True),
             date_format=DATE_FORMAT)

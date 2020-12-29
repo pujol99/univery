@@ -1,11 +1,11 @@
-from flask import Blueprint
 from app import db
 from app.models import *
 from .forms import *
-from ..main.utils import get_deliveries
-from .utils import clean_description, get_days
+from ..main.utils import get_days
+from .utils import clean_description, get_deliveries
+
 from flask_login import current_user, login_required
-from flask import render_template, redirect, url_for, request
+from flask import Blueprint, render_template, redirect, url_for, request
 from datetime import datetime
 
 deliveries = Blueprint('deliveries', __name__)

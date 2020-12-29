@@ -1,21 +1,45 @@
-import requests
+import requests, re
 from bs4 import BeautifulSoup
-import re
-from datetime import datetime
-from datetime import timedelta
+from datetime import datetime, timedelta
+
 from flask_login import current_user
+from ..subjects.utils import SubjectObject
 from ..models import *
-from .. import db
+from ..main.utils import PAYLOAD, REQUEST, LOGIN, HEADERS, MONTHS
+from app import db
 
+def get_deliveries():
+    PAYLOAD["adAS_username"] = current_user.identification
+    PAYLOAD["adAS_password"] = current_user.password
 
-MONTHS = {
-    "gener": "01", "febrer": "02",
-    "març": "03", "abril": "04",
-    "maig": "05", "juny": "06",
-    "juliol": "07", "agost": "08",
-    "setembre": "09", "octubre": "10",
-    "novembre": "11", "desembre": "12",
-}
+    with requests.Session() as session:
+        session.post(LOGIN, headers=HEADERS, data=PAYLOAD)
+
+        deliveries = []
+        subject_ids = [subject.identification for subject in current_user.subjects]
+        subjects = [SubjectObject(REQUEST+id, session, id) for id in subject_ids]
+
+        for subject in subjects:
+            subject.scrape_subject()
+            deliveries += [DeliveryObject(url, subject.session, subject.id) for url in subject.deliveries_url]
+        
+        for delivery in deliveries:
+            delivery.scrape_delivery()
+
+        return [delivery for delivery in deliveries if delivery.date]
+
+def filter_deliveries(deliveries, restriction):
+    deliveries = [(i, db.session.query(Subject).filter_by(
+        identification=i.subject_id,
+        user_id=current_user.id).first()
+        ) for i in deliveries if restriction(i)]
+    # Remove past ones
+    #deliveries = [i for i in deliveries if is_future(i.toDate)]
+    # Sort
+    return list(reversed(sorted(deliveries, key=lambda x: x[0].toDate)))
+    
+def is_future(date):
+    return date > datetime.now()
 
 class DeliveryObject:
     def __init__(self, url, session, subject_id):
@@ -72,45 +96,3 @@ def to_datetime_en(date):
 
 def clean_description(description):
     return '~'.join(description.splitlines())
-
-def get_days(ndays):
-    """
-    List starting in this week's monday 
-        for element in list : element -> {
-            deliveries:[(delivery1, subject1),...] of that day,
-            day:day of the month,
-            str:color}
-    """
-    # today = datetime.strptime('2-11-2020', '%d-%m-%Y')
-    today = datetime.today()
-    first_day = today - timedelta(days=today.weekday())
-
-    days = []
-    for i in range(0, ndays):
-        i_day = first_day + timedelta(days=i)
-        elements = {
-            'deliveries':[
-                (delivery, db.session.query(Subject).filter_by(
-                    user_id=current_user.id,
-                    identification=delivery.subject_id
-                ).first()) for delivery in 
-                db.session.query(Delivery).filter_by(
-                    user_id=current_user.id,
-                    toDateStr=str(i_day.date()),
-                    isDone=False,
-                    isEliminated=False
-                ).all()] if i_day >= today else [],
-            'day': i_day.day,
-            'color': day_color(today, i_day)}
-        days.append(elements)
-    return days
-
-def day_color(today, iday):
-    if iday == today: 
-        return '#d6ceba'    # Color for today 
-    elif iday.weekday() > 4:
-        return '#ffb600'    # Color for weekend 
-    elif iday < today:
-        return '#000'       # Color for past   
-    else:
-        return '#fff'       # Color for future

@@ -1,9 +1,9 @@
-from flask import Blueprint
 from app.models import *
 from .forms import *
-from ..main.utils import check_subject
+from .utils import check_subject
+from app import db
 from flask_login import current_user, login_required
-from flask import render_template, redirect, url_for
+from flask import Blueprint, render_template, redirect, url_for
 
 subjects = Blueprint('subjects', __name__)
 

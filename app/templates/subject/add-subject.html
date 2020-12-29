@@ -2,19 +2,6 @@
 {% block content %}
 <div class="login-page">
     <div class="login-box">
-        <h1 class="head-legend">Your subjects</h1>
-        <div class="your-subjects">
-            {% for subject in current_user.subjects %}
-            <div class="subject-box row">
-                <div class="subject-name" style="flex:10;background-color: {{subject.color}};">
-                    <p><b>{{subject.identification}}</b> - {{subject.name}}</p>
-                </div>
-                <div class="subject-action" style="flex:1;">
-                    <a href="{{url_for('subjects.subject_remove', id=subject.id)}}"><img src="/static/web_pics/remove.png" alt="" srcset=""></a>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
         <form method="POST" action="">
             {{ form.hidden_tag() }}
             <h1 class="head-legend">Add Subject</h1>
@@ -50,11 +37,23 @@
                 {% endif %}
                 <div onclick="randomColor()" class="left-3 random-btn">Random</div>
             </div>
-            <br>
             <div class="btn btn-primary sm-margin left-3">
                 {{ form.submit(class="btn login-btn") }}
             </div>
         </form>
+        <h1 class="head-legend">Your subjects</h1>
+        <div class="your-subjects">
+            {% for subject in current_user.subjects %}
+            <div class="subject-box row">
+                <div class="subject-name" style="flex:10;background-color: {{subject.color}};">
+                    <p><b>{{subject.identification}}</b> - {{subject.name}}</p>
+                </div>
+                <div class="subject-action" style="flex:1;">
+                    <a href="{{url_for('subjects.subject_remove', id=subject.id)}}"><img src="/static/web_pics/remove.png" alt="" srcset=""></a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
     </div>
 </div>
 {% endblock content %}
