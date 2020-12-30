@@ -453,8 +453,9 @@
 }
 
 .colors-calendar{
-    width: fit-content;
+    width: 30%;
     margin: 0 auto;
+    margin-bottom: 20px;
 }
 
 .colors-calendar-content{
@@ -462,6 +463,8 @@
     border-radius: 10px;
     cursor: help;
     padding: 5px 10px;
+    width: fit-content;
+    margin: 0 auto;
 }
 
 .day-corner{

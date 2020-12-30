@@ -89,11 +89,13 @@ def delivery_restore(id):
     next_page = request.args.get('next')
     return redirect(url_for(next_page if next_page else 'main.removed_deliveries'))
 
+@deliveries.route("/calendar/<int:n>")
 @deliveries.route("/calendar")
 @login_required
-def calendar():
+def calendar(n=0):
     return render_template('delivery/calendar.html', title="Calendar",
-        days=get_days(14))
+        days=get_days(14, n), view=n)
+
 
 @deliveries.route("/update-deliveries")
 @login_required

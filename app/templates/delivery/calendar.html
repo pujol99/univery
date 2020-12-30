@@ -2,6 +2,12 @@
 {% block deliveries %}
 <div class="calendar">
     <div class="colors-calendar">
+        {% if view > 0 %}
+        <a style="float: left;" href="{{url_for('deliveries.calendar', n=view-1)}}">
+            <img width="40px" height="40px" src="/static/web_pics/prev.png" alt=""></a>
+        {% endif %}
+        <a style="float: right;" href="{{url_for('deliveries.calendar', n=view+1)}}">
+            <img width="40px" height="40px" src="/static/web_pics/next.png" alt=""></a>
         <p class="colors-calendar-content" id="colors-btn">Show colors</p>
     </div>
     {% for day in days %}

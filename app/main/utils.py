@@ -23,7 +23,7 @@ MONTHS = {
     "novembre": "11", "desembre": "12",
 }
 
-def get_days(ndays):
+def get_days(ndays, view):
     """
     List starting in this week's monday 
         for element in list : element -> {
@@ -31,9 +31,9 @@ def get_days(ndays):
             day:day of the month,
             str:color}
     """
-    # today = datetime.strptime('2-11-2020', '%d-%m-%Y')
-    today = datetime.today()
-    first_day = today - timedelta(days=today.weekday())
+    today = datetime.strptime('2-10-2020', '%d-%m-%Y')
+    # today = datetime.today()
+    first_day = today - timedelta(days=today.weekday()) + timedelta(days=ndays*view)
 
     days = []
     for i in range(0, ndays):
