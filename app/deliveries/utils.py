@@ -1,6 +1,7 @@
 import requests, re
 from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
+import time
 
 from flask_login import current_user
 from ..subjects.utils import SubjectObject
@@ -9,24 +10,27 @@ from ..main.utils import PAYLOAD, REQUEST, LOGIN, HEADERS, MONTHS
 from app import db
 
 def get_deliveries():
+    start = time.process_time()
+
     PAYLOAD["adAS_username"] = current_user.identification
     PAYLOAD["adAS_password"] = current_user.password
 
     with requests.Session() as session:
         session.post(LOGIN, headers=HEADERS, data=PAYLOAD)
-
+    
         deliveries = []
         subject_ids = [subject.identification for subject in current_user.subjects]
         subjects = [SubjectObject(REQUEST+id, session, id) for id in subject_ids]
-
+    
         for subject in subjects:
             subject.scrape_subject()
             deliveries += [DeliveryObject(url, subject.session, subject.id) for url in subject.deliveries_url]
-        
+    
         for delivery in deliveries:
             delivery.scrape_delivery()
-
+    
         return [delivery for delivery in deliveries if delivery.date]
+
 
 def filter_deliveries(deliveries, restriction):
     deliveries = [(i, db.session.query(Subject).filter_by(
@@ -68,6 +72,7 @@ class DeliveryObject:
                 self.date = to_datetime_ca(col.find('td').text)
             elif "Due date" in col.find('th').text:
                 self.date = to_datetime_en(col.find('td').text)
+    
 
 def to_datetime_ca(date):
     # Parse date time from catalan

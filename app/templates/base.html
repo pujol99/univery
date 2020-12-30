@@ -87,7 +87,9 @@
         document.getElementById('popup-descr').textContent = delivery[1].replaceAll("~", "\n");
         document.getElementById('popup-date').textContent = delivery[2];
 
-        var next_url = delivery[7].toString() + '?next=' + next;
+        var next_url = delivery[7].toString();
+        if(next !== "None"){
+            next_url += '?next=' + next;}
 
         if(delivery[4] === "Done"){
             document.getElementById('popup-done-div').style.display = "block";

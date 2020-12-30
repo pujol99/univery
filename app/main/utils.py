@@ -36,8 +36,13 @@ def get_days(ndays, view):
     first_day = today - timedelta(days=today.weekday()) + timedelta(days=ndays*view)
 
     days = []
+    months = []
     for i in range(0, ndays):
         i_day = first_day + timedelta(days=i)
+        month_name = i_day.strftime("%B")
+        if month_name not in months:
+            months.append(month_name)
+
         elements = {
             'deliveries':[
                 (delivery, db.session.query(Subject).filter_by(
@@ -53,7 +58,7 @@ def get_days(ndays, view):
             'day': i_day.day,
             'color': day_color(today, i_day)}
         days.append(elements)
-    return days
+    return days, "/".join(months)
 
 def day_color(today, iday):
     if iday == today: 

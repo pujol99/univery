@@ -2,13 +2,13 @@
 
 ### Next TODOS
 optimize {upf: delivery, subject, user} read
-add deliveries that dont have todo date
-implement calendar/+-i (i: how many weeks after/before)
+    - Rethink database models (no exact subjects/deliveries repetitions in db)
+    - Not look at deliveries known that have ended (only if doing a refresh has been seen
+        ended)
+    - (Crazy idea) use other users recent refreshes in same delivery to save computation
 show name of month or day in calendar
-move calendar to main maybe
 
 ### Next big features
-Do a calendar view of deliveries
 Create welcome page for users not logged in Showing web image and description of the web
 
 ### Problems

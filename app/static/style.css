@@ -471,3 +471,9 @@
     margin-left: 10px;
     font-weight: bold;
 }
+
+.month-name{
+    float: left;
+    font-size: 25px;
+    font-weight: bold;
+}

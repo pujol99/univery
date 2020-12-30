@@ -1,6 +1,7 @@
 {% extends "home.html" %}
 {% block deliveries %}
 <div class="calendar">
+    <p class="month-name">{{month}}</p>
     <div class="colors-calendar">
         {% if view > 0 %}
         <a style="float: left;" href="{{url_for('deliveries.calendar', n=view-1)}}">

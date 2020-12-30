@@ -93,8 +93,9 @@ def delivery_restore(id):
 @deliveries.route("/calendar")
 @login_required
 def calendar(n=0):
+    days, month = get_days(14, n)
     return render_template('delivery/calendar.html', title="Calendar",
-        days=get_days(14, n), view=n)
+        days=days, month=month, view=n)
 
 
 @deliveries.route("/update-deliveries")
