@@ -19,10 +19,8 @@ def add_delivery():
     
     # Set the subject choice to the subject names of the user
     form = AddDeliveryForm()
-    form.subject_id.choices = [subject.name 
-        for subject in db.session.query(Subject).filter_by(
-            user_id=current_user.id
-        ).all()]
+    form.subject_id.choices = [us.subject.name
+        for us in current_user.subjects]
     
     # POST method
     if form.validate_on_submit():
@@ -31,8 +29,17 @@ def add_delivery():
             description=clean_description(form.delivery_description.data), 
             toDate=form.toDate.data,
             toDateStr=str(form.toDate.data.date()),
+            subject_id=db.session.query(Subject
+                ).filter_by(name=form.subject_id.data
+                ).first().identification))
+        
+        db.session.add(UserDelivery(
+            delivery_id=db.session.query(Delivery)
+                .order_by(Delivery.id.desc())
+                .first().id,
             user_id=current_user.id, 
-            subject_id=db.session.query(Subject).filter_by(name=form.subject_id.data).first().identification))
+            isDone=False, 
+            isEliminated=False))
         db.session.commit()
 
         next_page = request.args.get('next')
@@ -45,7 +52,10 @@ def add_delivery():
 @login_required
 def delivery_done(id):
     # Mark delivery as done
-    delivery = Delivery.query.filter_by(id=id, user_id=current_user.id).first()
+    delivery = UserDelivery.query.filter_by(
+        delivery_id=id, user_id=current_user.id
+    ).first()
+
     if delivery:
         delivery.isDone = True
         db.session.commit()
@@ -56,7 +66,10 @@ def delivery_done(id):
 @login_required
 def delivery_undone(id):
     # Mark delivery as not done
-    delivery = Delivery.query.filter_by(id=id, user_id=current_user.id).first()
+    delivery = UserDelivery.query.filter_by(
+        delivery_id=id, user_id=current_user.id
+    ).first()
+
     if delivery:
         delivery.isDone = False
         db.session.commit()
@@ -68,7 +81,10 @@ def delivery_undone(id):
 @login_required
 def delivery_remove(id):
     # Mark delivery as eliminated
-    delivery = Delivery.query.filter_by(id=id, user_id=current_user.id).first()
+    delivery = UserDelivery.query.filter_by(
+        delivery_id=id, user_id=current_user.id
+    ).first()
+
     if delivery:
         delivery.isEliminated = True
         db.session.commit()
@@ -80,7 +96,10 @@ def delivery_remove(id):
 @login_required
 def delivery_restore(id):
     # Mark delivery as not eliminated
-    delivery = Delivery.query.filter_by(id=id, user_id=current_user.id).first()
+    delivery = UserDelivery.query.filter_by(
+        delivery_id=id, user_id=current_user.id
+    ).first()
+
     if delivery:
         delivery.isEliminated = False
         delivery.isDone = False
@@ -111,16 +130,16 @@ def update_deliveries():
     # Read all the deliveries from {user.subjects} university pages
     for delivery in get_deliveries():
         # Check if the delivery is already on our database
-        subject_id  = delivery.subject_id
-        name        = delivery.name
-        description = delivery.description
-        date        = delivery.date
-        url         = delivery.url
+        subject_id      = delivery.subject_id
+        name            = delivery.name
+        description     = delivery.description
+        date            = delivery.date
+        url             = delivery.url
+        identification  = delivery.id
 
         existent_delivery = Delivery.query.filter_by(
-            name=name,
-            subject_id=subject_id,
-            user_id=current_user.id).first()
+            identification=identification
+        ).first()
 
         # If it exists check for date changes else add the new delivery to our db
         if existent_delivery and existent_delivery.toDate != date:
@@ -128,13 +147,21 @@ def update_deliveries():
             existent_delivery.toDateStr = str(date.date())
         elif not existent_delivery:
             db.session.add(Delivery(
+                identification=identification,
                 name=name,
                 description=description,
                 toDate=date,
                 toDateStr=str(date.date()),
                 url=url,
-                user_id=current_user.id, 
                 subject_id=subject_id))
+
+            db.session.add(UserDelivery(
+                delivery_id=db.session.query(Delivery)
+                    .order_by(Delivery.id.desc())
+                    .first().id,
+                user_id=current_user.id, 
+                isDone=False, 
+                isEliminated=False))
     db.session.commit()
     next_page = request.args.get('next')
     return redirect(url_for(next_page if next_page else 'main.home'))

@@ -19,7 +19,7 @@ class RegistrationForm(FlaskForm):
     def validate_identification(self, identification):
         # If user identification exists -> error
         if User.query.filter_by(identification=identification.data).first():
-            raise ValidationError('That identification is taken. Please choose a different one.')
+            raise ValidationError('That identification is taken.')
 
 class LoginForm(FlaskForm):
     identification = StringField('Identification', 

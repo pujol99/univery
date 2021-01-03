@@ -48,7 +48,7 @@
         <h3>Subjects</h3>
         {% for subject in current_user.subjects %}
         <div class="popup-col-subject" style="background-color: {{subject.color}};">
-            <p>{{subject.name}}</p>
+            <p>{{subject.subject.name}}</p>
         </div>
         {% endfor %}
     </div>

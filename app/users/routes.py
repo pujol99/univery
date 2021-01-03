@@ -35,13 +35,16 @@ def login():
 
     form = LoginForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(identification=form.identification.data).first()
+        user = User.query.filter_by(
+            identification=form.identification.data
+        ).first()
         #if user and bcrypt.check_password_hash(user.password, form.password.data):
         if user and user.password == form.password.data:
             login_user(user, remember=form.remember.data)
             return redirect(url_for('main.home'))
         return render_template('user/login.html', title="Login", form=form,
             message="Incorrect identification or password")
+
     return render_template('user/login.html', title="Login", form=form)
 
 @users.route("/account", methods=['GET', 'POST'])

@@ -8,7 +8,7 @@
 * download calendar to pdf
 * Create welcome page for users not logged in Showing web image and description of the web
 
+* is register necessary?
+
 ### Problems
 cant store hashed password bc of use recurrency
-
-

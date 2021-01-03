@@ -15,9 +15,15 @@ def subjects_page():
         # If exists in user university subjects add subject else display error message
         exists, name, id = check_subject(form.subject_id.data)
         if exists:
-            db.session.add(Subject(
-                identification=id, 
-                name=name, user_id=current_user.id, 
+            if not Subject.query.filter_by(identification=id).first():
+                db.session.add(Subject(
+                    identification=id, 
+                    name=name))
+            db.session.add(UserSubject(  
+                subject_id=Subject.query.filter_by(
+                    identification=id
+                    ).first().id,
+                user_id=current_user.id, 
                 color="#"+form.subject_color.data))
             db.session.commit()
         else:
@@ -28,15 +34,7 @@ def subjects_page():
 @subjects.route("/subject-remove/<int:id>")
 @login_required
 def subject_remove(id):
-    s = Subject.query.filter_by(
-        id=id,
-        user_id=current_user.id)
-    # Delete all the deliveries and the subject
-    Delivery.query.filter_by(
-        subject_id=s.first().identification,
-        user_id=current_user.id
-    ).delete()
-    s.delete()
+    UserSubject.query.filter_by(user_id=current_user.id).delete()
     db.session.commit()
 
     return redirect(url_for('subjects.subjects_page'))

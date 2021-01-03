@@ -19,7 +19,7 @@ def get_deliveries():
         session.post(LOGIN, headers=HEADERS, data=PAYLOAD)
     
         deliveries = []
-        subject_ids = [subject.identification for subject in current_user.subjects]
+        subject_ids = [subject.subject.identification for subject in current_user.subjects]
         subjects = [SubjectObject(REQUEST+id, session, id) for id in subject_ids]
     
         for subject in subjects:
@@ -33,10 +33,10 @@ def get_deliveries():
 
 
 def filter_deliveries(deliveries, restriction):
-    deliveries = [(i, db.session.query(Subject).filter_by(
-        identification=i.subject_id,
-        user_id=current_user.id).first()
-        ) for i in deliveries if restriction(i)]
+    deliveries = [(i.delivery, db.session.query(UserSubject).filter_by(
+        subject_id=Subject.query.filter_by(identification=i.delivery.subject_id).first().id,
+        user_id=current_user.id
+        ).first()) for i in deliveries if restriction(i)]
     # Remove past ones
     #deliveries = [i for i in deliveries if is_future(i.toDate)]
     # Sort
@@ -49,6 +49,7 @@ class DeliveryObject:
     def __init__(self, url, session, subject_id):
         self.session = session
 
+        self.id = None
         self.name = None
         self.description = None
         self.date = None
@@ -59,6 +60,7 @@ class DeliveryObject:
         request = self.session.get(self.url)
         soup = BeautifulSoup(request.text, "html.parser")
 
+        self.id = self.url.split('=')[1]
         self.name = soup.find('h2').text
         description = soup.find(id='intro')
         self.description = description.text if description else None

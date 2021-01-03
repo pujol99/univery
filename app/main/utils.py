@@ -45,16 +45,16 @@ def get_days(ndays, view):
 
         elements = {
             'deliveries':[
-                (delivery, db.session.query(Subject).filter_by(
+                (d.delivery, db.session.query(UserSubject).filter_by(
+                    subject_id=Subject.query.filter_by(identification=d.delivery.subject_id).first().id,
+                    user_id=current_user.id
+                    ).first()
+                ) for d in db.session.query(UserDelivery).filter_by(
                     user_id=current_user.id,
-                    identification=delivery.subject_id
-                ).first()) for delivery in 
-                db.session.query(Delivery).filter_by(
-                    user_id=current_user.id,
-                    toDateStr=str(i_day.date()),
                     isDone=False,
                     isEliminated=False
-                ).all()] if i_day >= today else [],
+                ).all() if d.delivery.toDateStr == str(i_day.date())
+            ] if i_day >= today else [],
             'day': i_day.day,
             'color': day_color(today, i_day)}
         days.append(elements)
