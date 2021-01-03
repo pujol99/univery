@@ -11,7 +11,7 @@
             </div>
             {% endif %}
             <div class="form-group sm-margin">
-                {{ form.subject_id.label(class="form-control-label") }}
+                <p>{{ form.subject_id.label(class="form-control-label") }} <i>{number at the end of a subject's url}</i></p>
                 {% if form.subject_id.errors %}
                 {{ form.subject_id(class="form-control form-control-lg is-invalid") }}
                 <div class="invalid-feedback">
@@ -55,5 +55,7 @@
             {% endfor %}
         </div>
     </div>
+    
 </div>
+
 {% endblock content %}

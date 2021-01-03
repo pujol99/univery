@@ -251,6 +251,26 @@
     border: 3px solid black;
 }
 
+.popup-img{
+    display: none;
+    position: absolute;
+    left: 50%;
+    top: 200px;
+    width: 500px;
+    height: 100px;
+    transform: translate(-50%, 0);
+    background-color: green;
+    padding: 5px 30px 30px 30px;
+    border: 3px solid black;
+}
+
+.popup-img p{
+    color: honeydew;
+    text-align:center;
+    font-size: 20px;
+    padding-top: 10px;
+}
+
 .popup-col h3{
     text-align: center;
 }
@@ -476,4 +496,22 @@
     float: left;
     font-size: 25px;
     font-weight: bold;
+}
+
+.background{
+    background: url("./web_pics/bg.jpg") center;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+}
+
+.center-div{
+    position: relative;
+    top: 50%;
+    left: 50%;
+    margin-top: -100px;
+    margin-left: -50px;
+    width: 100px;
+    height: 100px;
+    background-color: aquamarine;
 }
