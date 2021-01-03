@@ -89,7 +89,7 @@
         document.getElementById('popup-date').textContent = delivery[2];
 
         var next_url = delivery[7].toString();
-        if(next !== "None"){
+        if(next){
             next_url += '?next=' + next;}
 
         if(delivery[4] === "Done"){
