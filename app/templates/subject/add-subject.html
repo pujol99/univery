@@ -49,7 +49,7 @@
                     <p><b>{{subject.subject.identification}}</b> - {{subject.subject.name}}</p>
                 </div>
                 <div class="subject-action" style="flex:1;">
-                    <a href="{{url_for('subjects.subject_remove', id=subject.subject.id)}}"><img src="/static/web_pics/remove.png" alt="" srcset=""></a>
+                    <a href="{{url_for('subjects.subject_remove', id=subject.subject.identification)}}"><img src="/static/web_pics/remove.png" alt="" srcset=""></a>
                 </div>
             </div>
             {% endfor %}

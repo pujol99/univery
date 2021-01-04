@@ -20,9 +20,7 @@ def subjects_page():
                     identification=id, 
                     name=name))
             db.session.add(UserSubject(  
-                subject_id=Subject.query.filter_by(
-                    identification=id
-                    ).first().id,
+                subject_id=id,
                 user_id=current_user.id, 
                 color="#"+form.subject_color.data))
             db.session.commit()
@@ -34,7 +32,10 @@ def subjects_page():
 @subjects.route("/subject-remove/<int:id>")
 @login_required
 def subject_remove(id):
-    UserSubject.query.filter_by(user_id=current_user.id).delete()
+    UserSubject.query.filter_by(
+        subject_id=id, 
+        user_id=current_user.id
+    ).delete()
     db.session.commit()
 
     return redirect(url_for('subjects.subjects_page'))

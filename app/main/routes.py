@@ -10,6 +10,7 @@ main = Blueprint('main', __name__)
 def home():
     if not current_user.is_authenticated:
         return render_template('welcome.html', title="Welcome")
+    
     return render_template('delivery/not-done-deliveries.html', title="Home",
             deliveries=filter_deliveries(
                 current_user.deliveries,

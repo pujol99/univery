@@ -6,7 +6,7 @@ class UserDelivery(db.Model):
     __tablename__ = 'userDelivery'
     delivery_id = db.Column(db.Integer, db.ForeignKey('delivery.id'), primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
-    isDone = db.Column(db.Boolean, nullable=False, default=False),
+    isDone = db.Column(db.Boolean, nullable=False, default=False)
     isEliminated = db.Column(db.Boolean, nullable=False, default=False)
     delivery = db.relationship("Delivery", back_populates="users")
     user = db.relationship("User", back_populates="deliveries")
@@ -14,7 +14,7 @@ class UserDelivery(db.Model):
 
 class UserSubject(db.Model):
     __tablename__ = 'userSubject'
-    subject_id = db.Column(db.Integer, db.ForeignKey('subject.id'), primary_key=True)
+    subject_id = db.Column(db.Integer, db.ForeignKey('subject.identification'), primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
     color = db.Column(db.String(10), nullable=False, default="#000")
     subject = db.relationship("Subject", back_populates="users")
@@ -47,7 +47,7 @@ class Delivery(db.Model):
     toDate = db.Column(db.DateTime, nullable=True)
     toDateStr = db.Column(db.String(20), nullable=True)
     url = db.Column(db.String(300), nullable=True)
-    subject_id = db.Column(db.Integer, db.ForeignKey('subject.id'), nullable=False)
+    subject_id = db.Column(db.Integer, db.ForeignKey('subject.identification'), nullable=False)
 
     users = db.relationship("UserDelivery", back_populates="delivery")
 
@@ -56,8 +56,7 @@ class Delivery(db.Model):
 
 
 class Subject(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    identification = db.Column(db.String(15), nullable=False)
+    identification = db.Column(db.String(15), nullable=False, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
 
     users = db.relationship("UserSubject", back_populates="subject")

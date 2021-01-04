@@ -2,6 +2,10 @@ from ..models import *
 from app import db
 from flask_login import current_user
 from datetime import datetime, timedelta
+from urllib.parse import urlparse, urljoin
+from flask import request
+
+
 
 DATE_FORMAT = "%d-%m %H:%M" 
 
@@ -26,10 +30,12 @@ MONTHS = {
 def get_days(ndays, view):
     """
     List starting in this week's monday 
-        for element in list : element -> {
-            deliveries:[(delivery1, subject1),...] of that day,
-            day:day of the month,
-            str:color}
+        elements [] : element -> 
+        {   
+            deliveries: (Delivery, UserSubject) [] (of that day),
+            day: day of the month,
+            color: HEX str
+        }
     """
     today = datetime.strptime('2-10-2020', '%d-%m-%Y')
     # today = datetime.today()
@@ -44,16 +50,18 @@ def get_days(ndays, view):
             months.append(month_name)
 
         elements = {
-            'deliveries':[
-                (d.delivery, db.session.query(UserSubject).filter_by(
-                    subject_id=Subject.query.filter_by(identification=d.delivery.subject_id).first().id,
-                    user_id=current_user.id
+            # For UserDelivery object in day i get (Delivery, UserSubject)
+            'deliveries':[(
+                    ud.delivery, 
+                    db.session.query(UserSubject).filter_by(
+                        subject_id=ud.delivery.subject_id,
+                        user_id=current_user.id
                     ).first()
-                ) for d in db.session.query(UserDelivery).filter_by(
+                ) for ud in db.session.query(UserDelivery).filter_by(
                     user_id=current_user.id,
                     isDone=False,
                     isEliminated=False
-                ).all() if d.delivery.toDateStr == str(i_day.date())
+                ).all() if ud.delivery.toDateStr == str(i_day.date())
             ] if i_day >= today else [],
             'day': i_day.day,
             'color': day_color(today, i_day)}
@@ -69,3 +77,8 @@ def day_color(today, iday):
         return '#000'       # Color for past   
     else:
         return '#fff'       # Color for future
+
+def isSafeUrl(target):
+    ref_url = urlparse(request.host_url)
+    test_url = urlparse(urljoin(request.host_url, target))
+    return test_url.scheme in ('http', 'https') and ref_url.netloc == test_url.netloc

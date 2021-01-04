@@ -11,6 +11,7 @@ users = Blueprint('users', __name__)
 def register():
     if current_user.is_authenticated:
         return redirect(url_for('main.home'))
+    
     form = RegistrationForm()
     if form.validate_on_submit():
         if check_user(form.identification.data, form.password.data):
@@ -25,6 +26,7 @@ def register():
             return redirect(url_for('main.home'))
         return render_template('user/register.html', title='Register', form=form, 
                 message="Incorrect identification or password for universty login")
+    
     return render_template('user/register.html', title='Register', form=form)
 
 
@@ -55,6 +57,7 @@ def account():
         current_user.password = form.password.data
         db.session.commit()
         return redirect(url_for('main.home'))
+    
     return render_template('user/account.html', title="Account", form=form)
     
 

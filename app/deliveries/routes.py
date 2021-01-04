@@ -1,11 +1,11 @@
 from app import db
 from app.models import *
 from .forms import *
-from ..main.utils import get_days
+from ..main.utils import get_days, isSafeUrl
 from .utils import clean_description, get_deliveries
 
 from flask_login import current_user, login_required
-from flask import Blueprint, render_template, redirect, url_for, request
+from flask import Blueprint, render_template, redirect, url_for, request, abort
 from datetime import datetime
 
 deliveries = Blueprint('deliveries', __name__)
@@ -43,7 +43,9 @@ def add_delivery():
         db.session.commit()
 
         next_page = request.args.get('next')
-        return redirect(url_for(next_page if next_page else 'main.home'))
+        if not isSafeUrl(next_page):
+            return abort(400)
+        return redirect(url_for(next_page or 'main.home'))
 
     # GET method
     return render_template('delivery/add-delivery.html', title="Add delivery", form=form)
@@ -59,8 +61,11 @@ def delivery_done(id):
     if delivery:
         delivery.isDone = True
         db.session.commit()
+    
     next_page = request.args.get('next')
-    return redirect(url_for(next_page if next_page else 'main.home'))
+    if not isSafeUrl(next_page):
+            return abort(400)
+    return redirect(url_for(next_page or 'main.home'))
 
 @deliveries.route("/delivery-undone/<int:id>")
 @login_required
@@ -75,7 +80,9 @@ def delivery_undone(id):
         db.session.commit()
 
     next_page = request.args.get('next')
-    return redirect(url_for(next_page if next_page else 'main.done_deliveries'))
+    if not isSafeUrl(next_page):
+            return abort(400)
+    return redirect(url_for(next_page or 'main.done_deliveries'))
 
 @deliveries.route("/delivery-remove/<int:id>")
 @login_required
@@ -90,7 +97,9 @@ def delivery_remove(id):
         db.session.commit()
 
     next_page = request.args.get('next')
-    return redirect(url_for(next_page if next_page else 'main.home'))
+    if not isSafeUrl(next_page):
+            return abort(400)
+    return redirect(url_for(next_page or 'main.home'))
 
 @deliveries.route("/delivery-restore/<int:id>")
 @login_required
@@ -106,7 +115,9 @@ def delivery_restore(id):
         db.session.commit()
 
     next_page = request.args.get('next')
-    return redirect(url_for(next_page if next_page else 'main.removed_deliveries'))
+    if not isSafeUrl(next_page):
+            return abort(400)
+    return redirect(url_for(next_page or 'main.removed_deliveries'))
 
 @deliveries.route("/calendar/<int:n>")
 @deliveries.route("/calendar")
@@ -127,7 +138,7 @@ def update_deliveries():
     # Update user's last update time
     current_user.last_update = datetime.now()
 
-    # Read all the deliveries from {user.subjects} university pages
+    # Read all the DeliveryObjects from {user.subjects} university pages
     for delivery in get_deliveries():
         # Check if the delivery is already on our database
         subject_id      = delivery.subject_id
@@ -163,5 +174,8 @@ def update_deliveries():
                 isDone=False, 
                 isEliminated=False))
     db.session.commit()
+
     next_page = request.args.get('next')
-    return redirect(url_for(next_page if next_page else 'main.home'))
+    if not isSafeUrl(next_page):
+            return abort(400)
+    return redirect(url_for(next_page or 'main.home'))

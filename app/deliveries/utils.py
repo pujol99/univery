@@ -33,12 +33,18 @@ def get_deliveries():
 
 
 def filter_deliveries(deliveries, restriction):
+    """
+        deliveries: UserDelivery []
+        restriction: lambda function
+
+        return:: Delivery []
+    """
     deliveries = [(i.delivery, db.session.query(UserSubject).filter_by(
-        subject_id=Subject.query.filter_by(identification=i.delivery.subject_id).first().id,
+        subject_id=i.delivery.subject_id,
         user_id=current_user.id
         ).first()) for i in deliveries if restriction(i)]
     # Remove past ones
-    #deliveries = [i for i in deliveries if is_future(i.toDate)]
+    #deliveries = [i for i in deliveries if is_future(i[0].toDate)]
     # Sort
     return list(reversed(sorted(deliveries, key=lambda x: x[0].toDate)))
     
