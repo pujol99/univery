@@ -2,10 +2,7 @@
 
 
 
-* Try to add subject_id argument in deliveryUser Model
-
-
-
+* remove manually added deliveries when subject removal
 
 
 * Rethink database models (no exact subjects/deliveries repetitions in db)

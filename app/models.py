@@ -14,7 +14,7 @@ class UserDelivery(db.Model):
 
 class UserSubject(db.Model):
     __tablename__ = 'userSubject'
-    subject_id = db.Column(db.Integer, db.ForeignKey('subject.identification'), primary_key=True)
+    subject_id = db.Column(db.String(15), db.ForeignKey('subject.identification'), primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
     color = db.Column(db.String(10), nullable=False, default="#000")
     subject = db.relationship("Subject", back_populates="users")
@@ -41,13 +41,13 @@ class User(db.Model, UserMixin):
 
 class Delivery(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    identification = db.Column(db.String(15), nullable=True)
+    identification = db.Column(db.String(15), nullable=False, default=0)
     name = db.Column(db.String(50), nullable=False)
     description = db.Column(db.String(400))
     toDate = db.Column(db.DateTime, nullable=True)
     toDateStr = db.Column(db.String(20), nullable=True)
     url = db.Column(db.String(300), nullable=True)
-    subject_id = db.Column(db.Integer, db.ForeignKey('subject.identification'), nullable=False)
+    subject_id = db.Column(db.String(15), db.ForeignKey('subject.identification'), nullable=False)
 
     users = db.relationship("UserDelivery", back_populates="delivery")
 

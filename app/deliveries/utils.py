@@ -6,7 +6,8 @@ import time
 from flask_login import current_user
 from ..subjects.utils import SubjectObject
 from ..models import *
-from ..main.utils import PAYLOAD, REQUEST, LOGIN, HEADERS, MONTHS
+from ..main.utils import *
+from ..global_utils import * 
 from app import db
 
 def get_deliveries(subjects):
@@ -34,36 +35,14 @@ def get_deliveries(subjects):
     
         return [delivery for delivery in deliveries if delivery.date]
 
-def addDeliveryDB(identification, name, description, toDate, subject_name, subject_id, url):
-    db.session.add(Delivery(
-        identification=identification,
-        name=name, 
-        description=clean_description(description), 
-        toDate=toDate,
-        toDateStr=str(toDate.date()),
-        subject_id=db.session.query(Subject
-            ).filter_by(name=subject_name
-            ).first().identification if subject_name else subject_id,
-        url=url))
-
-def addUserDeliveryDB(delivery_id):
-    db.session.add(UserDelivery(
-        delivery_id=delivery_id,
-        user_id=current_user.id, 
-        isDone=False, 
-        isEliminated=False))
-
 def filter_deliveries(deliveries, restriction):
     """
         filter deliveries that pass certain restriction
         (UserDelivery [], lambda function) -> (Delivery, UserSubject) []
     """
     deliveries = [(
-        ud.delivery, 
-        db.session.query(UserSubject).filter_by(
-            subject_id=ud.delivery.subject_id,
-            user_id=current_user.id
-        ).first()
+        ud.delivery,
+        USbySubject(ud.delivery.subject_id)
         ) for ud in deliveries if restriction(ud)
     ]
     # Remove past ones

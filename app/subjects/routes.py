@@ -1,4 +1,5 @@
-from app.models import *
+from ..models import *
+from ..global_utils import *
 from .forms import *
 from .utils import check_subject
 from app import db
@@ -32,14 +33,11 @@ def subjects_page():
 @subjects.route("/subject-remove/<int:id>")
 @login_required
 def subject_remove(id):
-    UserSubject.query.filter_by(
-        subject_id=id, 
-        user_id=current_user.id
-    ).delete()
-    UserDelivery.query.filter_by(
-        user_id=current_user.id,
-        delivery_id=
-    ).delete()
-    # db.session.commit()
+    # Remove US relation
+    deleteElements([USbySubject(id)])
+    # Remove all UD with subject deliveries
+    deleteElements(UDbySubject(id))
+    # Remove deliveries with no identification made by user and subject s
+    deleteElements(MDbySubject(id))
 
     return redirect(url_for('subjects.subjects_page'))

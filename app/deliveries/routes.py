@@ -2,6 +2,7 @@ from app import db
 from app.models import *
 from .forms import *
 from ..main.utils import *
+from ..global_utils import * 
 from .utils import *
 
 from flask_login import current_user, login_required
@@ -24,15 +25,11 @@ def add_delivery():
     
     # POST method - Add Delivery to DB and add relation between delivery and user
     if form.validate_on_submit():
-        addDeliveryDB(
-            None, form.delivery_name.data, form.delivery_description.data,
+        d = addDeliveryDB(
+            None, form.delivery_name.data, 
+            clean_description(form.delivery_description.data),
             form.toDate.data, form.subject_name.data, None, None)
-        addUserDeliveryDB(
-            db.session.query(Delivery)
-            .order_by(Delivery.id.desc())
-            .first().id)
-
-        db.session.commit()
+        addUserDeliveryDB(d.id)
 
         next_page = request.args.get('next')
         if not isSafeUrl(next_page):
@@ -46,9 +43,7 @@ def add_delivery():
 @login_required
 def delivery_done(id):
     # Mark delivery as done
-    delivery = UserDelivery.query.filter_by(
-        delivery_id=id, user_id=current_user.id
-    ).first()
+    delivery = UDbyDelivery(id)
 
     if delivery:
         delivery.isDone = True
@@ -63,9 +58,7 @@ def delivery_done(id):
 @login_required
 def delivery_undone(id):
     # Mark delivery as not done
-    delivery = UserDelivery.query.filter_by(
-        delivery_id=id, user_id=current_user.id
-    ).first()
+    delivery = UDbyDelivery(id)
 
     if delivery:
         delivery.isDone = False
@@ -80,9 +73,7 @@ def delivery_undone(id):
 @login_required
 def delivery_remove(id):
     # Mark delivery as eliminated
-    delivery = UserDelivery.query.filter_by(
-        delivery_id=id, user_id=current_user.id
-    ).first()
+    delivery = UDbyDelivery(id)
 
     if delivery:
         delivery.isEliminated = True
@@ -97,9 +88,7 @@ def delivery_remove(id):
 @login_required
 def delivery_restore(id):
     # Mark delivery as not eliminated
-    delivery = UserDelivery.query.filter_by(
-        delivery_id=id, user_id=current_user.id
-    ).first()
+    delivery = UDbyDelivery(id)
 
     if delivery:
         delivery.isEliminated = False
@@ -142,33 +131,24 @@ def update_deliveries():
 
         if not existent_delivery:
             # Add deliveries to DB
-            addDeliveryDB(
+            d = addDeliveryDB(
                 identification, delivery.name, description, 
                 date, None, delivery.subject_id, delivery.url)
-            addUserDeliveryDB(
-                db.session.query(Delivery)
-                .order_by(Delivery.id.desc())
-                .first().id)
+            addUserDeliveryDB(d.id)
         else:
             # Update old existing delivery
             if existent_delivery.toDate != date or existent_delivery.description != description:
                 existent_delivery.description = description
                 existent_delivery.toDate = date
                 existent_delivery.toDateStr = str(date.date())
+                db.session.commit()
             
             # Check if the userDelivery is already on our database
-            delivery_id = db.session.query(Delivery
-                ).filter_by(identification=identification
-                ).first().id
-    
-            existent_userDelivery = UserDelivery.query.filter_by(
-                delivery_id=delivery_id,
-                user_id=current_user.id).first()
-            
+            delivery_id = getDelivery(identification).id
+            existent_userDelivery = UDbyDelivery(delivery_id)
             if not existent_userDelivery:
                 addUserDeliveryDB(delivery_id)
 
-    db.session.commit()
 
     next_page = request.args.get('next')
     if not isSafeUrl(next_page):

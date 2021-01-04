@@ -1,7 +1,8 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, EqualTo, Length, Email, ValidationError
-from app.models import *
+from ..models import *
+from ..global_utils import *
 from flask_login import current_user
 
 class AddSubjectForm(FlaskForm):
@@ -13,8 +14,5 @@ class AddSubjectForm(FlaskForm):
 
     def validate_subject_id(self, subject_id):
         # If user identification exists -> error
-        if UserSubject.query.filter_by(
-                subject_id=subject_id.data,
-                user_id=current_user.id
-            ).first():
+        if USbySubject(subject_id.data):
             raise ValidationError('This subject already exists. Please choose a different one.')

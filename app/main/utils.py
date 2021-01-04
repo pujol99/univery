@@ -1,4 +1,5 @@
 from ..models import *
+from ..global_utils import *
 from app import db
 from flask_login import current_user
 from datetime import datetime, timedelta
@@ -50,18 +51,10 @@ def get_days(ndays, view):
             months.append(month_name)
 
         elements = {
-            # For UserDelivery object in day i get (Delivery, UserSubject)
             'deliveries':[(
                     ud.delivery, 
-                    db.session.query(UserSubject).filter_by(
-                        subject_id=ud.delivery.subject_id,
-                        user_id=current_user.id
-                    ).first()
-                ) for ud in db.session.query(UserDelivery).filter_by(
-                    user_id=current_user.id,
-                    isDone=False,
-                    isEliminated=False
-                ).all() if ud.delivery.toDateStr == str(i_day.date())
+                    USbySubject(ud.delivery.subject_id)
+                ) for ud in UDnotDone() if ud.delivery.toDateStr == str(i_day.date())
             ] if i_day >= today else [],
             'day': i_day.day,
             'color': day_color(today, i_day)}
