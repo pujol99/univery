@@ -7,7 +7,7 @@
 * Better style
 * download calendar to pdf
 * Create welcome page for users not logged in Showing web image and description of the web
-
+* Accept deliveries with no date
 * is register necessary?
 
 ### Problems

@@ -9,8 +9,11 @@ from ..models import *
 from ..main.utils import PAYLOAD, REQUEST, LOGIN, HEADERS, MONTHS
 from app import db
 
-def get_deliveries():
-    start = time.process_time()
+def get_deliveries(subjects):
+    """
+        Scrape all deliveries from university selected subjects
+        UserSubject [] -> DeliveryObject []
+    """
 
     PAYLOAD["adAS_username"] = current_user.identification
     PAYLOAD["adAS_password"] = current_user.password
@@ -19,10 +22,10 @@ def get_deliveries():
         session.post(LOGIN, headers=HEADERS, data=PAYLOAD)
     
         deliveries = []
-        subject_ids = [subject.subject.identification for subject in current_user.subjects]
-        subjects = [SubjectObject(REQUEST+id, session, id) for id in subject_ids]
+        subject_ids = [subject.subject.identification for subject in subjects]
+        subjectObjects = [SubjectObject(REQUEST+id, session, id) for id in subject_ids]
     
-        for subject in subjects:
+        for subject in subjectObjects:
             subject.scrape_subject()
             deliveries += [DeliveryObject(url, subject.session, subject.id) for url in subject.deliveries_url]
     
@@ -31,20 +34,42 @@ def get_deliveries():
     
         return [delivery for delivery in deliveries if delivery.date]
 
+def addDeliveryDB(identification, name, description, toDate, subject_name, subject_id, url):
+    db.session.add(Delivery(
+        identification=identification,
+        name=name, 
+        description=clean_description(description), 
+        toDate=toDate,
+        toDateStr=str(toDate.date()),
+        subject_id=db.session.query(Subject
+            ).filter_by(name=subject_name
+            ).first().identification
+            ) if subject_name else subject_id,
+        url=url)
+
+def addUserDeliveryDB(delivery_id):
+    db.session.add(UserDelivery(
+        delivery_id=delivery_id,
+        user_id=current_user.id, 
+        isDone=False, 
+        isEliminated=False))
 
 def filter_deliveries(deliveries, restriction):
     """
-        deliveries: UserDelivery []
-        restriction: lambda function
-
-        return:: Delivery []
+        filter deliveries that pass certain restriction
+        (UserDelivery [], lambda function) -> (Delivery, UserSubject) []
     """
-    deliveries = [(i.delivery, db.session.query(UserSubject).filter_by(
-        subject_id=i.delivery.subject_id,
-        user_id=current_user.id
-        ).first()) for i in deliveries if restriction(i)]
+    deliveries = [(
+        ud.delivery, 
+        db.session.query(UserSubject).filter_by(
+            subject_id=ud.delivery.subject_id,
+            user_id=current_user.id
+        ).first()
+        ) for ud in deliveries if restriction(ud)
+    ]
     # Remove past ones
     #deliveries = [i for i in deliveries if is_future(i[0].toDate)]
+
     # Sort
     return list(reversed(sorted(deliveries, key=lambda x: x[0].toDate)))
     
@@ -71,12 +96,12 @@ class DeliveryObject:
         description = soup.find(id='intro')
         self.description = description.text if description else None
 
-        # Find to do date information
+        # Find to do date intion
         info_columns = soup.findAll('tr')
         for col in info_columns:
             if not col.find('th'):
                 continue
-            if "Data de venciment" in col.find('th').text:    
+            if " de venciment" in col.find('th').text:    
                 self.date = to_datetime_ca(col.find('td').text)
             elif "Due date" in col.find('th').text:
                 self.date = to_datetime_en(col.find('td').text)

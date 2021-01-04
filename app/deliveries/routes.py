@@ -1,8 +1,8 @@
 from app import db
 from app.models import *
 from .forms import *
-from ..main.utils import get_days, isSafeUrl
-from .utils import clean_description, get_deliveries
+from ..main.utils import *
+from .utils import *
 
 from flask_login import current_user, login_required
 from flask import Blueprint, render_template, redirect, url_for, request, abort
@@ -19,27 +19,19 @@ def add_delivery():
     
     # Set the subject choice to the subject names of the user
     form = AddDeliveryForm()
-    form.subject_id.choices = [us.subject.name
+    form.subject_name.choices = [us.subject.name
         for us in current_user.subjects]
     
-    # POST method
+    # POST method - Add Delivery to DB and add relation between delivery and user
     if form.validate_on_submit():
-        db.session.add(Delivery(
-            name=form.delivery_name.data, 
-            description=clean_description(form.delivery_description.data), 
-            toDate=form.toDate.data,
-            toDateStr=str(form.toDate.data.date()),
-            subject_id=db.session.query(Subject
-                ).filter_by(name=form.subject_id.data
-                ).first().identification))
-        
-        db.session.add(UserDelivery(
-            delivery_id=db.session.query(Delivery)
-                .order_by(Delivery.id.desc())
-                .first().id,
-            user_id=current_user.id, 
-            isDone=False, 
-            isEliminated=False))
+        addDeliveryDB(
+            None, form.delivery_name.data, form.delivery_description.data,
+            form.toDate.data, form.subject_name.data, None, None)
+        addUserDeliveryDB(
+            db.session.query(Delivery)
+            .order_by(Delivery.id.desc())
+            .first().id)
+
         db.session.commit()
 
         next_page = request.args.get('next')
@@ -139,40 +131,43 @@ def update_deliveries():
     current_user.last_update = datetime.now()
 
     # Read all the DeliveryObjects from {user.subjects} university pages
-    for delivery in get_deliveries():
+    for delivery in get_deliveries(current_user.subjects):
+        identification = delivery.id
+        date = delivery.date
+        description = delivery.description
+
         # Check if the delivery is already on our database
-        subject_id      = delivery.subject_id
-        name            = delivery.name
-        description     = delivery.description
-        date            = delivery.date
-        url             = delivery.url
-        identification  = delivery.id
-
         existent_delivery = Delivery.query.filter_by(
-            identification=identification
-        ).first()
+            identification=identification).first()
 
-        # If it exists check for date changes else add the new delivery to our db
-        if existent_delivery and existent_delivery.toDate != date:
-            existent_delivery.toDate = date
-            existent_delivery.toDateStr = str(date.date())
-        elif not existent_delivery:
-            db.session.add(Delivery(
-                identification=identification,
-                name=name,
-                description=description,
-                toDate=date,
-                toDateStr=str(date.date()),
-                url=url,
-                subject_id=subject_id))
+        if not existent_delivery:
+            # Add deliveries to DB
+            addDeliveryDB(
+                identification, delivery.name, description, 
+                date, None, delivery.subject_id, delivery.url)
+            addUserDeliveryDB(
+                db.session.query(Delivery)
+                .order_by(Delivery.id.desc())
+                .first().id)
+        else:
+            # Update old existing delivery
+            if existent_delivery.toDate != date or existent_delivery.description != description:
+                existent_delivery.description = description
+                existent_delivery.toDate = date
+                existent_delivery.toDateStr = str(date.date())
+            
+            # Check if the userDelivery is already on our database
+            delivery_id = db.session.query(Delivery
+                ).filter_by(identification=identification
+                ).first().id
+    
+            existent_userDelivery = UserDelivery.query.filter_by(
+                delivery_id=delivery_id,
+                user_id=current_user.id).first()
+            
+            if not existent_userDelivery:
+                addUserDeliveryDB(delivery_id)
 
-            db.session.add(UserDelivery(
-                delivery_id=db.session.query(Delivery)
-                    .order_by(Delivery.id.desc())
-                    .first().id,
-                user_id=current_user.id, 
-                isDone=False, 
-                isEliminated=False))
     db.session.commit()
 
     next_page = request.args.get('next')
