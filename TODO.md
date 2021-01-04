@@ -1,4 +1,13 @@
 ### Next TODOS
+
+
+
+* Try to add subject_id argument in deliveryUser Model
+
+
+
+
+
 * Rethink database models (no exact subjects/deliveries repetitions in db)
 * Not look at deliveries known that have ended (only if doing a refresh has been seen ended)
 * (Crazy idea) use other users recent refreshes in same delivery to save computation

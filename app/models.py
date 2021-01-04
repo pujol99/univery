@@ -60,6 +60,7 @@ class Subject(db.Model):
     name = db.Column(db.String(50), nullable=False)
 
     users = db.relationship("UserSubject", back_populates="subject")
+    deliveries = db.relationship('Delivery', backref='subject', lazy=True)
 
     def __repr__(self):
         return f"Subject('{self.name}', '{self.identification }')"

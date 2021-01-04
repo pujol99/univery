@@ -43,9 +43,8 @@ def addDeliveryDB(identification, name, description, toDate, subject_name, subje
         toDateStr=str(toDate.date()),
         subject_id=db.session.query(Subject
             ).filter_by(name=subject_name
-            ).first().identification
-            ) if subject_name else subject_id,
-        url=url)
+            ).first().identification if subject_name else subject_id,
+        url=url))
 
 def addUserDeliveryDB(delivery_id):
     db.session.add(UserDelivery(

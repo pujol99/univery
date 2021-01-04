@@ -37,7 +37,7 @@ def add_delivery():
         next_page = request.args.get('next')
         if not isSafeUrl(next_page):
             return abort(400)
-        return redirect(url_for(next_page or 'main.home'))
+        return redirect(url_for(next_page if next_page else 'main.home'))
 
     # GET method
     return render_template('delivery/add-delivery.html', title="Add delivery", form=form)
@@ -57,7 +57,7 @@ def delivery_done(id):
     next_page = request.args.get('next')
     if not isSafeUrl(next_page):
             return abort(400)
-    return redirect(url_for(next_page or 'main.home'))
+    return redirect(url_for(next_page if next_page else 'main.home'))
 
 @deliveries.route("/delivery-undone/<int:id>")
 @login_required
@@ -74,7 +74,7 @@ def delivery_undone(id):
     next_page = request.args.get('next')
     if not isSafeUrl(next_page):
             return abort(400)
-    return redirect(url_for(next_page or 'main.done_deliveries'))
+    return redirect(url_for(next_page if next_page else 'main.done_deliveries'))
 
 @deliveries.route("/delivery-remove/<int:id>")
 @login_required
@@ -91,7 +91,7 @@ def delivery_remove(id):
     next_page = request.args.get('next')
     if not isSafeUrl(next_page):
             return abort(400)
-    return redirect(url_for(next_page or 'main.home'))
+    return redirect(url_for(next_page if next_page else 'main.home'))
 
 @deliveries.route("/delivery-restore/<int:id>")
 @login_required
@@ -109,7 +109,7 @@ def delivery_restore(id):
     next_page = request.args.get('next')
     if not isSafeUrl(next_page):
             return abort(400)
-    return redirect(url_for(next_page or 'main.removed_deliveries'))
+    return redirect(url_for(next_page if next_page else 'main.removed_deliveries'))
 
 @deliveries.route("/calendar/<int:n>")
 @deliveries.route("/calendar")
@@ -173,4 +173,4 @@ def update_deliveries():
     next_page = request.args.get('next')
     if not isSafeUrl(next_page):
             return abort(400)
-    return redirect(url_for(next_page or 'main.home'))
+    return redirect(url_for(next_page if next_page else 'main.home'))

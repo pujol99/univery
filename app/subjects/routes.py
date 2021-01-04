@@ -36,6 +36,10 @@ def subject_remove(id):
         subject_id=id, 
         user_id=current_user.id
     ).delete()
-    db.session.commit()
+    UserDelivery.query.filter_by(
+        user_id=current_user.id,
+        delivery_id=
+    ).delete()
+    # db.session.commit()
 
     return redirect(url_for('subjects.subjects_page'))
