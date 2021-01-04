@@ -6,7 +6,7 @@ from ..global_utils import *
 from .utils import *
 
 from flask_login import current_user, login_required
-from flask import Blueprint, render_template, redirect, url_for, request, abort
+from flask import Blueprint, render_template, redirect, url_for
 from datetime import datetime
 
 deliveries = Blueprint('deliveries', __name__)
@@ -25,83 +25,41 @@ def add_delivery():
     
     # POST method - Add Delivery to DB and add relation between delivery and user
     if form.validate_on_submit():
-        d = addDeliveryDB(
-            None, form.delivery_name.data, 
-            clean_description(form.delivery_description.data),
-            form.toDate.data, form.subject_name.data, None, None)
-        addUserDeliveryDB(d.id)
+        delivery = addDeliveryDB(
+            name=form.delivery_name.data, 
+            description=clean_description(form.delivery_description.data),
+            toDate=form.toDate.data, 
+            subject_name=form.subject_name.data)
+        addUserDeliveryDB(delivery.id)
 
-        next_page = request.args.get('next')
-        if not isSafeUrl(next_page):
-            return abort(400)
-        return redirect(url_for(next_page if next_page else 'main.home'))
+        return redirect_to('main.home')
 
     # GET method
     return render_template('delivery/add-delivery.html', title="Add delivery", form=form)
 
-@deliveries.route("/delivery-done/<int:id>")
+@deliveries.route("/delivery/<string:action>/<int:id>")
 @login_required
-def delivery_done(id):
-    # Mark delivery as done
+def delivery(action, id):
+    # Modify delivery state
     delivery = UDbyDelivery(id)
 
     if delivery:
-        delivery.isDone = True
+        if action == "done":
+            delivery.isDone = True
+        elif action == "undone":
+            delivery.isDone = False
+        elif action == "remove":
+            delivery.isEliminated = True
+        else:
+            delivery.isEliminated = False
+            delivery.isDone = False
         db.session.commit()
     
-    next_page = request.args.get('next')
-    if not isSafeUrl(next_page):
-            return abort(400)
-    return redirect(url_for(next_page if next_page else 'main.home'))
+    return redirect_to('main.home')
 
-@deliveries.route("/delivery-undone/<int:id>")
-@login_required
-def delivery_undone(id):
-    # Mark delivery as not done
-    delivery = UDbyDelivery(id)
 
-    if delivery:
-        delivery.isDone = False
-        db.session.commit()
-
-    next_page = request.args.get('next')
-    if not isSafeUrl(next_page):
-            return abort(400)
-    return redirect(url_for(next_page if next_page else 'main.done_deliveries'))
-
-@deliveries.route("/delivery-remove/<int:id>")
-@login_required
-def delivery_remove(id):
-    # Mark delivery as eliminated
-    delivery = UDbyDelivery(id)
-
-    if delivery:
-        delivery.isEliminated = True
-        db.session.commit()
-
-    next_page = request.args.get('next')
-    if not isSafeUrl(next_page):
-            return abort(400)
-    return redirect(url_for(next_page if next_page else 'main.home'))
-
-@deliveries.route("/delivery-restore/<int:id>")
-@login_required
-def delivery_restore(id):
-    # Mark delivery as not eliminated
-    delivery = UDbyDelivery(id)
-
-    if delivery:
-        delivery.isEliminated = False
-        delivery.isDone = False
-        db.session.commit()
-
-    next_page = request.args.get('next')
-    if not isSafeUrl(next_page):
-            return abort(400)
-    return redirect(url_for(next_page if next_page else 'main.removed_deliveries'))
-
-@deliveries.route("/calendar/<int:n>")
 @deliveries.route("/calendar")
+@deliveries.route("/calendar/<int:n>")
 @login_required
 def calendar(n=0):
     days, month = get_days(14, n)
@@ -116,41 +74,27 @@ def update_deliveries():
     if not current_user.subjects:
         return redirect(url_for('subjects.subjects_page'))
 
-    # Update user's last update time
     current_user.last_update = datetime.now()
 
     # Read all the DeliveryObjects from {user.subjects} university pages
-    for delivery in get_deliveries(current_user.subjects):
-        identification = delivery.id
-        date = delivery.date
-        description = delivery.description
+    for d in get_deliveries(current_user.subjects):
+        # Check if the Delivery is already on our database
+        ed = getDelivery(d.id) # Existent Delivery object
 
-        # Check if the delivery is already on our database
-        existent_delivery = Delivery.query.filter_by(
-            identification=identification).first()
-
-        if not existent_delivery:
+        if not ed:
             # Add deliveries to DB
-            d = addDeliveryDB(
-                identification, delivery.name, description, 
-                date, None, delivery.subject_id, delivery.url)
-            addUserDeliveryDB(d.id)
+            delivery = addDeliveryDB(
+                d.id, d.name, d.description, 
+                d.date, None, d.subject_id, d.url)
+            addUserDeliveryDB(delivery.id)
         else:
             # Update old existing delivery
-            if existent_delivery.toDate != date or existent_delivery.description != description:
-                existent_delivery.description = description
-                existent_delivery.toDate = date
-                existent_delivery.toDateStr = str(date.date())
-                db.session.commit()
+            if ed.toDate != d.date or ed.description != d.description:
+                updateDeliveryInfo(ed, d.date, d.description)
             
-            # Check if the userDelivery is already on our database
-            delivery_id = getDelivery(identification).id
-            existent_userDelivery = UDbyDelivery(delivery_id)
-            if not existent_userDelivery:
+            # Check if the UserDelivery is already on our database
+            delivery_id = getDelivery(d.id).id
+            if not UDbyDelivery(delivery_id):
                 addUserDeliveryDB(delivery_id)
 
-
-    next_page = request.args.get('next')
-    if not isSafeUrl(next_page):
-            return abort(400)
-    return redirect(url_for(next_page if next_page else 'main.home'))
+    return redirect_to('main.home')

@@ -2,7 +2,9 @@ import requests, re
 from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
 import time
+from urllib.parse import urlparse, urljoin
 
+from flask import request, redirect, url_for, abort
 from flask_login import current_user
 from ..subjects.utils import SubjectObject
 from ..models import *
@@ -112,3 +114,14 @@ def to_datetime_en(date):
 
 def clean_description(description):
     return '~'.join(description.splitlines())
+
+def isSafeUrl(target):
+    ref_url = urlparse(request.host_url)
+    test_url = urlparse(urljoin(request.host_url, target))
+    return test_url.scheme in ('http', 'https') and ref_url.netloc == test_url.netloc
+
+def redirect_to(next_route):
+    next_page = request.args.get('next')
+    if not isSafeUrl(next_page):
+        return abort(400)
+    return redirect(url_for(next_page if next_page else next_route))

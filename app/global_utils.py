@@ -49,9 +49,9 @@ def MDbySubject(subject_id):
     ).filter(Delivery.subject_id==subject_id
     ).all()
 
-def addDeliveryDB(identification, name, description, toDate, subject_name, subject_id, url):
+def addDeliveryDB(name, id=None, description=None, toDate=None, subject_name=None, subject_id=None, url=None):
     d = Delivery(
-        identification=identification,
+        identification=id,
         name=name, 
         description=description, 
         toDate=toDate,
@@ -81,4 +81,10 @@ def getDelivery(identification):
 def deleteElements(elements):
     for element in elements:
         db.session.delete(element)
+    db.session.commit()
+
+def updateDeliveryInfo(delivery, date, description):
+    existent_delivery.description = description
+    existent_delivery.toDate = date
+    existent_delivery.toDateStr = str(date.date())
     db.session.commit()

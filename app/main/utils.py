@@ -3,8 +3,6 @@ from ..global_utils import *
 from app import db
 from flask_login import current_user
 from datetime import datetime, timedelta
-from urllib.parse import urlparse, urljoin
-from flask import request
 
 
 
@@ -70,8 +68,3 @@ def day_color(today, iday):
         return '#000'       # Color for past   
     else:
         return '#fff'       # Color for future
-
-def isSafeUrl(target):
-    ref_url = urlparse(request.host_url)
-    test_url = urlparse(urljoin(request.host_url, target))
-    return test_url.scheme in ('http', 'https') and ref_url.netloc == test_url.netloc
