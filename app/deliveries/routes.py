@@ -84,11 +84,11 @@ def update_deliveries():
         if not ed:
             # Add deliveries to DB
             delivery = addDeliveryDB(
-                d.id, d.name, d.description, 
+                d.name, d.id, d.description, 
                 d.date, None, d.subject_id, d.url)
             addUserDeliveryDB(delivery.id)
         else:
-            # Update old existing delivery
+            # Update old existing Delivery
             if ed.toDate != d.date or ed.description != d.description:
                 updateDeliveryInfo(ed, d.date, d.description)
             
