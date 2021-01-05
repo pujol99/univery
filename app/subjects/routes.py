@@ -1,10 +1,10 @@
 from ..models import *
 from ..global_utils import *
 from .forms import *
-from .utils import check_subject
+from .utils import *
 from app import db
 from flask_login import current_user, login_required
-from flask import Blueprint, render_template, redirect, url_for
+from flask import Blueprint, render_template, redirect, url_for, request
 
 subjects = Blueprint('subjects', __name__)
 
@@ -15,19 +15,15 @@ def subjects_page():
     if form.validate_on_submit():
         # If exists in user university subjects add subject else display error message
         exists, name, id = check_subject(form.subject_id.data)
-        if exists:
-            if not Subject.query.filter_by(identification=id).first():
-                db.session.add(Subject(
-                    identification=id, 
-                    name=name))
-            db.session.add(UserSubject(  
-                subject_id=id,
-                user_id=current_user.id, 
-                color="#"+form.subject_color.data))
-            db.session.commit()
-        else:
-            return render_template('subject/add-subject.html', title="Subjects", form=form, 
+        if not exists:
+            return render_template('subject/add-subject.html', title="Subjects", form=clean_form(AddSubjectForm()), 
                 message="Subject not found")
+
+        if not Subject.query.filter_by(identification=id).first():
+            addSubjectDB(name, id)
+        addUserSubjectDB(id, current_user.id, "#"+form.subject_color.data)
+        return redirect(url_for(request.endpoint))
+        
     return render_template('subject/add-subject.html', title="Subjects", form=form)
 
 @subjects.route("/subject-remove/<int:id>")

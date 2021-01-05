@@ -13,6 +13,6 @@ class AddSubjectForm(FlaskForm):
     submit = SubmitField('Add')
 
     def validate_subject_id(self, subject_id):
-        # If user identification exists -> error
+        # If UserSubject exists -> error
         if USbySubject(subject_id.data):
             raise ValidationError('This subject already exists. Please choose a different one.')

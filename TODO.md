@@ -7,6 +7,8 @@
 
 * remove manually added deliveries when subject removal
 
+* errors pages
+
 * Accept deliveries with no date
 * Not look at deliveries known that have ended (only if doing a refresh has been seen ended)
 * (Crazy idea) use other users recent refreshes in same delivery to save computation

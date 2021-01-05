@@ -62,10 +62,23 @@ def addDeliveryDB(name, id=None, description=None, toDate=None, subject_name=Non
     db.session.commit()
     return d
 
+def addSubjectDB(name, identification):
+    db.session.add(Subject(
+        identification=identification, 
+        name=name))
+    db.session.commit()
+
 def addUserDeliveryDB(delivery_id):
     db.session.add(UserDelivery(
         delivery_id=delivery_id,
         user_id=current_user.id))
+    db.session.commit()
+
+def addUserSubjectDB(subject_id, user_id, color):
+    db.session.add(UserSubject(  
+        subject_id=subject_id,
+        user_id=user_id, 
+        color=color))
     db.session.commit()
 
 def getSubject(name):

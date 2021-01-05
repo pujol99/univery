@@ -1,15 +1,7 @@
-from ..models import *
-from ..global_utils import *
-from app import db
-from flask_login import current_user
-from datetime import datetime, timedelta
-
-
-
-DATE_FORMAT = "%d-%m %H:%M" 
-
 LOGIN = "https://sso.upf.edu/CAS/index.php/login?service=https://www.upf.edu/c/portal/login"
-HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36"}
+HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36"
+    }
 REQUEST = "https://aulaglobal.upf.edu/course/view.php?id="
 PAYLOAD = {
     "adAS_i18n_theme": "ca",
@@ -26,3 +18,4 @@ MONTHS = {
     "novembre": "11", "desembre": "12",
 }
 
+DATE_FORMAT = "%d-%m %H:%M" 

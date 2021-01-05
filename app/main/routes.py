@@ -1,5 +1,4 @@
 from flask import Blueprint, request, render_template, redirect, url_for
-from app.models import *
 from flask_login import current_user, login_required
 from ..deliveries.utils import *
 from .utils import DATE_FORMAT
