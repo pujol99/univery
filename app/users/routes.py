@@ -16,12 +16,10 @@ def register():
     if form.validate_on_submit():
         if check_user(form.identification.data, form.password.data):
             #hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-            user = User(
+            user = addUserDB(
                 fullname=form.fullname.data, 
                 identification=form.identification.data, 
                 password=form.password.data)
-            db.session.add(user)
-            db.session.commit()
             login_user(user)
             return redirect(url_for('main.home'))
         return render_template('user/register.html', title='Register', form=form, 
@@ -37,9 +35,8 @@ def login():
 
     form = LoginForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(
-            identification=form.identification.data
-        ).first()
+        user = getUser(form.identification.data)
+
         #if user and bcrypt.check_password_hash(user.password, form.password.data):
         if user and user.password == form.password.data:
             login_user(user, remember=form.remember.data)

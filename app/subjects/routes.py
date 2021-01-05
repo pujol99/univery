@@ -16,7 +16,7 @@ def subjects_page():
         # If exists in user university subjects add subject else display error message
         exists, name, id = check_subject(form.subject_id.data)
         if not exists:
-            return render_template('subject/add-subject.html', title="Subjects", form=clean_form(AddSubjectForm()), 
+            return render_template('subject/add-subject.html', title="Subjects", form=form, 
                 message="Subject not found")
 
         if not Subject.query.filter_by(identification=id).first():

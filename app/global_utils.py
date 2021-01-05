@@ -68,6 +68,15 @@ def addSubjectDB(name, identification):
         name=name))
     db.session.commit()
 
+def addUserDB(fullname, identification, password):
+    u = User(
+        fullname=fullname, 
+        identification=identification, 
+        password=password)
+    db.session.add(u)
+    db.session.commit()
+    return u
+
 def addUserDeliveryDB(delivery_id):
     db.session.add(UserDelivery(
         delivery_id=delivery_id,
@@ -84,6 +93,11 @@ def addUserSubjectDB(subject_id, user_id, color):
 def getSubject(name):
     return db.session.query(Subject
     ).filter_by(name=name
+    ).first()
+
+def getUser(identification):
+    return db.session.query(User
+    ).filter_by(identification=identification
     ).first()
 
 def getDelivery(identification):
