@@ -31,9 +31,8 @@ def subjects_page():
 def subject_remove(id):
     # Remove US relation
     deleteElements([USbySubject(id)])
-    # Remove all UD with subject deliveries
-    deleteElements(UDbySubject(id))
     # Remove deliveries with no identification made by user and subject s
-    deleteElements(MDbySubject(id))
+    # Remove all UD with subject deliveries
+    deleteElements(UDbySubject(id) + MDbySubject(id))
 
     return redirect(url_for('subjects.subjects_page'))

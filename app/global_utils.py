@@ -110,6 +110,12 @@ def deleteElements(elements):
         db.session.delete(element)
     db.session.commit()
 
+def deleteDelivery(elements):
+    for element in elements:
+        db.session.query(Delivery
+            ).filter_by(id=element.id).delete()
+    db.session.commit()
+
 def updateDeliveryInfo(delivery, date, description):
     existent_delivery.description = description
     existent_delivery.toDate = date

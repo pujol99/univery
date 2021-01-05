@@ -1,13 +1,10 @@
 ### Next TODOS
+* Clean JS
 * Better design (sass) 
 * Mobile responsivness
 * Better style
-* Create welcome page for users not logged in Showing web image and description of the web
-* download calendar to pdf
-
-* remove manually added deliveries when subject removal
-
 * errors pages
+* Create welcome page for users not logged in Showing web image and description of the web
 
 * Accept deliveries with no date
 * Not look at deliveries known that have ended (only if doing a refresh has been seen ended)
@@ -16,3 +13,7 @@
 
 ### Problems
 cant store hashed password bc of use recurrency
+
+
+### Future
+* download calendar to pdf
