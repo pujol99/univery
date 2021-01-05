@@ -26,10 +26,10 @@
                     '{{delivery.toDate}}',
                     '{{delivery.url}}',
                     'Restore',
-                    '{{subject.name}}',
-                    '{{subject.id}}',
+                    '{{subject.subject.name}}',
+                    '{{subject.subject.identification}}',
                     '{{delivery.id}}'
-                    ])"
+                    ], '{{request.endpoint}}')")"
                     class="delivery-block" style="background-color: {{subject.color}};">
                 <div class="delivery-name">
                     <p>{{delivery.name}}</p>

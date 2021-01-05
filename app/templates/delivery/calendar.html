@@ -21,13 +21,13 @@
                     '{{delivery.toDate}}',
                     '{{delivery.url}}',
                     'Done',
-                    '{{subject.name}}',
-                    '{{subject.id}}',
+                    '{{subject.subject.name}}',
+                    '{{subject.subject.identification}}',
                     '{{delivery.id}}'
                     ], '{{request.endpoint}}')" style="
                         background-color: {{subject.color}};
                         border:3px solid {{subject.color}};">
-            <p class="day-element-name">{{delivery.name}}</p>
+            <p class="day-element-name small-font">{{delivery.name}}</p>
         </div>
         {% endfor %}
     </div>

@@ -32,23 +32,23 @@
             <a id="popup-url" target="_blank" href="#"><img src="../static/web_pics/link.png" alt=""></a>
         </div>
         <div id="popup-done-div" class="popup-del-action half-left">
-            <a id="popup-done" href="{{ url_for('deliveries.delivery_done', id=0) }}">Done</a>
+            <a id="popup-done" href="{{ url_for('deliveries.delivery', action='done', id=0) }}">Done</a>
         </div>
         <div id="popup-undone-div" class="popup-del-action half-left">
-            <a id="popup-undone" href="{{ url_for('deliveries.delivery_undone', id=0) }}">Not done</a>
+            <a id="popup-undone" href="{{ url_for('deliveries.delivery', action='undone', id=0) }}">Not done</a>
         </div>
         <div  id="popup-delete-div" class="popup-del-action half-left">
-            <a id="popup-delete" href="{{ url_for('deliveries.delivery_remove', id=0) }}">Remove</a>
+            <a id="popup-delete" href="{{ url_for('deliveries.delivery', action='remove', id=0) }}">Remove</a>
         </div>
         <div  id="popup-restore-div" class="popup-del-action half-left">
-            <a id="popup-restore" href="{{ url_for('deliveries.delivery_restore', id=0) }}">Restore</a>
+            <a id="popup-restore" href="{{ url_for('deliveries.delivery', action='restore', id=0) }}">Restore</a>
         </div>
     </div>
     <div id="popup-colors" class="popup-col">
         <h3>Subjects</h3>
         {% for subject in current_user.subjects %}
         <div class="popup-col-subject" style="background-color: {{subject.color}};">
-            <p>{{subject.name}}</p>
+            <p>{{subject.subject.name}}</p>
         </div>
         {% endfor %}
     </div>

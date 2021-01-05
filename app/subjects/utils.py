@@ -6,7 +6,7 @@ from ..main.utils import LOGIN, PAYLOAD, HEADERS
 def check_subject(id):
     PAYLOAD["adAS_username"] = current_user.identification
     PAYLOAD["adAS_password"] = current_user.password
-    request_url = "https://aulaglobal.upf.edu/course/view.php?id=" + str(id)
+    request_url = "https://aulaglobal.upf.edu/course/view.php?id=" + id
 
     with requests.Session() as session:
         session.post(LOGIN, headers=HEADERS, data=PAYLOAD)
@@ -26,6 +26,7 @@ def clean_name(name):
         if not any(letter.isdigit() for letter in word):
             words.append(word)
     return " ".join(words)
+
 
 class SubjectObject :
     def __init__(self, url, session, id):

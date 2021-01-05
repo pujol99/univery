@@ -515,3 +515,7 @@
     height: 100px;
     background-color: aquamarine;
 }
+
+.small-font{
+    font-size: max(min(25px,1vw),11px);
+}

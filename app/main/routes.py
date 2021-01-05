@@ -1,5 +1,4 @@
 from flask import Blueprint, request, render_template, redirect, url_for
-from app.models import *
 from flask_login import current_user, login_required
 from ..deliveries.utils import *
 from .utils import DATE_FORMAT
@@ -10,6 +9,7 @@ main = Blueprint('main', __name__)
 def home():
     if not current_user.is_authenticated:
         return render_template('welcome.html', title="Welcome")
+    
     return render_template('delivery/not-done-deliveries.html', title="Home",
             deliveries=filter_deliveries(
                 current_user.deliveries,

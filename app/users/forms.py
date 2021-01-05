@@ -1,10 +1,11 @@
 from flask_wtf import FlaskForm
-from flask_wtf.file import FileField, FileAllowed, FileRequired
 from flask_login import current_user
-from .utils import check_user
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, EqualTo, Length, Email, ValidationError
-from app.models import User
+
+from .utils import *
+from ..global_utils import *
+from ..models import *
 
 
 class RegistrationForm(FlaskForm):
@@ -18,8 +19,8 @@ class RegistrationForm(FlaskForm):
 
     def validate_identification(self, identification):
         # If user identification exists -> error
-        if User.query.filter_by(identification=identification.data).first():
-            raise ValidationError('That identification is taken. Please choose a different one.')
+        if getUser(identification.data):
+            raise ValidationError('That identification is taken.')
 
 class LoginForm(FlaskForm):
     identification = StringField('Identification', 

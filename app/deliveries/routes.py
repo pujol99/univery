@@ -1,11 +1,12 @@
 from app import db
 from app.models import *
 from .forms import *
-from ..main.utils import get_days
-from .utils import clean_description, get_deliveries
+from ..main.utils import *
+from ..global_utils import * 
+from .utils import *
 
 from flask_login import current_user, login_required
-from flask import Blueprint, render_template, redirect, url_for, request
+from flask import Blueprint, render_template, redirect, url_for
 from datetime import datetime
 
 deliveries = Blueprint('deliveries', __name__)
@@ -19,78 +20,46 @@ def add_delivery():
     
     # Set the subject choice to the subject names of the user
     form = AddDeliveryForm()
-    form.subject_id.choices = [subject.name 
-        for subject in db.session.query(Subject).filter_by(
-            user_id=current_user.id
-        ).all()]
+    form.subject_name.choices = [us.subject.name
+        for us in current_user.subjects]
     
-    # POST method
+    # POST method - Add Delivery to DB and add relation between delivery and user
     if form.validate_on_submit():
-        db.session.add(Delivery(
+        delivery = addDeliveryDB(
             name=form.delivery_name.data, 
-            description=clean_description(form.delivery_description.data), 
-            toDate=form.toDate.data,
-            toDateStr=str(form.toDate.data.date()),
-            user_id=current_user.id, 
-            subject_id=db.session.query(Subject).filter_by(name=form.subject_id.data).first().identification))
-        db.session.commit()
+            description=clean_description(form.delivery_description.data),
+            toDate=form.toDate.data, 
+            subject_name=form.subject_name.data)
+        addUserDeliveryDB(delivery.id)
 
-        next_page = request.args.get('next')
-        return redirect(url_for(next_page if next_page else 'main.home'))
+        return redirect_to('main.home')
 
     # GET method
     return render_template('delivery/add-delivery.html', title="Add delivery", form=form)
 
-@deliveries.route("/delivery-done/<int:id>")
+@deliveries.route("/delivery/<string:action>/<int:id>")
 @login_required
-def delivery_done(id):
-    # Mark delivery as done
-    delivery = Delivery.query.filter_by(id=id, user_id=current_user.id).first()
+def delivery(action, id):
+    # Modify delivery state
+    delivery = UDbyDelivery(id)
+
     if delivery:
-        delivery.isDone = True
+        if action == "done":
+            delivery.isDone = True
+        elif action == "undone":
+            delivery.isDone = False
+        elif action == "remove":
+            delivery.isEliminated = True
+        else:
+            delivery.isEliminated = False
+            delivery.isDone = False
         db.session.commit()
-    next_page = request.args.get('next')
-    return redirect(url_for(next_page if next_page else 'main.home'))
+    
+    return redirect_to('main.home')
 
-@deliveries.route("/delivery-undone/<int:id>")
-@login_required
-def delivery_undone(id):
-    # Mark delivery as not done
-    delivery = Delivery.query.filter_by(id=id, user_id=current_user.id).first()
-    if delivery:
-        delivery.isDone = False
-        db.session.commit()
 
-    next_page = request.args.get('next')
-    return redirect(url_for(next_page if next_page else 'main.done_deliveries'))
-
-@deliveries.route("/delivery-remove/<int:id>")
-@login_required
-def delivery_remove(id):
-    # Mark delivery as eliminated
-    delivery = Delivery.query.filter_by(id=id, user_id=current_user.id).first()
-    if delivery:
-        delivery.isEliminated = True
-        db.session.commit()
-
-    next_page = request.args.get('next')
-    return redirect(url_for(next_page if next_page else 'main.home'))
-
-@deliveries.route("/delivery-restore/<int:id>")
-@login_required
-def delivery_restore(id):
-    # Mark delivery as not eliminated
-    delivery = Delivery.query.filter_by(id=id, user_id=current_user.id).first()
-    if delivery:
-        delivery.isEliminated = False
-        delivery.isDone = False
-        db.session.commit()
-
-    next_page = request.args.get('next')
-    return redirect(url_for(next_page if next_page else 'main.removed_deliveries'))
-
-@deliveries.route("/calendar/<int:n>")
 @deliveries.route("/calendar")
+@deliveries.route("/calendar/<int:n>")
 @login_required
 def calendar(n=0):
     days, month = get_days(14, n)
@@ -105,36 +74,27 @@ def update_deliveries():
     if not current_user.subjects:
         return redirect(url_for('subjects.subjects_page'))
 
-    # Update user's last update time
     current_user.last_update = datetime.now()
 
-    # Read all the deliveries from {user.subjects} university pages
-    for delivery in get_deliveries():
-        # Check if the delivery is already on our database
-        subject_id  = delivery.subject_id
-        name        = delivery.name
-        description = delivery.description
-        date        = delivery.date
-        url         = delivery.url
+    # Read all the DeliveryObjects from {user.subjects} university pages
+    for d in get_deliveries(current_user.subjects):
+        # Check if the Delivery is already on our database
+        ed = getDelivery(d.id) # Existent Delivery object
 
-        existent_delivery = Delivery.query.filter_by(
-            name=name,
-            subject_id=subject_id,
-            user_id=current_user.id).first()
+        if not ed:
+            # Add deliveries to DB
+            delivery = addDeliveryDB(
+                d.name, d.id, d.description, 
+                d.date, None, d.subject_id, d.url)
+            addUserDeliveryDB(delivery.id)
+        else:
+            # Update old existing Delivery
+            if ed.toDate != d.date or ed.description != d.description:
+                updateDeliveryInfo(ed, d.date, d.description)
+            
+            # Check if the UserDelivery is already on our database
+            delivery_id = getDelivery(d.id).id
+            if not UDbyDelivery(delivery_id):
+                addUserDeliveryDB(delivery_id)
 
-        # If it exists check for date changes else add the new delivery to our db
-        if existent_delivery and existent_delivery.toDate != date:
-            existent_delivery.toDate = date
-            existent_delivery.toDateStr = str(date.date())
-        elif not existent_delivery:
-            db.session.add(Delivery(
-                name=name,
-                description=description,
-                toDate=date,
-                toDateStr=str(date.date()),
-                url=url,
-                user_id=current_user.id, 
-                subject_id=subject_id))
-    db.session.commit()
-    next_page = request.args.get('next')
-    return redirect(url_for(next_page if next_page else 'main.home'))
+    return redirect_to('main.home')
