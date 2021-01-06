@@ -77,7 +77,7 @@ def update_deliveries():
     current_user.last_update = datetime.now()
 
     # Read all the DeliveryObjects from {user.subjects} university pages
-    for d in get_deliveries(current_user.subjects):
+    for d in get_deliveries(current_user.subjects, session["password"]):
         # Check if the Delivery is already on our database
         ed = getDelivery(d.id) # Existent Delivery object
 

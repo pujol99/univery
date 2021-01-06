@@ -2,6 +2,7 @@ from flask_wtf import FlaskForm
 from flask_login import current_user
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, EqualTo, Length, Email, ValidationError
+from app import bcrypt
 
 from .utils import *
 from ..global_utils import *
@@ -36,7 +37,7 @@ class UpdatePassword(FlaskForm):
     submit = SubmitField('Update')
 
     def validate_password(self, password):
-        if password.data == current_user.password:
+        if bcrypt.check_password_hash(current_user.password, password.data):
             raise ValidationError('That is your current password')
         if not check_user(current_user.identification, password.data):
             raise ValidationError('That password doesnt pass the login in the university')

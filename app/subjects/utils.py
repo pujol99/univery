@@ -2,10 +2,11 @@ import requests
 from bs4 import BeautifulSoup
 from flask_login import current_user
 from ..main.utils import LOGIN, PAYLOAD, HEADERS
+from app import db
 
-def check_subject(id):
+def check_subject(id, user_password):
     PAYLOAD["adAS_username"] = current_user.identification
-    PAYLOAD["adAS_password"] = current_user.password
+    PAYLOAD["adAS_password"] = user_password
     request_url = "https://aulaglobal.upf.edu/course/view.php?id=" + id
 
     with requests.Session() as session:

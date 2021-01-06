@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 import time
 from urllib.parse import urlparse, urljoin
 
-from flask import request, redirect, url_for, abort
+from flask import request, redirect, url_for, abort, session
 from flask_login import current_user
 from ..subjects.utils import SubjectObject
 from ..models import *
@@ -12,13 +12,13 @@ from ..main.utils import *
 from ..global_utils import * 
 from app import db
 
-def get_deliveries(subjects):
+def get_deliveries(subjects, user_password):
     """
         Scrape all deliveries from university selected subjects
         UserSubject [] -> DeliveryObject []
     """
     PAYLOAD["adAS_username"] = current_user.identification
-    PAYLOAD["adAS_password"] = current_user.password
+    PAYLOAD["adAS_password"] = user_password
 
     with requests.Session() as session:
         session.post(LOGIN, headers=HEADERS, data=PAYLOAD)
