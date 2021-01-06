@@ -27,7 +27,7 @@ def load_user(user_id):
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
-    fullname = db.Column(db.String(50), nullable=False)
+    fullname = db.Column(db.String(70), nullable=False)
     identification = db.Column(db.String(15), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
     last_update = db.Column(db.DateTime, nullable=True)
@@ -42,8 +42,8 @@ class User(db.Model, UserMixin):
 class Delivery(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     identification = db.Column(db.String(15), nullable=False, default=0)
-    name = db.Column(db.String(50), nullable=False)
-    description = db.Column(db.String(400))
+    name = db.Column(db.String(80), nullable=False)
+    description = db.Column(db.String(1000))
     toDate = db.Column(db.DateTime, nullable=True)
     toDateStr = db.Column(db.String(20), nullable=True)
     url = db.Column(db.String(300), nullable=True)
@@ -57,7 +57,7 @@ class Delivery(db.Model):
 
 class Subject(db.Model):
     identification = db.Column(db.String(15), nullable=False, primary_key=True)
-    name = db.Column(db.String(50), nullable=False)
+    name = db.Column(db.String(70), nullable=False)
 
     users = db.relationship("UserSubject", back_populates="subject")
     deliveries = db.relationship('Delivery', backref='subject', lazy=True)

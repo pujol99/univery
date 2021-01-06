@@ -74,7 +74,7 @@ def get_days(ndays, view):
                     USbySubject(ud.delivery.subject_id)
                 ) for ud in UDnotDone() if ud.delivery.toDateStr == str(i_day.date())
             ] if i_day >= today else [],
-            'day': i_day.day,
+            'day': str(i_day.day) + " " + i_day.strftime("%A"),
             'color': day_color(today, i_day)}
         days.append(elements)
     return days, "/".join(list(months))

@@ -10,9 +10,7 @@
 * Not look at deliveries known that have ended (only if doing a refresh has been seen ended)
 * (Crazy idea) use other users recent refreshes in same delivery to save computation
 * is register necessary?
-
-### Problems
-cant store hashed password bc of use recurrency
+* calendar stay in same week after done/remove
 
 
 ### Future
