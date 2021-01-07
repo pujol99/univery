@@ -29,8 +29,10 @@ def get_deliveries(subjects, user_password):
     
         for subject in subjectObjects:
             subject.scrape_subject()
-            deliveries += [DeliveryObject(url, subject.session, subject.id) for url in subject.deliveries_url]
-    
+            deliveries += [DeliveryObject(
+                url, subject.session, subject.id
+            ) for url in subject.deliveries_url if not checkDeliveryEnded(url.split('=')[1])]
+        
         for delivery in deliveries:
             delivery.scrape_delivery()
     
@@ -94,7 +96,7 @@ class DeliveryObject:
     def __init__(self, url, session, subject_id):
         self.session = session
 
-        self.id = None
+        self.id = url.split('=')[1]
         self.name = None
         self.description = None
         self.date = None
@@ -105,7 +107,6 @@ class DeliveryObject:
         request = self.session.get(self.url)
         soup = BeautifulSoup(request.text, "html.parser")
 
-        self.id = self.url.split('=')[1]
         self.name = soup.find('h2').text
         description = soup.find(id='intro')
         self.description = description.text if description else None
@@ -119,6 +120,7 @@ class DeliveryObject:
                 self.date = self.to_datetime_catalan(col.find('td').text)
             elif "Due date" in col.find('th').text:
                 self.date = self.to_datetime_english(col.find('td').text)
+    
     
     def to_datetime_catalan(self, date):
         parts = re.split("[,’ ]+", date)

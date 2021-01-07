@@ -47,6 +47,7 @@ class Delivery(db.Model):
     toDate = db.Column(db.DateTime, nullable=True)
     toDateStr = db.Column(db.String(20), nullable=True)
     url = db.Column(db.String(300), nullable=True)
+    hasEnded = db.Column(db.Boolean, nullable=False, default=False)
     subject_id = db.Column(db.String(15), db.ForeignKey('subject.identification'), nullable=False)
 
     users = db.relationship("UserDelivery", back_populates="delivery")

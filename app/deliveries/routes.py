@@ -92,6 +92,11 @@ def update_deliveries():
             if ed.toDate != d.date or ed.description != d.description:
                 updateDeliveryInfo(ed, d.date, d.description)
             
+            # Update hasEnded attribute if so
+            if ed.toDate < datetime.now():
+                ed.hasEnded = True
+                db.session.commit()
+
             # Check if the UserDelivery is already on our database
             delivery_id = getDelivery(d.id).id
             if not UDbyDelivery(delivery_id):

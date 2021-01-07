@@ -1,6 +1,8 @@
 from app import db
-from flask_login import current_user
 from .models import *
+
+from flask_login import current_user
+from datetime import datetime
 
 def UDnotDone():
     return db.session.query(UserDelivery).filter_by(
@@ -56,6 +58,7 @@ def addDeliveryDB(name, id=None, description=None, toDate=None, subject_name=Non
         description=description, 
         toDate=toDate,
         toDateStr=str(toDate.date()),
+        hasEnded=toDate<datetime.now(),
         subject_id=getSubject(subject_name).identification if subject_name else subject_id,
         url=url)
     db.session.add(d)
@@ -121,3 +124,9 @@ def updateDeliveryInfo(delivery, date, description):
     existent_delivery.toDate = date
     existent_delivery.toDateStr = str(date.date())
     db.session.commit()
+
+def checkDeliveryEnded(delivery_id):
+    d = getDelivery(delivery_id)
+    if not d:
+        return False
+    return d.hasEnded
