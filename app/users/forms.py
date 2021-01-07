@@ -12,9 +12,9 @@ from ..models import *
 class RegistrationForm(FlaskForm):
     fullname = StringField('Fullname',
         validators=[DataRequired(), Length(max=40)])
-    identification = StringField('Identification', 
+    identification = StringField('University identification', 
         validators=[DataRequired(), Length(max=15)])
-    password = PasswordField('Password', 
+    password = PasswordField('University password', 
         validators=[DataRequired()])
     submit = SubmitField('Sign up')
 
@@ -24,11 +24,10 @@ class RegistrationForm(FlaskForm):
             raise ValidationError('That identification is taken.')
 
 class LoginForm(FlaskForm):
-    identification = StringField('Identification', 
+    identification = StringField('University identification', 
         validators=[DataRequired(), Length(max=15)])
-    password = PasswordField('Password', 
+    password = PasswordField('University password', 
         validators=[DataRequired()])
-    remember = BooleanField('Remember me')
     submit = SubmitField('Login')
 
 class UpdatePassword(FlaskForm):

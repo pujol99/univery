@@ -44,15 +44,8 @@ def delivery(action, id):
     delivery = UDbyDelivery(id)
 
     if delivery:
-        if action == "done":
-            delivery.isDone = True
-        elif action == "undone":
-            delivery.isDone = False
-        elif action == "remove":
-            delivery.isEliminated = True
-        else:
-            delivery.isEliminated = False
-            delivery.isDone = False
+        delivery.isDone = True if action == "done" else False
+        delivery.isEliminated = True if action == "remove" else False
         db.session.commit()
     
     return redirect_to('main.home')

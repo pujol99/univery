@@ -29,9 +29,11 @@ def get_deliveries(subjects, user_password):
     
         for subject in subjectObjects:
             subject.scrape_subject()
-            deliveries += [DeliveryObject(
-                url, subject.session, subject.id
-            ) for url in subject.deliveries_url if not checkDeliveryEnded(url.split('=')[1])]
+            for url in subject.deliveries_url:
+                delivery_id = url.split('=')[1]
+                if not checkDeliveryEnded(delivery_id):
+                    deliveries.append(DeliveryObject(
+                        url, subject.session, subject.id, delivery_id))
         
         for delivery in deliveries:
             delivery.scrape_delivery()
@@ -76,7 +78,7 @@ def get_days(ndays, view):
                     USbySubject(ud.delivery.subject_id)
                 ) for ud in UDnotDone() if ud.delivery.toDateStr == str(i_day.date())
             ] if i_day >= today else [],
-            'day': str(i_day.day) + " " + i_day.strftime("%A"),
+            'day': i_day.strftime("%A") + " " + str(i_day.day),
             'color': day_color(today, i_day)}
         days.append(elements)
     return days, "/".join(list(months))
@@ -93,10 +95,10 @@ def day_color(today, iday):
         return '#fff'       # Color for future
 
 class DeliveryObject:
-    def __init__(self, url, session, subject_id):
+    def __init__(self, url, session, subject_id, delivery_id):
         self.session = session
 
-        self.id = url.split('=')[1]
+        self.id = delivery_id
         self.name = None
         self.description = None
         self.date = None
