@@ -4,6 +4,7 @@
 * Better style
 * errors pages
 
+* Add delivery as a button in calendar/deliveries, not in header
 * Create welcome page for users not logged in Showing web image and description of the web
 * Language change
 * calendar stay in same week after done/remove
