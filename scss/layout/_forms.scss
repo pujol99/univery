@@ -1,18 +1,60 @@
 .form-page{
-    background: $color1;
-    height: 100%;
-    margin-top: 100px;
+    height: fit-content;
     width: 100%;
-    left: 0em;
-    top: 0em;
-    position: fixed;
+    padding-top: 50px;
+    padding-bottom: 30px;
 }
 
 .form-box{
-    width: 500px;
+    width: calc(min(500px, 88%));
     height: fit-content;
     margin: 0 auto;
-    margin-top: 50px;
     background-color: aliceblue;
     padding: 20px;
+    font-family: $font2;
+}
+
+.form-title{
+    text-align: center;
+}
+
+.form-element{
+    font-size: $font-big;
+    margin: 10px;
+    @include mobile{
+        font-size: $font-small
+    }
+}
+
+.form-button{
+    @include center;
+    border-radius: $border-radius-big;
+}
+
+.form-button-2{
+    @include center;
+    margin-top: 30px;
+    a{
+        @include button(
+            $color2, 
+            $color1, 
+            $font-medium, 
+            $border-radius-big);
+        font-style: italic;
+        font-weight: 600;
+        text-decoration: none;
+        padding: 5px 30px;
+    }
+}
+
+.form-change{
+    margin-top: 20px;
+    font-weight: 700;
+    a{
+        color: $color1;
+        background-color: $color4;
+        text-decoration: none;
+        padding: 5px 10px;
+        font-weight: 700;
+    }
 }

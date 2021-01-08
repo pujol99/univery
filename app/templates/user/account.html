@@ -4,8 +4,8 @@
     <div class="form-box">
         <form method="POST" action="">
             {{ form.hidden_tag() }}
-            <h1 class="head-legend">Update password</h1>
-            <div class="form-group sm-margin">
+            <h1 class="form-title">Update password</h1>
+            <div class="form-group form-element">
                 {{ form.password.label(class="form-control-label") }}
                 {% if form.password.errors %}
                 {{ form.password(class="form-control form-control-lg is-invalid") }}
@@ -18,13 +18,14 @@
                 {{ form.password(class="form-control form-control-lg") }}
                 {% endif %}
             </div>
-            <div class="btn btn-primary sm-margin">
-                {{ form.submit(class="btn login-btn") }}
+            <div class="form-button">
+                {{ form.submit(class="button") }}
+            </div>
+            <div class="form-button-2">
+                <a href="{{ url_for('users.logout') }}">Logout</a>
             </div>
         </form>
     </div>
-    <div class="center">
-        <a class="btn btn-primary sm-margin" href="{{ url_for('users.logout') }}">Logout</a>
-    </div>
+    
 </div>
 {% endblock content %}

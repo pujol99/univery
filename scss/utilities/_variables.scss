@@ -6,12 +6,17 @@ $color5: #edf5e1;
 $color6: #3b444b;
 
 $mobile: 600px;
+$border-radius-small: 5px;
+$border-radius-medium: 10px;
+$border-radius-big: 20px;
 
 $font-smaller: 10px;
-$font-small: 15px;
+$font-small: 17px;
 $font-medium: 20px;
-$font-big: 25px;
+$font-big: 23px;
 $font-bigger: 30px;
 
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 $font1: 'Bebas Neue', cursive;
+@import url('https://fonts.googleapis.com/css2?family=Xanh+Mono&display=swap');
+$font2: 'Xanh Mono', monospace;

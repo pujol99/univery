@@ -1,9 +1,10 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, EqualTo, Length, Email, ValidationError
+from flask_login import current_user
+import re
 from ..models import *
 from ..global_utils import *
-from flask_login import current_user
 
 class AddSubjectForm(FlaskForm):
     subject_id = StringField('Subject ID',
@@ -16,3 +17,7 @@ class AddSubjectForm(FlaskForm):
         # If UserSubject exists -> error
         if USbySubject(subject_id.data):
             raise ValidationError('This subject already exists. Please choose a different one.')
+    
+    def validate_subject_color(self, subject_color):
+        if not re.search(r'^(?:[0-9a-fA-F]{3}){1,2}$', subject_color.data):
+            raise ValidationError('Invalid HEX color')

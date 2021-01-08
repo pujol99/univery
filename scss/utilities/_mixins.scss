@@ -3,3 +3,22 @@
         @content;
     }
 }
+
+@mixin center{
+    margin: 0 auto;
+    width: fit-content;
+}
+
+@mixin image($url){
+    background-image: url($url);
+    background-size: fill;
+}
+
+@mixin button($bg, $color, $font-size, $border-radius){
+    font-size: $font-size;
+    color: $color;
+    background-color: $bg;
+    border: none;
+    border-radius: $border-radius;
+    width: fit-content;
+}

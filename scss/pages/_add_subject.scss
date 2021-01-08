@@ -1,0 +1,39 @@
+.your-subjects{
+    background-color: rgb(63, 67, 63);
+    width: 90%;
+    margin: 0 auto;
+    overflow-y: scroll;
+    height: 200px;
+    margin-top: 20px;
+}
+
+.subject-name p{
+    background-color: #f1f1f1;
+    width: fit-content;
+    margin-top: 10px;
+    border-radius: 20px;
+    padding: 0 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+.subject-action{
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.subject-action img{
+    width: 35px;
+    height: 40px;
+    margin-top: 15%;
+}
+
+.subject-box{
+    height: fit-content;
+}
+
+.row {
+  display: flex; /* equal height of the children */
+  width: 100%;
+}

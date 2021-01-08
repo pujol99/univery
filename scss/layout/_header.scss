@@ -35,6 +35,9 @@
     li{
         margin-right: 20px;
         display: inline;
+        @include mobile{
+            margin-right: 8px;
+        }
         a{
             color: $color1;
             text-decoration: none;
@@ -45,6 +48,6 @@
     }
     @include mobile { 
         margin-top: 10px;
-        font-size: $font-medium
+        font-size: $font-big
     }
 }

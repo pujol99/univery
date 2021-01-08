@@ -1,7 +1,10 @@
 @import './base/resets';
+@import './base/general';
 @import './utilities/variables';
 @import './utilities/functions';
 @import './utilities/mixins';
 @import './components/slider';
+@import './components/button';
 @import './layout/header';
 @import './layout/forms';
+@import './pages/add_subject'

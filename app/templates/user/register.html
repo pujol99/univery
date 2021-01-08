@@ -4,13 +4,13 @@
     <div class="form-box">
         <form method="POST" action="">
             {{ form.hidden_tag() }}
-            <h1 class="head-legend">Register</h1>
+            <h1 class="form-title"><b> Register</b></h1>
             {% if message %}
             <div id="warning-message" class="alert alert-danger" role="alert">
                 {{message}}
             </div>
             {% endif %}
-            <div class="form-group sm-margin">
+            <div class="form-group form-element">
                 {{ form.fullname.label(class="form-control-label") }}
                 {% if form.fullname.errors %}
                 {{ form.fullname(class="form-control form-control-lg is-invalid") }}
@@ -23,7 +23,7 @@
                 {{ form.fullname(class="form-control form-control-lg") }}
                 {% endif %}
             </div>
-            <div class="form-group sm-margin">
+            <div class="form-group form-element">
                 {{ form.identification.label(class="form-control-label") }}
                 {% if form.identification.errors %}
                 {{ form.identification(class="form-control form-control-lg is-invalid") }}
@@ -36,7 +36,7 @@
                 {{ form.identification(class="form-control form-control-lg") }}
                 {% endif %}
             </div>
-            <div class="form-group sm-margin">
+            <div class="form-group form-element">
                 {{ form.password.label(class="form-control-label") }}
                 {% if form.password.errors %}
                 {{ form.password(class="form-control form-control-lg is-invalid") }}
@@ -49,11 +49,13 @@
                 {{ form.password(class="form-control form-control-lg") }}
                 {% endif %}
             </div>
-            <div class="btn btn-primary sm-margin">
-                {{ form.submit(class="btn") }}
+            <div class="form-button">
+                {{ form.submit(class="button") }}
             </div>
-            <div class="sm-margin">
-                <p>Have an account? <a href="{{url_for('users.login')}}">Login</a></p>
+            <div class="form-change">
+                <p>Have an account? <br>
+                    <a href="{{url_for('users.login')}}">Login</a>
+                </p>
             </div>
         </form>
     </div>
