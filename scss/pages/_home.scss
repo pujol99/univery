@@ -1,0 +1,57 @@
+.waiting-loading{
+
+}
+
+.refresh-box{
+    height: 100px;
+    text-align: center;
+    line-height: 100px;
+    vertical-align: middle;
+}
+
+#refresh-text{
+    background-color: $color0;
+    padding: 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: white;
+}
+
+#refresh-text:hover{
+    color: white;
+}
+
+#loading-text{
+    background-color: $color4;
+    padding: 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: black;
+}
+
+.popup-col{
+    position: absolute;
+    left: 50%;
+    top: 300px;
+    width: 300px;
+    height: fit-content;
+    transform: translate(-50%, 0);
+    background-color: whitesmoke;
+    padding: 5px 30px 30px 30px;
+    border: 3px solid black;
+}
+
+.popup-col-subject{
+    height: fit-content;
+    padding: 15px 0;
+}
+
+.popup-col-subject p{
+    margin: 0 10px;
+    font-weight: 500;
+    background-color: #f1f1f1;
+    width: fit-content;
+    border-radius: 20px;
+    padding: 0 10px;
+    font-size: 18px;
+}

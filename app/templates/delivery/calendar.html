@@ -1,21 +1,24 @@
 {% extends "home.html" %}
 {% block deliveries %}
-<div class="calendar">
-    <p class="month-name">{{month}}</p>
+<div class="calendar-page">
     <div class="colors-calendar">
         {% if view > 0 %}
-        <a style="float: left;" href="{{url_for('deliveries.calendar', n=view-1)}}">
+        <a class="left" href="{{url_for('deliveries.calendar', n=view-1)}}">
             <img width="40px" height="40px" src="/static/web_pics/prev.png" alt=""></a>
         {% endif %}
-        <a style="float: right;" href="{{url_for('deliveries.calendar', n=view+1)}}">
+        <a class="right" href="{{url_for('deliveries.calendar', n=view+1)}}">
             <img width="40px" height="40px" src="/static/web_pics/next.png" alt=""></a>
-        <p class="colors-calendar-content" id="colors-btn">Show colors</p>
+            <p class="colors-calendar-content" id="colors-btn">Show colors</p>
     </div>
-    {% for day in days %}
-    <div class="day" style="background-color: {{day['color']}};">
-        <p class="day-corner">{{day['day']}}</p>
-        {% for delivery, subject in day['deliveries'] %}
-        <div class="day-element" onclick="openPopup([
+    <div class="calendar">
+        <div class="month-name">
+            <p>{{month}}</p>
+        </div>
+        {% for day in days %}
+        <div class="day" style="background-color: {{day['color']}};">
+            <p class="day-corner">{{day['day']}}</p>
+            {% for delivery, subject in day['deliveries'] %}
+            <div class="day-element" onclick="openPopup([
                     '{{delivery.name}}',
                     '{{delivery.description}}',
                     '{{delivery.toDate}}',
@@ -27,11 +30,12 @@
                     ], '{{request.endpoint}}')" style="
                         background-color: {{subject.color}};
                         border:3px solid {{subject.color}};">
-            <p class="day-element-name small-font">{{delivery.name}}</p>
+                <p class="day-element-name small-font">{{delivery.name}}</p>
+            </div>
+            {% endfor %}
         </div>
         {% endfor %}
-    </div>
-    {% endfor %}
+    </div>  
 </div>
 
 {% endblock deliveries %}
