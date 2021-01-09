@@ -1,0 +1,105 @@
+.colors{
+    float: left;
+    width: 30%;
+    height: 100%;
+}
+
+.colors p{
+    width: fit-content;
+    margin-left: 20px;
+    margin-top: 20px;
+    padding: 3px 10px;
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: white;
+    cursor: help;
+}
+
+.last-update{
+    float: left;
+    width: 30%;
+    height: 100%;
+}
+
+.last-update p{
+    text-align: right;
+    font-size: 18px;
+    color: #1c273a;
+    font-weight: 600;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+.dropdown{
+    height: 100%;
+    float: left;
+    width: 40%;
+    text-align: center;
+}
+
+.delivery-dropdown{
+    margin-top: 20px;
+    float: center;
+    background-color: skyblue;
+    padding: 5px;
+    border: 2px solid black;
+    border-radius: 15px;
+}
+
+.delivery-container{
+    width: calc(min(80%, 900px));
+    margin: 0 auto;
+    height: 600px;
+    overflow-y: scroll;
+}
+
+.delivery-block{
+    border: 2px solid black;
+    height: 100px;
+    margin-bottom: 0px;
+    cursor: pointer;
+}
+
+.delivery-name{
+    width: 80%;
+    float: left;
+    height: 100px;
+    vertical-align: middle;
+    padding-left: 10px;
+    padding-right: 10px;
+    display: inline-block;
+    padding-top: 30px;
+    
+}
+
+.delivery-name p{
+    background-color: azure;
+    color: black;
+    width: fit-content;
+    padding: 5px 10px;
+    border-radius: 14px;
+}
+
+
+.delivery-date{
+    width: 20%;
+    float: left;
+    height: 100px;
+    vertical-align: middle;
+    display: inline-block;
+    padding-top: 30px;
+}
+
+.delivery-date p{
+    background-color: azure;
+    color: black;
+    width: fit-content;
+    padding: 5px 10px;
+    border-radius: 14px;
+}
+
+.menu{
+    width: calc(min(80%, 900px));
+    margin: 0 auto;
+    height: 70px;
+}
