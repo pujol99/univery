@@ -3,6 +3,10 @@ var TODO_DATES = [];
 TODO_DATES_CONTENT.forEach((item) =>
   TODO_DATES.push(new Date(item.textContent).getTime())
 );
+var DONE_PATH = document.getElementById("popup-done").href;
+var UNDONE_PATH = document.getElementById("popup-undone").href;
+var DELETE_PATH = document.getElementById("popup-delete").href;
+var RESTORE_PATH = document.getElementById("popup-restore").href;
 
 /* Compute time to each delivery in real time */
 function computeTime() {
@@ -87,8 +91,12 @@ popupColorTrigger.onmouseout = function () {
 };
 
 /* Delivery popup information */
-function openPopup(delivery, next) {
+function openPopup(delivery, next, ) {
   var actions = [], blocks = [];
+  document.getElementById("popup-done").href = DONE_PATH;
+  document.getElementById("popup-undone").href = UNDONE_PATH;
+  document.getElementById("popup-delete").href = DELETE_PATH;
+  document.getElementById("popup-restore").href = RESTORE_PATH;
   
   document.getElementById("popup").style.display = "block";
 
@@ -101,11 +109,11 @@ function openPopup(delivery, next) {
   );
 
   clear_actions();
-
+  console.log(next);
   var next_url = delivery[7].toString();
-  /*if (next) {
+  if (next) {
     next_url += "?next=" + next;
-  }*/
+  } 
 
   if (delivery[4] === "Done") {
     blocks = ["popup-done-div", "popup-delete-div"];

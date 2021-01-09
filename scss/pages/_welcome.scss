@@ -1,0 +1,25 @@
+.welcome{
+    width: 90%;
+    margin: 0 auto;
+    height: fit-content;
+}
+
+.welcome-element{
+    margin-top: 50px;
+}
+
+.welcome-image{
+    img{
+        margin: 0 auto;
+        padding-top: 40px;
+        display: block;
+        max-height: 500px;
+    }
+}
+
+.welcome-text{
+    background-color: white;
+    width: 60%;
+    margin: 0 auto;
+    text-align: center;
+}

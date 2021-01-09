@@ -20,7 +20,11 @@
         <div class="header-right">
             <ul class="links">
                 {% if current_user.is_authenticated %}
+                {% if "calendar" in request.endpoint %}
+                <li><a href="{{ url_for('main.home') }}">List</a></li>
+                {% else %}
                 <li><a href="{{ url_for('deliveries.calendar') }}">Calendar</a></li>
+                {% endif %}
                 <li><a href="{{ url_for('subjects.subjects_page') }}">Subjects</a></li>
                 <li><a href="{{ url_for('users.account') }}">Account</a></li>
                 {% else %}

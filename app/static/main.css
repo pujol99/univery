@@ -398,7 +398,7 @@
 .last-update p {
   text-align: right;
   font-size: 18px;
-  color: #1c273a;
+  color: white;
   font-weight: 600;
   margin-top: 10px;
   margin-right: 10px;
@@ -487,7 +487,7 @@
   vertical-align: middle;
 }
 
-#refresh-text {
+.refresh-text {
   background-color: #1c273a;
   padding: 10px;
   border-radius: 5px;
@@ -495,7 +495,7 @@
   color: white;
 }
 
-#refresh-text:hover {
+.refresh-text:hover {
   color: white;
 }
 
@@ -631,5 +631,31 @@
   color: black;
   -webkit-box-shadow: 5px 5px;
           box-shadow: 5px 5px;
+}
+
+.welcome {
+  width: 90%;
+  margin: 0 auto;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+
+.welcome-element {
+  margin-top: 50px;
+}
+
+.welcome-image img {
+  margin: 0 auto;
+  padding-top: 40px;
+  display: block;
+  max-height: 500px;
+}
+
+.welcome-text {
+  background-color: white;
+  width: 60%;
+  margin: 0 auto;
+  text-align: center;
 }
 /*# sourceMappingURL=main.css.map */

@@ -147,7 +147,15 @@ def isSafeUrl(target):
     return test_url.scheme in ('http', 'https') and ref_url.netloc == test_url.netloc
 
 def redirect_to(next_route):
+    """
+    Two types of inputs: 
+        (blueprint.route) -> redirect(url_for())
+        (direct/route/3) -> redirect()
+    """
+    
     next_page = request.args.get('next')
     if not isSafeUrl(next_page):
         return abort(400)
-    return redirect(url_for(next_page if next_page else next_route))
+    if "." in next_page:
+        return redirect(url_for(next_page if next_page else next_route))
+    return redirect(next_page if next_page else url_for(next_route))

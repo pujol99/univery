@@ -14,6 +14,7 @@
         <div class="month-name">
             <p>{{month}}</p>
         </div>
+
         {% for day in days %}
         <div class="day" style="background-color: {{day['color']}};">
             <p class="day-corner">{{day['day']}}</p>
@@ -27,7 +28,7 @@
                     '{{subject.subject.name}}',
                     '{{subject.subject.identification}}',
                     '{{delivery.id}}'
-                    ], '{{request.endpoint}}')" style="
+                    ], '/calendar/{{view}}')" style="
                         background-color: {{subject.color}};
                         border:3px solid {{subject.color}};">
                 <p class="day-element-name small-font">{{delivery.name}}</p>
