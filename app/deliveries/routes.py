@@ -35,6 +35,7 @@ def add_delivery():
         return redirect_to('main.home')
 
     # GET method
+    form.toDate.data = datetime.now().replace(hour=23, minute=59)
     return render_template('delivery/add-delivery.html', title="Add delivery", form=form)
 
 @deliveries.route("/delivery/<string:action>/<int:id>")

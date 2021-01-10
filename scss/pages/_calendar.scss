@@ -1,5 +1,5 @@
 .colors-calendar{
-    width: calc(min(50%,300px));
+    width: calc(min(80%,300px));
     margin: 0 auto;
     margin-bottom: 20px;
 }
@@ -21,12 +21,7 @@
 
 .calendar{
     margin-bottom: 50px;
-    box-shadow: 2px -1px 0px purple,
-                4px -2px 0px purple,
-                6px -3px 0px purple,
-                8px -4px 0px purple,
-                10px -5px 0px purple,
-                12px -6px 0px purple;
+    box-shadow: 12px -6px 0px purple;
     height: 500px+60px;
     @include tablet{
         height: 750px+60px;
@@ -51,6 +46,10 @@
     float: left;
     @include tablet{
         width: calc(100%/4 );
+    }
+    @include mobile{
+        width: 100%;
+        height: 175px;
     }
 }
 
