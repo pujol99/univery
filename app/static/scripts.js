@@ -155,3 +155,4 @@ function clear_actions(){
   document.getElementById("popup-delete-div").style.display = "none";
   document.getElementById("popup-restore-div").style.display = "none";
 }
+
