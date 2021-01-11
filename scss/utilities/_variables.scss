@@ -7,13 +7,13 @@ $color5: #edf5e1;
 $color6: #3b444b;
 $color7: #ffa500;
 
-$mobile: 600px;
-$tablet: 1000px;
+$mobile: 500px;
+$tablet: 800px;
 $border-radius-small: 5px;
 $border-radius-medium: 10px;
 $border-radius-big: 20px;
 
-$font-smaller: 12px;
+$font-smaller: 14px;
 $font-small: 17px;
 $font-medium: 20px;
 $font-big: 23px;
@@ -23,3 +23,5 @@ $font-bigger: 30px;
 $font1: 'Bebas Neue', cursive;
 @import url('https://fonts.googleapis.com/css2?family=Xanh+Mono&display=swap');
 $font2: 'Xanh Mono', monospace;
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap');
+$font3: 'Roboto Slab', serif;

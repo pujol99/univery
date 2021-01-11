@@ -20,9 +20,7 @@ function computeTime() {
       (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
 
-    if (days < 0) {
-      item.textContent = days + "d " + hours + "h " + minutes + "m ";
-    } else if (days < 1) {
+    if (days < 1) {
       item.textContent = hours + "h " + minutes + "m ";
     } else {
       item.textContent = days + "d " + hours + "h ";
@@ -91,7 +89,10 @@ popupColorTrigger.onmouseout = function () {
 };
 
 /* Delivery popup information */
-function openPopup(delivery, next, ) {
+function openPopup(delivery, next) {
+  if(next.includes("calendar") && window.innerWidth < 500){
+    window.scrollTo(0, 100);
+  }
   var actions = [], blocks = [];
   document.getElementById("popup-done").href = DONE_PATH;
   document.getElementById("popup-undone").href = UNDONE_PATH;
@@ -140,7 +141,12 @@ function openPopup(delivery, next, ) {
 
 function fill_information_popup(name, description, date, url, subject){
   document.getElementById("popup-name").textContent = name;
-  document.getElementById("popup-descr").textContent = description;
+  if(!description){
+    document.getElementById("popup-descr").style.display = "none";
+  }else{
+    document.getElementById("popup-descr").style.display = "block";
+    document.getElementById("popup-descr").textContent = description;
+  }
   document.getElementById("popup-date").textContent = date;
   document.getElementById("popup-url").href = url;
   document.getElementById("show-url").style.display =
@@ -155,4 +161,3 @@ function clear_actions(){
   document.getElementById("popup-delete-div").style.display = "none";
   document.getElementById("popup-restore-div").style.display = "none";
 }
-

@@ -2,7 +2,7 @@
     background-color: $color2;
     width: 100%;
     height: 120px;
-    @include mobile{
+    @include tablet{
         height: 140px;
     }
 }
@@ -11,7 +11,7 @@
     width: 70%;
     height: 100%;
     float: right;
-    @include mobile{
+    @include tablet{
         width: 100%;
         height: 50%;
     }
@@ -21,7 +21,7 @@
     width: 30%;
     height: 100%;
     float: left;
-    @include mobile{
+    @include tablet{
         width: 100%;
         height: 50%;
     }
@@ -36,7 +36,7 @@
     li{
         margin-right: 20px;
         display: inline;
-        @include mobile{
+        @include tablet{
             margin-right: 8px;
         }
         a{
@@ -47,8 +47,12 @@
             }
         } 
     }
-    @include mobile { 
-        margin-top: 10px;
-        font-size: $font-big
+    @include tablet { 
+        margin-top: 30px;
+        font-size: 26px;
     }
+}
+
+#logo{
+    transform: translate(0, -150px);
 }

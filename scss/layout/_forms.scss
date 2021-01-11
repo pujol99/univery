@@ -3,6 +3,9 @@
     width: 100%;
     padding-top: 50px;
     padding-bottom: 30px;
+    @include mobile{
+        padding-top: 20px;
+    }
 }
 
 .form-box{
@@ -12,6 +15,9 @@
     background-color: $color3;
     padding: 20px;
     font-family: $font2;
+    @include mobile{
+        padding: 5px;
+    }
 }
 
 .form-title{
@@ -22,7 +28,8 @@
     font-size: $font-big;
     margin: 10px;
     @include mobile{
-        font-size: $font-small
+        font-size: $font-small;
+        margin: 4px;
     }
 }
 

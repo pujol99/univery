@@ -1,24 +1,36 @@
+
+
 .colors{
     float: left;
     width: 30%;
     height: 100%;
-}
-
-.colors p{
-    width: fit-content;
-    margin-left: 20px;
-    margin-top: 20px;
-    padding: 3px 10px;
-    border: 2px solid black;
-    border-radius: 5px;
-    background-color: white;
-    cursor: help;
+    @include mobile{
+        width: 40%;
+    }
+    p{
+        width: fit-content;
+        margin-left: 20px;
+        margin-top: 20px;
+        padding: 3px 10px;
+        border: 2px solid black;
+        border-radius: 5px;
+        background-color: white;
+        cursor: help;
+        @include mobile{
+            margin: 0px;
+            padding: 5px;
+            font-size: 15px;
+        }
+    }
 }
 
 .last-update{
     float: left;
     width: 30%;
     height: 100%;
+    @include mobile{
+        display: none;
+    }
 }
 
 .last-update p{
@@ -34,23 +46,37 @@
     height: 100%;
     float: left;
     width: 40%;
-    text-align: center;
+    @include mobile{
+        width: 60%;
+    }
 }
 
 .delivery-dropdown{
+    width: 100%;
     margin-top: 20px;
     float: center;
     background-color: skyblue;
     padding: 5px;
     border: 2px solid black;
     border-radius: 15px;
+    @include mobile{
+        margin-top: 0px;
+    }
 }
 
 .delivery-container{
     width: calc(min(80%, 900px));
-    margin: 0 auto;
-    height: 600px;
+    margin: 10px auto;
+    height: 450px;
     overflow-y: scroll;
+    font-family: $font2;
+    @include tablet{
+        width: 90%;
+    }
+    @include mobile{
+        width: 100%;
+        height: 400px;
+    }
 }
 
 .delivery-block{
@@ -64,20 +90,22 @@
     width: 80%;
     float: left;
     height: 100px;
-    vertical-align: middle;
-    padding-left: 10px;
-    padding-right: 10px;
-    display: inline-block;
-    padding-top: 30px;
-    
+    padding: 30px 0 10px 10px;
+    @include mobile{
+        width: 70%;
+    }    
 }
 
 .delivery-name p{
     background-color: azure;
     color: black;
     width: fit-content;
+    font-weight: 700;
     padding: 5px 10px;
     border-radius: 14px;
+    @include mobile{
+        font-size: $font-smaller;
+    }
 }
 
 
@@ -88,18 +116,28 @@
     vertical-align: middle;
     display: inline-block;
     padding-top: 30px;
+    @include mobile{
+        width: 30%;
+    } 
 }
 
 .delivery-date p{
     background-color: azure;
     color: black;
+    font-weight: 700;
     width: fit-content;
     padding: 5px 10px;
     border-radius: 14px;
+    @include mobile{
+        font-size: $font-smaller;
+    }
 }
 
 .menu{
     width: calc(min(80%, 900px));
     margin: 0 auto;
     height: 70px;
+    @include mobile{
+        height: 40px;
+    }
 }

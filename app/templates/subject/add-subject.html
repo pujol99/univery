@@ -45,7 +45,7 @@
             <h1 class="form-title">Your subjects</h1>
             <div class="your-subjects">
                 {% for subject in current_user.subjects %}
-                <div class="subject-box row">
+                <div class="subject-box">
                     <div class="subject-name" style="flex:10;background-color: {{subject.color}};">
                         <p><b>{{subject.subject.identification}}</b> - {{subject.subject.name}}</p>
                     </div>
@@ -56,7 +56,9 @@
                 {% endfor %}
             </div>
         </form>
-        
+        <div class="form-button-2">
+            <a href="{{ url_for('main.home') }}">Home</a>
+        </div>
     </div>
     
 </div>

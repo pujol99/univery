@@ -34,16 +34,16 @@
         <div id="show-url" class="popup-del-url">
             <a id="popup-url" target="_blank" href="#"><img src="../static/web_pics/link.png" alt=""></a>
         </div>
-        <div id="popup-done-div" class="popup-del-action half-left">
+        <div id="popup-done-div" class="popup-del-action">
             <a id="popup-done" href="{{ url_for('deliveries.delivery', action='done', id=0) }}">Done</a>
         </div>
-        <div id="popup-undone-div" class="popup-del-action half-left">
+        <div id="popup-undone-div" class="popup-del-action">
             <a id="popup-undone" href="{{ url_for('deliveries.delivery', action='undone', id=0) }}">Not done</a>
         </div>
-        <div  id="popup-delete-div" class="popup-del-action half-left">
+        <div  id="popup-delete-div" class="popup-del-action">
             <a id="popup-delete" href="{{ url_for('deliveries.delivery', action='remove', id=0) }}">Remove</a>
         </div>
-        <div  id="popup-restore-div" class="popup-del-action half-left">
+        <div  id="popup-restore-div" class="popup-del-action">
             <a id="popup-restore" href="{{ url_for('deliveries.delivery', action='restore', id=0) }}">Restore</a>
         </div>
     </div>

@@ -5,35 +5,42 @@
     overflow-y: scroll;
     height: 200px;
     margin-top: 20px;
-}
-
-.subject-name p{
-    background-color: #f1f1f1;
-    width: fit-content;
-    margin-top: 10px;
-    border-radius: 20px;
-    padding: 0 10px;
-    margin-left: 10px;
-    margin-right: 10px;
-    font-size: 18px;
-}
-
-.subject-action{
-    display: inline-block;
-    vertical-align: middle;
-}
-
-.subject-action img{
-    width: 35px;
-    height: 40px;
-    margin-top: 15%;
+    @include mobile{
+        width: 100%;
+        margin-top: 5px;
+        height: 150px;
+    }
 }
 
 .subject-box{
     height: fit-content;
 }
 
-.row {
-  display: flex; /* equal height of the children */
-  width: 100%;
+.subject-name{
+    width: 90%;
+    float: left;
+}
+
+.subject-name p{
+    background-color: #f1f1f1;
+    width: fit-content;
+    border-radius: 20px;
+    padding: 5px 10px;
+    margin: 10px 10px;
+    font-size: 18px;
+    @include mobile{
+        padding: 5px;
+        margin: 5px;
+        font-size: 16px;
+    }
+}
+
+.subject-action{
+    float: left;
+    width: 10%;
+}
+
+.subject-action img{
+    width: 30px;
+    height: 30px;
 }
