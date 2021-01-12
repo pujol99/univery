@@ -7,7 +7,7 @@ from ..models import *
 from ..global_utils import *
 
 class AddSubjectForm(FlaskForm):
-    subject_id = StringField('Subject ID',
+    subject_id = StringField("Subject ID",
         validators=[DataRequired(), Length(max=15)])
     subject_color = StringField('Subject Color (HEX)',
         validators=[DataRequired(), Length(max=10)])

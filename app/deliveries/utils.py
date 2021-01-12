@@ -48,7 +48,7 @@ def filter_deliveries(deliveries, restriction):
     deliveries = [(
         ud.delivery,
         USbySubject(ud.delivery.subject_id)
-        ) for ud in deliveries if restriction(ud) #and ud.delivery.toDate > datetime.now()
+        ) for ud in deliveries if restriction(ud) and ud.delivery.toDate > datetime.now()
     ]
     # Sort by date
     return sorted(deliveries, key=lambda x: x[0].toDate)
@@ -62,8 +62,7 @@ def get_days(ndays, view):
             day: day of the month,
             color: HEX str}
     """
-    today = datetime.strptime('2-10-2020', '%d-%m-%Y')
-    # today = datetime.today()
+    today = datetime.today()
     first_day = today - timedelta(days=today.weekday()) # Current week's Monday
     first_day += timedelta(days=ndays*view)             # Go back/forward view weeks
 

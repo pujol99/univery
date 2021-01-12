@@ -11,17 +11,19 @@
             </div>
             {% endif %}
             <div class="form-group form-element">
-                <p>{{ form.subject_id.label(class="form-control-label") }}</p>
+                <p style="float: left;">{{ form.subject_id.label(class="form-control-label") }}</p>
+                <small>| (end of subject's url)</small>
                 {% if form.subject_id.errors %}
-                {{ form.subject_id(class="form-control form-control-lg is-invalid") }}
+                {{ form.subject_id(placeholder="38521", class="form-control form-control-lg is-invalid") }}
                 <div class="invalid-feedback">
                     {% for error in form.subject_id.errors %}
                     <span>{{ error }}</span>
                     {% endfor %}
                 </div>
                 {% else %}
-                {{ form.subject_id(class="form-control form-control-lg") }}
+                {{ form.subject_id(placeholder="38521", class="form-control form-control-lg") }}
                 {% endif %}
+                
             </div>
             <div class="form-group form-element">
                 {{ form.subject_color.label(class="form-control-label full") }}
@@ -42,7 +44,7 @@
             <div class="form-button sm-margin">
                 {{ form.submit(class="button") }}
             </div>
-            <h1 class="form-title">Your subjects</h1>
+            <h1 class="form-title hideSmall">Your subjects</h1>
             <div class="your-subjects">
                 {% for subject in current_user.subjects %}
                 <div class="subject-box">

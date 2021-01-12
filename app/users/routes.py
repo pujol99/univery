@@ -22,7 +22,7 @@ def register():
                 password=hashed_password)
             login_user(user)
             session["password"] = form.password.data
-            return redirect(url_for('main.home'))
+            return redirect(url_for('subjects.subjects_page'))
         return render_template('user/register.html', title='Register', form=form, 
                 message="Incorrect identification or password for universty login")
     

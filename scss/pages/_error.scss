@@ -1,0 +1,15 @@
+.error{
+    color: $color5;
+    font-family: $font1;
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 50px;
+    font-size: $font-bigger;
+    a{
+        text-decoration: none;
+        background-color: $color3;
+        color: $color1;
+        padding: 10px 30px;
+    }
+}

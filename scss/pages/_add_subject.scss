@@ -9,6 +9,14 @@
         width: 100%;
         margin-top: 5px;
         height: 150px;
+        overflow-x: hidden;
+    }
+}
+
+#subject_id{
+    @include mobile{
+        padding: 0;
+        font-size: $font-small;
     }
 }
 
@@ -36,6 +44,7 @@
 }
 
 .subject-action{
+    margin-top: 10px;
     float: left;
     width: 10%;
 }

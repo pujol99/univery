@@ -7,7 +7,7 @@ from wtforms.validators import DataRequired, Length, InputRequired
 class AddDeliveryForm(FlaskForm):
     delivery_name = StringField('Delivery name', 
         validators=[DataRequired(), Length(max=50)])
-    delivery_description = TextAreaField('Delivery description', 
+    delivery_description = TextAreaField('Delivery description (optional)', 
         validators=[Length(max=3000)])
     subject_name = SelectField('Subject', 
         validators=[DataRequired()],

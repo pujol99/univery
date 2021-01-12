@@ -24,6 +24,21 @@
     text-align: center;
 }
 
+.hideSmall{
+    @include mobile{
+        display: none;
+    }
+}
+
+
+
+.sm-margin{
+    padding-bottom: 20px;
+    @include mobile{
+        padding: 0;
+    }
+}
+
 .form-element{
     font-size: $font-big;
     margin: 10px;
