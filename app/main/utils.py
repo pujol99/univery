@@ -18,4 +18,14 @@ MONTHS = {
     "novembre": "11", "desembre": "12",
 }
 
-DATE_FORMAT = "%d-%m %H:%M" 
+DATE_FORMAT = "%d-%m %H:%M"
+
+from flask import render_template
+
+class MaintenanceModeHandler:
+    def __init__(self, boolean):
+        self.boolean = boolean
+
+    def __call__(self):
+        if self.boolean:
+            return render_template('errors/maintenance.html', title="Error")
