@@ -1,2 +1,2 @@
 ### Next TODOS
-create footer with email 
+automatic search of subjects

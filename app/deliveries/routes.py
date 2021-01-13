@@ -69,6 +69,7 @@ def update_deliveries():
         return redirect(url_for('subjects.subjects_page'))
 
     current_user.last_update = datetime.now()
+    db.session.commit()
 
     # Read all the DeliveryObjects from {user.subjects} university pages
     for d in get_deliveries(current_user.subjects, session["password"]):
