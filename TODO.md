@@ -1,2 +1,3 @@
 ### Next TODOS
-automatic search of subjects
+add about page in bottom of home
+popup not working
