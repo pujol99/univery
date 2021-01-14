@@ -880,8 +880,9 @@ body {
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
-  background: #020024;
-  background: linear-gradient(20deg, #020024 0%, #090979 35%, #00d4ff 100%);
+  background: #053860;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(12%, #053860), color-stop(62%, #0384ad), to(#00d4ff));
+  background: linear-gradient(0deg, #053860 12%, #0384ad 62%, #00d4ff 100%);
 }
 
 .slideshow-container {
