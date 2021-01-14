@@ -25,7 +25,7 @@
                     {% else %}
                     <li><a href="{{ url_for('main.home') }}">List</a></li>
                     {% endif %}
-                <li><a href="{{ url_for('subjects.subjects_page') }}">Subjects</a></li>
+                <li><a href="{{ url_for('subjects.subjects_list') }}">Subjects</a></li>
                 <li><a href="{{ url_for('users.account') }}">Account</a></li>
                 {% else %}
                 <li><a href="{{ url_for('users.login') }}">Login</a></li>

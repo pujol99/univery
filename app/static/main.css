@@ -86,7 +86,7 @@ body {
 .header {
   background-color: #379683;
   width: 100%;
-  height: 120px;
+  height: 90px;
 }
 
 @media (max-width: 800px) {
@@ -274,7 +274,7 @@ body {
   width: 90%;
   margin: 0 auto;
   overflow-y: scroll;
-  height: 200px;
+  height: 250px;
   margin-top: 20px;
 }
 
@@ -282,7 +282,7 @@ body {
   .your-subjects {
     width: 100%;
     margin-top: 5px;
-    height: 150px;
+    height: 220px;
     overflow-x: hidden;
   }
 }
@@ -333,6 +333,28 @@ body {
 .subject-action img {
   width: 30px;
   height: 30px;
+}
+
+.add {
+  padding-top: 20px;
+  width: 20%;
+  margin: 0 auto;
+}
+
+.add img {
+  display: block;
+  margin: auto;
+}
+
+.subjectsIdsContainer {
+  background-color: white;
+  font-size: 17px;
+  height: 150px;
+  overflow-y: scroll;
+}
+
+.subjectsIdsContainer p {
+  margin-bottom: 0 !important;
 }
 
 .colors-calendar {
@@ -400,7 +422,7 @@ body {
 
 @media (max-width: 500px) {
   .day {
-    width: 100%;
+    width: calc(100%/1);
     height: 175px;
   }
 }

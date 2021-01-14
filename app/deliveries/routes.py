@@ -16,7 +16,7 @@ deliveries = Blueprint('deliveries', __name__)
 def add_delivery():
     # At least one subject to add deliveries
     if not current_user.subjects:
-        return redirect(url_for('subjects.subjects_page'))
+        return redirect(url_for('subjects.subjects_list'))
     
     # Set the subject choice to the subject names of the user
     form = AddDeliveryForm()
@@ -66,7 +66,7 @@ def calendar(n=0):
 def update_deliveries():
     #Check that at least has one subject
     if not current_user.subjects:
-        return redirect(url_for('subjects.subjects_page'))
+        return redirect(url_for('subjects.subjects_list'))
 
     current_user.last_update = datetime.now()
     db.session.commit()

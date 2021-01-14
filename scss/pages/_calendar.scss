@@ -45,10 +45,10 @@
     border: 1px solid black;
     float: left;
     @include tablet{
-        width: calc(100%/4 );
+        width: calc(100%/4);
     }
     @include mobile{
-        width: 100%;
+        width: calc(100%/1);
         height: 175px;
     }
 }
