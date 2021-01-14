@@ -37,3 +37,15 @@ def subject_remove(id):
     deleteElements(UDbySubject(id) + MDbySubject(id))
 
     return redirect(url_for('subjects.subjects_page'))
+
+@subjects.route("/subject-search")
+@login_required
+def subject_search():
+    subjects = search_subjects(session["password"])
+    for subject in subjects:
+        id, name = subject
+        if not getSubject(name):
+            addSubjectDB(name, id)
+        if not USbySubject(id):
+            addUserSubjectDB(id, current_user.id, random_color())
+    return redirect(url_for('subjects.subjects_page'))

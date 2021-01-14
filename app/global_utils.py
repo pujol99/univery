@@ -35,7 +35,7 @@ def UDbyDelivery(delivery_id):
 
 def USbySubject(subject_id):
     """
-        Get the UserDelivery where the delivery is from
+        Get the UserSubject where the delivery is from
         delivery (delivery_id) and user (current_user)
     """
     return db.session.query(UserSubject).filter_by(

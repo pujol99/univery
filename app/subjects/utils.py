@@ -1,4 +1,5 @@
 import requests
+import random
 from bs4 import BeautifulSoup
 from flask_login import current_user
 from ..main.utils import LOGIN, PAYLOAD, HEADERS
@@ -19,12 +20,37 @@ def check_subject(id, user_password):
         if name:
             return True, clean_name(name.text), id
         return False, "", ""
+    
+def search_subjects(user_password):
+    PAYLOAD["adAS_username"] = current_user.identification
+    PAYLOAD["adAS_password"] = user_password
+    request_url = "https://www.upf.edu/intranet/campus-global"
+    subjects = []
+
+    with requests.Session() as session:
+        session.post(LOGIN, headers=HEADERS, data=PAYLOAD)
+
+        req = session.get(request_url)
+        soup = BeautifulSoup(req.text, "html.parser")
+        panel = soup.find('div', {'id':'aula-global-portlet'})
+        a_tags = panel.findAll('a')
+        for a in a_tags:
+            if "course/view" in a['href']:
+                subjects.append((
+                    session.get(a['href']).url.split('=')[1],
+                    clean_name(a.text)
+                ))
+    
+    return subjects
+
+def random_color():
+    return "#{:06x}".format(random.randint(0, 0xFFFFFF))
 
 def clean_name(name):
     # Remove words in name that contain a number
     words = []
     for word in name.split():
-        if not any(letter.isdigit() for letter in word):
+        if not any(letter.isdigit() for letter in word) or "mtc" in word.lower():
             words.append(word)
     return " ".join(words)
 
