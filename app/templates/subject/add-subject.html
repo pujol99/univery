@@ -44,17 +44,19 @@
                 {{ form.submit(class="button") }}
             </div>
             <div style="margin-top: 10px;" class="form-button sm-margin" style="margin-top: 5px;">
-                <a style="text-decoration: none;" class="button" href="{{url_for('subjects.subject_search')}}">
-                    Find IDs</a>
+                <a class="button visible" href="{{url_for('subjects.subject_search')}}">
+                    Find Subject IDs</a>
             </div>
+            {% if subjects|length %}
             <small>Click to copy IDs</small>
             <div class="subjectsIdsContainer">
                 {% for id,name in subjects %}
-                <p style="cursor: pointer;" value="{{id}}" onclick="copypaste(this)">
+                <p class="ids" value="{{id}}" onclick="copypaste(this)">
                     <b>{{id}}</b> {{name}}
                 </p>
                 {% endfor %}
             </div>
+            {% endif %}
             <div class="form-button-2">
                 <a href="{{ url_for('subjects.subjects_list') }}">My subjects</a>
             </div>

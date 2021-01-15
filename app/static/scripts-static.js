@@ -46,4 +46,6 @@ function copypaste(element) {
   document.getElementById("subjectID").value = element.getAttribute("value");
   document.getElementById("subjectID").style.backgroundColor = "#000";
   document.getElementById("subjectID").style.color = "#fff";
+
+  randomColor();
 }

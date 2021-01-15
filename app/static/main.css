@@ -66,6 +66,16 @@ body {
   width: fit-content;
   padding: 5px 20px;
   font-weight: 600;
+  text-decoration: none;
+}
+
+.visible {
+  background-color: red;
+  color: black;
+}
+
+.visible:hover {
+  color: black;
 }
 
 .random-button p {
@@ -355,6 +365,16 @@ body {
 
 .subjectsIdsContainer p {
   margin-bottom: 0 !important;
+}
+
+.ids {
+  cursor: pointer;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.ids:hover {
+  background-color: cadetblue;
 }
 
 .colors-calendar {

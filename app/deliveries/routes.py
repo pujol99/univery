@@ -56,7 +56,9 @@ def delivery(action, id):
 @deliveries.route("/calendar/<int:n>")
 @login_required
 def calendar(n=0):
-    days, month = get_days(14, n)
+    days, month = get_days(n,
+        lambda ud, i_day: ud.delivery.toDateStr == str(i_day.date()))
+
     return render_template('delivery/calendar.html', title="Calendar",
         days=days, month=month, view=n)
 

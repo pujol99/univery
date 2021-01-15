@@ -73,3 +73,11 @@
         margin-bottom: 0 !important;
     }
 }
+
+.ids{
+    cursor: pointer;
+    transition: 0.3s;
+    &:hover{
+        background-color: cadetblue;
+    }
+}

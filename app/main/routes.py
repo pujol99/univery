@@ -12,17 +12,15 @@ def home():
     
     return render_template('delivery/not-done-deliveries.html', title="Home",
             deliveries=filter_deliveries(
-                current_user.deliveries,
-                lambda d: not d.isDone and not d.isEliminated),
-            date_format=DATE_FORMAT)
+                lambda d: not d.isDone and not d.isEliminated and is_future(d.delivery.toDate)),
+                date_format=DATE_FORMAT)
 
 @main.route("/done")
 @login_required
 def done_deliveries():
     return render_template('delivery/done-deliveries.html', title="Done",
             deliveries=filter_deliveries(
-                current_user.deliveries,
-                lambda d: d.isDone and not d.isEliminated),
+                lambda d: d.isDone and not d.isEliminated and is_future(d.delivery.toDate)),
             date_format=DATE_FORMAT)
 
 @main.route("/removed")
@@ -30,6 +28,5 @@ def done_deliveries():
 def removed_deliveries():
     return render_template('delivery/removed-deliveries.html', title="Removed",
             deliveries=filter_deliveries(
-                current_user.deliveries,
-                lambda d: d.isEliminated == True),
+                lambda d: d.isEliminated and is_future(d.delivery.toDate)),
             date_format=DATE_FORMAT)

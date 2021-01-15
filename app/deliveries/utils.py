@@ -12,6 +12,8 @@ from ..main.utils import *
 from ..global_utils import * 
 from app import db
 
+NDAYS = 14
+
 def get_deliveries(subjects, user_password):
     """
         Scrape all deliveries from university selected subjects
@@ -40,21 +42,18 @@ def get_deliveries(subjects, user_password):
     
         return [delivery for delivery in deliveries if delivery.date]
 
-def filter_deliveries(deliveries, restriction):
+def filter_deliveries(restriction):
     """
         filter deliveries that pass certain restriction
-        (UserDelivery [], lambda function) -> {
-            "delivery_name": {
-                "description":
-                "toDate":
-                "url"
-                "type"
-                "subject_name"
-                "subject_color"
-                "delivery_id"}}
+        (UserDelivery [], lambda function) -> data {}
     """
+    data = build_data([
+        d for d in current_user.deliveries if restriction(d)])
+    # Sort by date
+    return sorted(data, key=lambda x: x['toDate'])
 
-    data = [{
+def build_data(deliveries):
+    return [{
             "id": ud.delivery.id,
             "name": ud.delivery.name,
             "description": ud.delivery.description,
@@ -64,10 +63,10 @@ def filter_deliveries(deliveries, restriction):
             "type": getType(ud),
             "subject_name": getSubjectById(ud.delivery.subject_id).name,
             "subject_color": USbySubject(ud.delivery.subject_id).color
-        } for ud in deliveries if restriction(ud) and ud.delivery.toDate > datetime.now()
-    ]
-    # Sort by date
-    return sorted(data, key=lambda x: x['toDate'])
+        } for ud in deliveries]
+
+def is_future(date):
+    return date > datetime.now()
 
 def getType(ud):
     """
@@ -79,29 +78,27 @@ def getType(ud):
         return "Done"
     return "Undone"
 
-def get_days(ndays, view):
+def get_days(view, restriction):
     """ 
         List starting in this week's monday 
-        elements [ndays] : element -> {   
+        elements [NDAYS] : element -> {   
             deliveries: (Delivery, UserSubject) [] (of that day i),
             day: day of the month,
             color: HEX str}
     """
     today = datetime.today()
     first_day = today - timedelta(days=today.weekday()) # Current week's Monday
-    first_day += timedelta(days=ndays*view)             # Go back/forward view weeks
+    first_day += timedelta(days=NDAYS*view)             # Go back/forward view weeks
 
     days, months = [], set()
-    for i in range(0, ndays):
+    for i in range(0, NDAYS):
         i_day = first_day + timedelta(days=i)
         months.add(i_day.strftime("%B"))
 
         elements = {
-            'deliveries':[(
-                    ud.delivery, 
-                    USbySubject(ud.delivery.subject_id)
-                ) for ud in UDnotDone() if ud.delivery.toDateStr == str(i_day.date())
-            ] if i_day >= today else [],
+            'deliveries':build_data([
+                ud for ud in UDnotDone() if restriction(ud, i_day)
+            ]) if i_day >= today else [],
             'day': i_day.strftime("%A") + " " + str(i_day.day),
             'color': day_color(today, i_day)}
         days.append(elements)
