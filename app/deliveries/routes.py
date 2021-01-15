@@ -27,7 +27,7 @@ def add_delivery():
     if form.validate_on_submit():
         delivery = addDeliveryDB(
             name=form.delivery_name.data, 
-            description=clean_description(form.delivery_description.data),
+            description=form.delivery_description.data,
             toDate=form.toDate.data, 
             subject_name=form.subject_name.data)
         addUserDeliveryDB(delivery.id)

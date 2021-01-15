@@ -43,16 +43,41 @@ def get_deliveries(subjects, user_password):
 def filter_deliveries(deliveries, restriction):
     """
         filter deliveries that pass certain restriction
-        (UserDelivery [], lambda function) -> (Delivery, UserSubject) []
+        (UserDelivery [], lambda function) -> {
+            "delivery_name": {
+                "description":
+                "toDate":
+                "url"
+                "type"
+                "subject_name"
+                "subject_color"
+                "delivery_id"}}
     """
-    deliveries = [(
-        ud.delivery,
-        USbySubject(ud.delivery.subject_id)
-        ) for ud in deliveries if restriction(ud) and ud.delivery.toDate > datetime.now()
+
+    data = [{
+            "id": ud.delivery.id,
+            "name": ud.delivery.name,
+            "description": ud.delivery.description,
+            "toDate": ud.delivery.toDate,
+            "toDateStr": ud.delivery.toDate.strftime(DATE_FORMAT),
+            "url": ud.delivery.url,
+            "type": getType(ud),
+            "subject_name": getSubjectById(ud.delivery.subject_id).name,
+            "subject_color": USbySubject(ud.delivery.subject_id).color
+        } for ud in deliveries if restriction(ud) and ud.delivery.toDate > datetime.now()
     ]
     # Sort by date
-    return sorted(deliveries, key=lambda x: x[0].toDate)
+    return sorted(data, key=lambda x: x['toDate'])
 
+def getType(ud):
+    """
+    UserDelivery -> "Done"/"Undone"/"Removed"
+    """
+    if ud.isEliminated:
+        return "Removed"
+    elif ud.isDone:
+        return "Done"
+    return "Undone"
 
 def get_days(ndays, view):
     """ 
@@ -136,9 +161,6 @@ class DeliveryObject:
         return datetime.strptime(
             parts[3] + "-" + parts[2] + "-" + parts[1] + " " + parts[4],
             '%Y-%B-%d %H:%M')
-
-def clean_description(description):
-    return '~'.join(description.splitlines())
 
 def isSafeUrl(target):
     ref_url = urlparse(request.host_url)
