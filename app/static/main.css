@@ -248,7 +248,7 @@ body {
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
-  margin-top: 30px;
+  margin-top: 10px;
 }
 
 .form-button-2 a {
@@ -365,6 +365,10 @@ body {
 
 .subjectsIdsContainer p {
   margin-bottom: 0 !important;
+}
+
+#subjectID {
+  display: none;
 }
 
 .ids {
@@ -713,7 +717,7 @@ body {
   position: absolute;
   left: 50%;
   top: 300px;
-  width: 300px;
+  width: 400px;
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;

@@ -5,25 +5,31 @@
         <form method="POST" action="">
             {{ form.hidden_tag() }}
             <h1 class="form-title">Add Subject</h1>
+            <div style="margin-top: 10px;" class="form-button sm-margin" style="margin-top: 5px;">
+                <a class="button visible" href="{{url_for('subjects.subject_search')}}">
+                    Find Subject IDs</a>
+            </div>
+            {% if subjects|length %}
+            <div class="subjectsIdsContainer">
+                {% for id,name in subjects %}
+                <p class="ids" value="{{id}}" onclick="setSubject(this)">
+                    <b>{{id}}</b> {{name}}
+                </p>
+                {% endfor %}
+            </div>
             {% if message %}
             <div id="warning-message" class="alert alert-danger" role="alert">
                 {{message}}
             </div>
             {% endif %}
-            <div class="form-group form-element">
-                <p style="float: left;">{{ form.subject_id.label(class="form-control-label") }}</p>
-                {% if form.subject_id.errors %}
-                {{ form.subject_id(id="subjectID", placeholder="38521", class="form-control form-control-lg is-invalid") }}
-                <div class="invalid-feedback">
-                    {% for error in form.subject_id.errors %}
-                    <span>{{ error }}</span>
-                    {% endfor %}
-                </div>
-                {% else %}
-                {{ form.subject_id(id="subjectID", placeholder="38521", class="form-control form-control-lg") }}
-                {% endif %}
-                
+            {{ form.subject_id(id="subjectID") }}
+            {% if form.subject_id.errors %}
+            <div class="invalid-feedback">
+                {% for error in form.subject_id.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
             </div>
+            {% endif %}
             <div class="form-group form-element">
                 {{ form.subject_color.label(class="form-control-label full") }}
                 {% if form.subject_color.errors %}
@@ -42,19 +48,6 @@
             </div>
             <div class="form-button sm-margin">
                 {{ form.submit(class="button") }}
-            </div>
-            <div style="margin-top: 10px;" class="form-button sm-margin" style="margin-top: 5px;">
-                <a class="button visible" href="{{url_for('subjects.subject_search')}}">
-                    Find Subject IDs</a>
-            </div>
-            {% if subjects|length %}
-            <small>Click to copy IDs</small>
-            <div class="subjectsIdsContainer">
-                {% for id,name in subjects %}
-                <p class="ids" value="{{id}}" onclick="copypaste(this)">
-                    <b>{{id}}</b> {{name}}
-                </p>
-                {% endfor %}
             </div>
             {% endif %}
             <div class="form-button-2">

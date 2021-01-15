@@ -37,15 +37,26 @@ function deliveryType() {
 function randomColor() {
   var color = document.getElementById("color-content");
 
-  color.value = Math.floor(Math.random() * 16777215).toString(16);
+  color.value = ((Math.random() * 0xffffff) << 0).toString(16).padStart(6, "0");
   color.style.backgroundColor = color.value;
 }
 
 // Copy paste ID
-function copypaste(element) {
+function setSubject(element) {
+  clear_subjects_bg()
+  element.style.backgroundColor = "black";
+  element.style.color = "white";
   document.getElementById("subjectID").value = element.getAttribute("value");
   document.getElementById("subjectID").style.backgroundColor = "#000";
   document.getElementById("subjectID").style.color = "#fff";
 
   randomColor();
+}
+
+function clear_subjects_bg(){
+  var list = document.getElementsByClassName("ids");
+  for (let item of list) {
+    item.style.backgroundColor = "white";
+    item.style.color = "black";
+  }
 }
