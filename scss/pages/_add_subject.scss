@@ -3,12 +3,12 @@
     width: 90%;
     margin: 0 auto;
     overflow-y: scroll;
-    height: 200px;
+    height: 250px;
     margin-top: 20px;
     @include mobile{
         width: 100%;
         margin-top: 5px;
-        height: 150px;
+        height: 220px;
         overflow-x: hidden;
     }
 }
@@ -52,4 +52,32 @@
 .subject-action img{
     width: 30px;
     height: 30px;
+}
+
+.add{
+    padding-top: 20px;
+    width: 20%;
+    margin: 0 auto;
+    img{
+        display: block;
+        margin: auto;
+    }
+}
+
+.subjectsIdsContainer{
+    background-color: white;
+    font-size: 17px;
+    height: 150px;
+    overflow-y: scroll;
+    p{
+        margin-bottom: 0 !important;
+    }
+}
+
+.ids{
+    cursor: pointer;
+    transition: 0.3s;
+    &:hover{
+        background-color: cadetblue;
+    }
 }

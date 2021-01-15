@@ -12,11 +12,12 @@ from datetime import datetime
 deliveries = Blueprint('deliveries', __name__)
 
 @deliveries.route("/add-delivery", methods=['GET', 'POST'])
+@deliveries.route("/add-delivery/<int:day>/<int:month>", methods=['GET', 'POST'])
 @login_required
-def add_delivery():
+def add_delivery(day=0,month=0):
     # At least one subject to add deliveries
     if not current_user.subjects:
-        return redirect(url_for('subjects.subjects_page'))
+        return redirect(url_for('subjects.subjects_list'))
     
     # Set the subject choice to the subject names of the user
     form = AddDeliveryForm()
@@ -27,7 +28,7 @@ def add_delivery():
     if form.validate_on_submit():
         delivery = addDeliveryDB(
             name=form.delivery_name.data, 
-            description=clean_description(form.delivery_description.data),
+            description=form.delivery_description.data,
             toDate=form.toDate.data, 
             subject_name=form.subject_name.data)
         addUserDeliveryDB(delivery.id)
@@ -35,7 +36,7 @@ def add_delivery():
         return redirect_to('main.home')
 
     # GET method
-    form.toDate.data = datetime.now().replace(hour=23, minute=59)
+    form.toDate.data = build_date(day, month)
     return render_template('delivery/add-delivery.html', title="Add delivery", form=form)
 
 @deliveries.route("/delivery/<string:action>/<int:id>")
@@ -56,7 +57,9 @@ def delivery(action, id):
 @deliveries.route("/calendar/<int:n>")
 @login_required
 def calendar(n=0):
-    days, month = get_days(14, n)
+    days, month = get_days(n,
+        lambda ud, i_day: ud.delivery.toDateStr == str(i_day.date()))
+
     return render_template('delivery/calendar.html', title="Calendar",
         days=days, month=month, view=n)
 
@@ -66,7 +69,7 @@ def calendar(n=0):
 def update_deliveries():
     #Check that at least has one subject
     if not current_user.subjects:
-        return redirect(url_for('subjects.subjects_page'))
+        return redirect(url_for('subjects.subjects_list'))
 
     current_user.last_update = datetime.now()
     db.session.commit()

@@ -6,6 +6,15 @@
         $border-radius-big);
     padding: 5px 20px;
     font-weight: 600;
+    text-decoration: none;
+}
+
+.visible{
+    background-color: red;
+    color: black;
+    &:hover{
+        color: black;
+    }
 }
 
 .random-button{

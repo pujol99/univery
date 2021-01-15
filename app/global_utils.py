@@ -59,7 +59,7 @@ def addDeliveryDB(name, id=None, description=None, toDate=None, subject_name=Non
         toDate=toDate,
         toDateStr=str(toDate.date()),
         hasEnded=toDate<datetime.now(),
-        subject_id=getSubject(subject_name).identification if subject_name else subject_id,
+        subject_id=getSubjectByName(subject_name).identification if subject_name else subject_id,
         url=url)
     db.session.add(d)
     db.session.commit()
@@ -93,9 +93,14 @@ def addUserSubjectDB(subject_id, color):
         color=color))
     db.session.commit()
 
-def getSubject(name):
+def getSubjectByName(name):
     return db.session.query(Subject
     ).filter_by(name=name
+    ).first()
+
+def getSubjectById(id):
+    return db.session.query(Subject
+    ).filter_by(identification=id
     ).first()
 
 def getUser(identification):
