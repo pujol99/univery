@@ -16,16 +16,19 @@
         </div>
         {% for day in days %}
         <div class="day" style="background-color: {{day['color']}};">
-            <p class="day-corner">{{day['day']}}</p>
+            <p class="day-corner">{{day['day_name']}}</p>
             {% for d in day['deliveries'] %}
             <div onclick='openPopup({{ d|tojson }}, "/calendar/{{view}}")'
-                class="day-element" style="background-color: {{d['subject_color']}};">
+            class="day-element" style="background-color: {{d['subject_color']}};">
                 <p class="day-element-name small-font">{{d['name']}}</p>
             </div>
-        {% endfor %}
+            {% endfor %}
+            <a href="{{url_for('deliveries.add_delivery', day=day['day'], month=day['month'])}}">
+                <img width="30px" src="/static/web_pics/add.png" alt="">
+            </a>
         </div>
         {% endfor %}
-    </div>  
+    </div> 
 </div>
 
 {% endblock deliveries %}

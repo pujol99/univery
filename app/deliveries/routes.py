@@ -12,8 +12,9 @@ from datetime import datetime
 deliveries = Blueprint('deliveries', __name__)
 
 @deliveries.route("/add-delivery", methods=['GET', 'POST'])
+@deliveries.route("/add-delivery/<int:day>/<int:month>", methods=['GET', 'POST'])
 @login_required
-def add_delivery():
+def add_delivery(day=0,month=0):
     # At least one subject to add deliveries
     if not current_user.subjects:
         return redirect(url_for('subjects.subjects_list'))
@@ -35,7 +36,7 @@ def add_delivery():
         return redirect_to('main.home')
 
     # GET method
-    form.toDate.data = datetime.now().replace(hour=23, minute=59)
+    form.toDate.data = build_date(day, month)
     return render_template('delivery/add-delivery.html', title="Add delivery", form=form)
 
 @deliveries.route("/delivery/<string:action>/<int:id>")

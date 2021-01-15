@@ -99,11 +99,18 @@ def get_days(view, restriction):
             'deliveries':build_data([
                 ud for ud in UDnotDone() if restriction(ud, i_day)
             ]) if i_day >= today else [],
-            'day': i_day.strftime("%A") + " " + str(i_day.day),
+            'day_name': i_day.strftime("%A") + " " + str(i_day.day),
+            'day': i_day.day,
+            'month': i_day.month,
             'color': day_color(today, i_day)}
         days.append(elements)
     return days, "/".join(list(months))
 
+def build_date(day, month):
+    date = datetime.now().replace(hour=23, minute=59)
+    if day:
+        return date.replace(day=day, month=month)
+    return date
 
 def day_color(today, iday):
     if iday == today: 
