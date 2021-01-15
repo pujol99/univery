@@ -22,8 +22,8 @@ class UserSubject(db.Model):
 
 
 @login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(int(user_id))
+def load_user(id):
+    return User.query.get(int(id))
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)

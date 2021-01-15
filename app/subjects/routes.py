@@ -22,7 +22,7 @@ def subjects_page():
 
         if not Subject.query.filter_by(identification=id).first():
             addSubjectDB(name, id)
-        addUserSubjectDB(id, current_user.id, "#"+form.subject_color.data)
+        addUserSubjectDB(id, "#"+form.subject_color.data)
         return redirect(url_for(request.endpoint))
         
     return render_template('subject/add-subject.html', title="Subjects", form=form)
@@ -43,9 +43,11 @@ def subject_remove(id):
 def subject_search():
     subjects = search_subjects(session["password"])
     for subject in subjects:
-        id, name = subject
+        subject_id, name = subject
+        # Search if subject exists in DB
         if not getSubject(name):
-            addSubjectDB(name, id)
-        if not USbySubject(id):
-            addUserSubjectDB(id, current_user.id, random_color())
+            addSubjectDB(name, subject_id)
+        # Add relation user-subject if not exists
+        #if not USbySubject(subject_id):
+            #addUserSubjectDB(subject_id, random_color())
     return redirect(url_for('subjects.subjects_page'))
