@@ -60,3 +60,20 @@ function clear_subjects_bg(){
     item.style.color = "black";
   }
 }
+
+var loaders = document.getElementsByClassName("loading-icon");
+for (let item of loaders) {
+  item.style.display = "none";
+}
+
+function toLoading() {
+  var bloaders = document.getElementsByClassName('bloading');
+  var loaders = document.getElementsByClassName('loading-icon');
+
+  for (let item of bloaders) {
+    item.style.display = "none";
+  }
+  for (let item of loaders) {
+    item.style.display = "inline-block";
+  }
+}

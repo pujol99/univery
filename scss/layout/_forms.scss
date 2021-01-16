@@ -9,20 +9,29 @@
 }
 
 .form-box{
-    width: calc(min(500px, 88%));
-    height: fit-content;
     margin: 0 auto;
     background-color: $color3;
+    font-family: $font-content;
+    font-weight: 400;
+    
+    width: calc(min(600px, 88%));
     padding: 20px;
-    font-family: $font2;
     @include mobile{
-        padding: 5px;
         width: 100%;
+        padding: 5px;
     }
 }
 
 .form-title{
     text-align: center;
+    color: $color5;
+    margin-bottom: 15px;
+}
+
+.form-label{
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
 }
 
 .sm-margin{
@@ -76,6 +85,7 @@
 
 .invalid{
     color: red;
+    font-weight: 400;
     text-align: center;
     margin-bottom: 10px;
 }

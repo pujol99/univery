@@ -8,9 +8,11 @@
             
             <!-- If user has no cached subjects from uni ask user to search them -->
             {% if not subjects|length %}
-            <div class="center-text lg-vr-mg">
-                <a class="button visible" href="{{url_for('subjects.subject_search')}}">
-                    Find Subjects</a>
+            <div class="center-text lg-vr-mg slow-tr">
+                <a class="button shadow" onclick="toLoading()" href="{{url_for('subjects.subject_search')}}">
+                    <span class="bloading">Find Subjects</span>
+                    <img class="loading-icon" id="search-subjects-button" src="/static/web_pics/loading.gif">
+                </a>
             </div>
             {% else %}
 
@@ -26,29 +28,32 @@
             {% for id,name in subjects %}
                 <!-- My subjects -->
                 {% if get_subject(id) %}
+                <span style="--color: {{get_subject(id).color}};" class="subject-color">_</span>
                 <p class="ids" value="{{id}}">
-                    <b style="background-color: {{get_subject(id).color}};">{{id}}</b> {{name}}
+                    {{name}}
                 </p>
                 <!-- Other subjects -->
                 {% else %}
-                <p class="ids clear" value="{{id}}" onclick="setSubject(this)">
-                    <b>{{id}}</b> {{name}}
-                </p>
+                <p class="ids clear" value="{{id}}" onclick="setSubject(this)">{{name}}</p>
                 {% endif %}
             {% endfor %}
             </div>
             
             <!-- Hided subject id input -->
-            {{ form.subject_id(id="subjectID") }}
+            {{ form.subject_id(id="subjectID", style="display: none") }}
 
             <!-- Change subject color area -->
             <div class="form-group form-element">
-                {{ form.subject_color.label(class="form-control-label full") }}
-                {{ form.subject_color(id="color-content", placeholder="fc773e", class="half-left") }}
-                <div onclick="randomColor()" class="half-left random-button">
-                    <p>Random</p>
+                {{ form.subject_color.label(class="form-label") }}
+                <div class="box-button">
+                    <div class="color-input">
+                        {{ form.subject_color(id="color-content", placeholder="fc773e") }}
+                    </div>
+                    <div onclick="randomColor()" class="color-image shadow">
+                        <img src="/static/web_pics/colors.png" alt="" srcset="">
+                    </div>
                 </div>
-
+                
                 <!-- Errors -->
                 {% if form.subject_color.errors %} 
                 <div class="invalid">
@@ -60,8 +65,8 @@
             </div>
 
             <!-- Submit area -->
-            <div class="form-button sm-margin">
-                {{ form.submit(class="button") }}
+            <div class="center-text">
+                {{ form.submit(class="button shadow") }}
             </div>
             {% endif %}
         </form>

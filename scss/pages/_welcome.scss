@@ -21,7 +21,7 @@
   text-align: center;
   a{
     
-    font-family: $font1;
+    font-family: $font-header;
     font-size: $font-bigger;
     color: $color1;
     text-decoration: none;
@@ -64,7 +64,7 @@
 
 /* Caption text */
 .text {
-  font-family: $font2;
+  font-family: $font-content;
   font-weight: 700;
   font-size: $font-medium;
   color: white;
@@ -78,7 +78,7 @@
   @include mobile {
     font-size: 14px;
     font-weight: 500;
-    font-family: $font3;
+    font-family: $font-content;
   }
 }
 
@@ -99,7 +99,7 @@
 }
 
 .universities{
-  font-family: $font3;
+  font-family: $font-content;
   width: 80%;
   height: 100%;
   margin: 0 auto;

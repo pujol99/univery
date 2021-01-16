@@ -1,11 +1,9 @@
-$color0: #1c273a;
-$color1: #05386b;
-$color2: #379683;
+$color0: #002447;
+$color1: #53d3d1;
+$color2: #feb249;
 $color3: #5cdb95;
-$color4: #8ee4af;
-$color5: #edf5e1;
-$color6: #3b444b;
-$color7: #ffa500;
+$color4: #edf5e1;
+$color5: #0e1111;
 
 $mobile: 500px;
 $tablet: 800px;
@@ -20,8 +18,6 @@ $font-big: 23px;
 $font-bigger: 30px;
 
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
-$font1: 'Bebas Neue', cursive;
-@import url('https://fonts.googleapis.com/css2?family=Xanh+Mono&display=swap');
-$font2: 'Xanh Mono', monospace;
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap');
-$font3: 'Roboto Slab', serif;
+$font-header: 'Bebas Neue', cursive;
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;500;600;700&display=swap');
+$font-content: 'Roboto Slab', serif;

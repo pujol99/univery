@@ -1,3 +1,13 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+textarea:focus, input:focus{
+    outline: none;
+}
+
 .half-rigth{
     width: 50%;
     float: right;
@@ -14,10 +24,6 @@
 
 .left{
     float: left;
-}
-
-.full{
-    width: 100%;
 }
 
 .nopointer{
@@ -56,4 +62,13 @@
 .lg-hr-mg{
     margin-right: 10px;
     margin-left: 10px;
+}
+
+.slow-tr{
+    transition: 2s;
+}
+
+.link{
+    text-decoration: none;
+    
 }

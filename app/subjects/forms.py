@@ -9,7 +9,7 @@ from ..global_utils import *
 class AddSubjectForm(FlaskForm):
     subject_id = StringField("Subject ID",
         validators=[DataRequired(), Length(max=15)])
-    subject_color = StringField('Subject Color (HEX)',
+    subject_color = StringField('Subject Color',
         validators=[DataRequired(), Length(max=10)])
     submit = SubmitField('Add')
     

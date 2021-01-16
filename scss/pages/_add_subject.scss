@@ -1,15 +1,15 @@
 .your-subjects{
-    background-color: white;
-    width: 90%;
+    width: 95%;
     margin: 0 auto;
-    overflow-y: scroll;
-    height: 275px;
+    overflow-y: auto;
+    height: fit-content;
+    min-height: 300px;
     margin-top: 20px;
     @include mobile{
-        width: 95%;
         margin-top: 5px;
-        height: 220px;
+        min-height: 200px;
         overflow-x: hidden;
+        width: 100%;
     }
 }
 
@@ -21,72 +21,82 @@
 }
 
 .subject-box{
-    height: fit-content;
-}
-
-.subject-name{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: $color4;
     width: 90%;
-    float: left;
-}
-
-.subject-name p{
-    background-color: #f1f1f1;
-    width: fit-content;
+    margin: 10px auto;
+    padding: 10px 20px;
     border-radius: 20px;
-    padding: 5px 10px;
-    margin: 10px 10px;
-    font-size: 18px;
     @include mobile{
-        padding: 5px;
-        margin: 5px;
-        font-size: 16px;
+        width: 100%;
+        padding: 5px 10px;
     }
 }
 
-.subject-action{
-    margin-top: 10px;
-    float: left;
-    width: 10%;
+.subject-color{
+    height: 35px;
+    width: 35px;
+    background-color: var(--color);
+    border-radius: 50%;
+    @include mobile{
+        height: 15px;
+        width: 15px;
+    }
+}
+
+.subject-name p{
+    text-align: center;
+    margin-left: 5px;
+    margin-bottom: 0;
+    @include mobile{
+        font-size: 15px;
+    }
 }
 
 .subject-action img{
-    width: 30px;
-    height: 30px;
+    width: 35px;
+    @include mobile{
+        width: 27px;
+    }
 }
 
 .add{
-    padding-top: 20px;
-    width: 20%;
-    margin: 0 auto;
+    background-color: $color4;
+    margin: 15px auto;
+    border-radius: 50%;
+    width: fit-content;
     img{
+        width: 60px;
         display: block;
         margin: auto;
+        @include mobile{
+            width: 40px;
+        }
     }
 }
 
 .subjectsIdsContainer{
-    background-color: white;
-    font-size: 17px;
+    background-color: $color4;
     margin-bottom: 15px;
     height: 230px;
     overflow-y: scroll;
-    p{
-        margin-bottom: 0 !important;
-    }
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
     @include mobile{
         height: 190px;
     }
 }
 
-#subjectID{
-    display: none;
-}
-
 .ids{
-    padding-left: 5px;
-    padding-bottom: 7px;
+    padding: 10px 15px;
+    margin-bottom: 0;
     @include mobile{
         padding: 0;
+    }
+    b{
+        padding: 2px 4px;
     }
 }
 
@@ -94,6 +104,28 @@
     cursor: pointer;
     transition: 0.3s;
     &:hover{
-        background-color: gray;
+        background-color: $color2;
+    }
+}
+
+.box-button{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.color-input{
+    input{
+        border-radius: 6px;
+    }
+}
+
+.color-image{
+    background-color: white;
+    border-radius: 50%;
+    padding: 10px;
+    cursor: pointer;
+    img{
+        width: 35px;
     }
 }

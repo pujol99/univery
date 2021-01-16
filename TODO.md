@@ -1,6 +1,7 @@
 ### Next TODOS
 
 buttons show icon of thinking
+popup with reminder to search new deliveries
 (fully redesign with flexbox)
 
 - Add subject page (1)
