@@ -3,6 +3,7 @@ import random
 from bs4 import BeautifulSoup
 from flask_login import current_user
 from ..main.utils import LOGIN, PAYLOAD, HEADERS
+from ..global_utils import *
 from app import db
 
 def check_subject(id, user_password):
@@ -20,6 +21,20 @@ def check_subject(id, user_password):
         if name:
             return True, clean_name(name.text), id
         return False, "", ""
+
+def validate_add_subject(form, password):
+    # If exists in user university subjects add subject else display error message
+    exists, name, id = check_subject(form.subject_id.data, password)
+    if not exists:
+        return "Subject doesn't exist", False
+
+    if USbySubject(form.subject_id.data):
+        return "You already have this subject", False
+
+    if not getSubjectById(id):
+        addSubjectDB(name, id)
+    addUserSubjectDB(id, "#"+form.subject_color.data)
+    return "", True
     
 def search_subjects(user_password):
     PAYLOAD["adAS_username"] = current_user.identification

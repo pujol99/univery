@@ -3,10 +3,10 @@
     width: 90%;
     margin: 0 auto;
     overflow-y: scroll;
-    height: 250px;
+    height: 275px;
     margin-top: 20px;
     @include mobile{
-        width: 100%;
+        width: 95%;
         margin-top: 5px;
         height: 220px;
         overflow-x: hidden;
@@ -67,18 +67,27 @@
 .subjectsIdsContainer{
     background-color: white;
     font-size: 17px;
-    height: 200px;
+    margin-bottom: 15px;
+    height: 230px;
     overflow-y: scroll;
     p{
         margin-bottom: 0 !important;
     }
     @include mobile{
-        height: 150px;
+        height: 190px;
     }
 }
 
 #subjectID{
     display: none;
+}
+
+.ids{
+    padding-left: 5px;
+    padding-bottom: 7px;
+    @include mobile{
+        padding: 0;
+    }
 }
 
 .ids.clear {

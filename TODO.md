@@ -1,5 +1,6 @@
 ### Next TODOS
 
+buttons show icon of thinking
 (fully redesign with flexbox)
 
 - Add subject page (1)
@@ -18,6 +19,5 @@
     * QA + helpMail + wannaContribute
 
 (other features)
-
 more languages 
 schedules??

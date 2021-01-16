@@ -38,32 +38,32 @@
   text-align: center;
 }
 
-.sm-vr-mr {
+.sm-vr-mg {
   margin-top: 10px;
   margin-bottom: 10px;
 }
 
-.md-vr-mr {
+.md-vr-mg {
   margin-top: 25px;
   margin-bottom: 25px;
 }
 
-.lg-vr-mr {
+.lg-vr-mg {
   margin-top: 50px;
   margin-bottom: 50px;
 }
 
-.sm-hr-mr {
+.sm-hr-mg {
   margin-right: 10px;
   margin-left: 10px;
 }
 
-.md-hr-mr {
+.md-hr-mg {
   margin-right: 10px;
   margin-left: 10px;
 }
 
-.lg-hr-mr {
+.lg-hr-mg {
   margin-right: 10px;
   margin-left: 10px;
 }
@@ -105,6 +105,7 @@
 .visible {
   background-color: red;
   color: black;
+  padding: 10px 20px;
 }
 
 .visible:hover {
@@ -233,17 +234,12 @@
 @media (max-width: 500px) {
   .form-box {
     padding: 5px;
+    width: 100%;
   }
 }
 
 .form-title {
   text-align: center;
-}
-
-@media (max-width: 500px) {
-  .hideSmall {
-    display: none;
-  }
 }
 
 .sm-margin {
@@ -312,18 +308,24 @@
   font-weight: 700;
 }
 
+.invalid {
+  color: red;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
 .your-subjects {
   background-color: white;
   width: 90%;
   margin: 0 auto;
   overflow-y: scroll;
-  height: 250px;
+  height: 275px;
   margin-top: 20px;
 }
 
 @media (max-width: 500px) {
   .your-subjects {
-    width: 100%;
+    width: 95%;
     margin-top: 5px;
     height: 220px;
     overflow-x: hidden;
@@ -392,7 +394,8 @@
 .subjectsIdsContainer {
   background-color: white;
   font-size: 17px;
-  height: 200px;
+  margin-bottom: 15px;
+  height: 230px;
   overflow-y: scroll;
 }
 
@@ -402,12 +405,23 @@
 
 @media (max-width: 500px) {
   .subjectsIdsContainer {
-    height: 150px;
+    height: 190px;
   }
 }
 
 #subjectID {
   display: none;
+}
+
+.ids {
+  padding-left: 5px;
+  padding-bottom: 7px;
+}
+
+@media (max-width: 500px) {
+  .ids {
+    padding: 0;
+  }
 }
 
 .ids.clear {

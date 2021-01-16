@@ -12,11 +12,6 @@ class AddSubjectForm(FlaskForm):
     subject_color = StringField('Subject Color (HEX)',
         validators=[DataRequired(), Length(max=10)])
     submit = SubmitField('Add')
-
-    def validate_subject_id(self, subject_id):
-        # If UserSubject exists -> error
-        if USbySubject(subject_id.data):
-            raise ValidationError('This subject already exists. Please choose a different one.')
     
     def validate_subject_color(self, subject_color):
         if not re.search(r'^(?:[0-9a-fA-F]{3}){1,2}$', subject_color.data):

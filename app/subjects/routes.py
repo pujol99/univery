@@ -20,33 +20,31 @@ def subjects_list():
 def subject_remove(id):
     # Remove US relation
     deleteElements([USbySubject(id)])
+
     # Remove deliveries with no identification made by user and subject s
     # Remove all UD with subject deliveries
     deleteElements(UDbySubject(id) + MDbySubject(id))
 
     return redirect(url_for('subjects.subjects_list'))
 
+
 @subjects.route("/add-subject", methods=['GET', 'POST'])
 @login_required
 def add_subject():
+    message = ""
     form = AddSubjectForm()
     if form.validate_on_submit():
-        # If exists in user university subjects add subject else display error message
-        exists, name, id = check_subject(form.subject_id.data, session["password"])
-        if not exists:
-            return render_template('subject/add-subject.html', title="Subjects", form=form, 
-                message="Subject not found")
+        message, validated = validate_add_subject(form, session["password"])
+        if validated:
+            return redirect(url_for('subjects.subjects_list'))
 
-        if not getSubjectById(id):
-            addSubjectDB(name, id)
-        addUserSubjectDB(id, "#"+form.subject_color.data)
-        return redirect(url_for('subjects.subjects_list'))
     subjects = session["subjects"] if session.get("subjects") else []
     return render_template('subject/add-subject.html', title="Subjects", 
         form=form, 
-        subjects=subjects, 
+        subjects=list(reversed(subjects)), 
         get_subject=USbySubject,
-        message="Subject not found")
+        message=message)
+
 
 @subjects.route("/subject-search")
 @login_required

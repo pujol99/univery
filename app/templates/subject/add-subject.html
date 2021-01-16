@@ -4,11 +4,11 @@
     <div class="form-box">
         <form method="POST" action="">
             {{ form.hidden_tag() }}
-            <h1 class="form-title">Add Subject</h1>
+            <h1 class="form-title">Select Subject</h1>
             
             <!-- If user has no cached subjects from uni ask user to search them -->
             {% if not subjects|length %}
-            <div class="center-text md-vr-mr">
+            <div class="center-text lg-vr-mg">
                 <a class="button visible" href="{{url_for('subjects.subject_search')}}">
                     Find Subjects</a>
             </div>
@@ -21,23 +21,27 @@
             </div>
             {% endif %}
 
-            <!-- Container of cached subjects -->
+            <!-- Container of cached subjects --> 
             <div class="subjectsIdsContainer">
             {% for id,name in subjects %}
+                <!-- My subjects -->
                 {% if get_subject(id) %}
                 <p class="ids" value="{{id}}">
                     <b style="background-color: {{get_subject(id).color}};">{{id}}</b> {{name}}
                 </p>
+                <!-- Other subjects -->
                 {% else %}
                 <p class="ids clear" value="{{id}}" onclick="setSubject(this)">
                     <b>{{id}}</b> {{name}}
                 </p>
                 {% endif %}
             {% endfor %}
+            </div>
+            
+            <!-- Hided subject id input -->
+            {{ form.subject_id(id="subjectID") }}
 
             <!-- Change subject color area -->
-            </div>
-            {{ form.subject_id(id="subjectID") }}
             <div class="form-group form-element">
                 {{ form.subject_color.label(class="form-control-label full") }}
                 {{ form.subject_color(id="color-content", placeholder="fc773e", class="half-left") }}
@@ -47,7 +51,7 @@
 
                 <!-- Errors -->
                 {% if form.subject_color.errors %} 
-                <div class="invalid-feedback">
+                <div class="invalid">
                     {% for error in form.subject_color.errors %}
                     <span>{{ error }}</span>
                     {% endfor %}
@@ -60,11 +64,6 @@
                 {{ form.submit(class="button") }}
             </div>
             {% endif %}
-
-            <!--  -->
-            <div class="form-button-2">
-                <a href="{{ url_for('subjects.subjects_list') }}">My subjects</a>
-            </div>
         </form>
     </div>
 </div>
