@@ -67,10 +67,13 @@
 .subjectsIdsContainer{
     background-color: white;
     font-size: 17px;
-    height: 150px;
+    height: 200px;
     overflow-y: scroll;
     p{
         margin-bottom: 0 !important;
+    }
+    @include mobile{
+        height: 150px;
     }
 }
 
@@ -78,10 +81,10 @@
     display: none;
 }
 
-.ids{
+.ids.clear {
     cursor: pointer;
     transition: 0.3s;
     &:hover{
-        background-color: cadetblue;
+        background-color: gray;
     }
 }

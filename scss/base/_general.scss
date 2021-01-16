@@ -20,3 +20,40 @@
     width: 100%;
 }
 
+.nopointer{
+    cursor: default !important;
+}
+
+.center-text{
+    text-align: center;
+}
+
+.sm-vr-mr{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.md-vr-mr{
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.lg-vr-mr{
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.sm-hr-mr{
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.md-hr-mr{
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.lg-hr-mr{
+    margin-right: 10px;
+    margin-left: 10px;
+}

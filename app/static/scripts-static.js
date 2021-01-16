@@ -54,7 +54,7 @@ function setSubject(element) {
 }
 
 function clear_subjects_bg(){
-  var list = document.getElementsByClassName("ids");
+  var list = document.getElementsByClassName("clear");
   for (let item of list) {
     item.style.backgroundColor = "white";
     item.style.color = "black";

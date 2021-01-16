@@ -5,51 +5,63 @@
         <form method="POST" action="">
             {{ form.hidden_tag() }}
             <h1 class="form-title">Add Subject</h1>
-            <div style="margin-top: 10px;" class="form-button sm-margin" style="margin-top: 5px;">
+            
+            <!-- If user has no cached subjects from uni ask user to search them -->
+            {% if not subjects|length %}
+            <div class="center-text md-vr-mr">
                 <a class="button visible" href="{{url_for('subjects.subject_search')}}">
-                    Find Subject IDs</a>
+                    Find Subjects</a>
             </div>
-            {% if subjects|length %}
-            <div class="subjectsIdsContainer">
-                {% for id,name in subjects %}
-                <p class="ids" value="{{id}}" onclick="setSubject(this)">
-                    <b>{{id}}</b> {{name}}
-                </p>
-                {% endfor %}
-            </div>
+            {% else %}
+
+            <!-- Error messages -->
             {% if message %}
             <div id="warning-message" class="alert alert-danger" role="alert">
                 {{message}}
             </div>
             {% endif %}
-            {{ form.subject_id(id="subjectID") }}
-            {% if form.subject_id.errors %}
-            <div class="invalid-feedback">
-                {% for error in form.subject_id.errors %}
-                <span>{{ error }}</span>
-                {% endfor %}
+
+            <!-- Container of cached subjects -->
+            <div class="subjectsIdsContainer">
+            {% for id,name in subjects %}
+                {% if get_subject(id) %}
+                <p class="ids" value="{{id}}">
+                    <b style="background-color: {{get_subject(id).color}};">{{id}}</b> {{name}}
+                </p>
+                {% else %}
+                <p class="ids clear" value="{{id}}" onclick="setSubject(this)">
+                    <b>{{id}}</b> {{name}}
+                </p>
+                {% endif %}
+            {% endfor %}
+
+            <!-- Change subject color area -->
             </div>
-            {% endif %}
+            {{ form.subject_id(id="subjectID") }}
             <div class="form-group form-element">
                 {{ form.subject_color.label(class="form-control-label full") }}
-                {% if form.subject_color.errors %}
-                {{ form.subject_color(id="color-content", placeholder="fc773e", class="half-left is-invalid") }}
+                {{ form.subject_color(id="color-content", placeholder="fc773e", class="half-left") }}
+                <div onclick="randomColor()" class="half-left random-button">
+                    <p>Random</p>
+                </div>
+
+                <!-- Errors -->
+                {% if form.subject_color.errors %} 
                 <div class="invalid-feedback">
                     {% for error in form.subject_color.errors %}
                     <span>{{ error }}</span>
                     {% endfor %}
                 </div>
-                {% else %}
-                {{ form.subject_color(id="color-content", placeholder="fc773e", class="half-left") }}
                 {% endif %}
-                <div onclick="randomColor()" class="half-left random-button">
-                    <p>Random</p>
-                </div>
             </div>
+
+            <!-- Submit area -->
             <div class="form-button sm-margin">
                 {{ form.submit(class="button") }}
             </div>
             {% endif %}
+
+            <!--  -->
             <div class="form-button-2">
                 <a href="{{ url_for('subjects.subjects_list') }}">My subjects</a>
             </div>

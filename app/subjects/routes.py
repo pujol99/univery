@@ -42,7 +42,11 @@ def add_subject():
         addUserSubjectDB(id, "#"+form.subject_color.data)
         return redirect(url_for('subjects.subjects_list'))
     subjects = session["subjects"] if session.get("subjects") else []
-    return render_template('subject/add-subject.html', title="Subjects", form=form, subjects=subjects)
+    return render_template('subject/add-subject.html', title="Subjects", 
+        form=form, 
+        subjects=subjects, 
+        get_subject=USbySubject,
+        message="Subject not found")
 
 @subjects.route("/subject-search")
 @login_required
