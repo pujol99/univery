@@ -1,41 +1,33 @@
 {% extends "home.html" %}
 {% block deliveries %}
 <div class="menu">
-    <div class="colors">
-        <p id="colors-btn">Show colors</p>
-    </div>
-    <div class="dropdown">
-        <select class="delivery-dropdown" id="delivery-type"  onchange="deliveryType()">
-            <option value="/">Deliveries</option>
-            <option value="done">Done deliveries</option>
-            <option selected value="removed">Removed deliveries</option>
-        </select>
-    </div>
-    {% if current_user.last_update %}
-        <div class="last-update">
-            <p>Last update: <br>{{current_user.last_update.strftime("%H:%M - %d/%m") }}</p>
+    <div class="info" style="justify-content:center">
+        <div>
+            <a href="{{url_for('main.home')}}"><img class="del-type-img" src="/static/web_pics/home.png" alt=""></a>
         </div>
-    {% endif %}
+    </div>
 </div>
-<div id="done" class="delivery-container">
-    {% if deliveries|length > 0 %}
-        {% for d in deliveries %}
-            <div onclick='openPopup({{ d|tojson }}, "/removed)' 
-                class="delivery-block" style="background-color: {{d['subject_color']}};">
-                <div class="delivery-name">
-                    <p>{{d["name"]}}</p>
+<div class="mycontainer">
+    <div id="notdone" class="delivery-container">
+        {% if deliveries|length > 0 %}
+            {% for d in deliveries %}
+                <div onclick='openPopup({{ d|tojson }}, "/removed")' class="delivery-block shadow">
+                    <span style="--color: {{d['subject_color']}};" class="subject-color"></span>
+                    <div class="delivery-name">
+                        <p>{{d["name"]}}</p>
+                    </div>
+                    <div class="delivery-date">
+                        <p class="time">{{d["toDate"]}}</p>
+                    </div>
                 </div>
-                <div class="delivery-date">
-                    <p class="time">{{d["toDate"]}}</p>
+            {% endfor %}
+        {% else %}
+            <div class="delivery-block shadow">
+                    <div class="delivery-name">
+                        <p>No future deliveries</p>
+                    </div>
                 </div>
-            </div>
-        {% endfor %}
-    {% else %}
-        <div class="delivery-block" style="background-color:black">
-            <div class="delivery-name">
-                <p class="vcenter">No future deliveries</p>
-            </div>
-        </div>
-    {% endif %}
+        {% endif %}
+    </div>
 </div>
 {% endblock deliveries %}

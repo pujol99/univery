@@ -16,6 +16,7 @@
     font-weight: 400;
     width: calc(min(600px, 88%));
     padding: 20px;
+    border-bottom: black 4px solid;
     @include mobile{
         width: 100%;
         padding: 5px;
@@ -94,7 +95,7 @@
     position: absolute;
     margin-left: auto;
     margin-right: auto;
-    bottom: -14px;
+    bottom: -17px;
     left: 0;
     right: 0;
 }

@@ -1,143 +1,94 @@
-
-
-.colors{
-    float: left;
-    width: 30%;
-    height: 100%;
-    @include mobile{
-        width: 40%;
-    }
-    p{
-        width: fit-content;
-        margin-left: 20px;
-        margin-top: 20px;
-        padding: 3px 10px;
-        border: 2px solid black;
-        border-radius: 5px;
-        background-color: white;
-        cursor: help;
-        @include mobile{
-            margin: 0px;
-            padding: 5px;
-            font-size: 15px;
-        }
-    }
-}
-
-.last-update{
-    float: left;
-    width: 30%;
-    height: 100%;
-    @include mobile{
-        display: none;
-    }
-}
-
-.last-update p{
-    text-align: right;
-    font-size: 18px;
-    color: white;
-    font-weight: 600;
-    margin-top: 10px;
-    margin-right: 10px;
-}
-
-.dropdown{
-    height: 100%;
-    float: left;
-    width: 40%;
-    @include mobile{
-        width: 60%;
-    }
-}
-
-.delivery-dropdown{
-    width: 100%;
-    margin-top: 20px;
-    float: center;
-    background-color: skyblue;
-    padding: 5px;
-    border: 2px solid black;
-    border-radius: 15px;
-    @include mobile{
-        margin-top: 0px;
-    }
-}
-
-.delivery-container{
-    width: calc(min(80%, 900px));
+.menu{
+    width: calc(min(800px, 80%));
     margin: 10px auto;
-    height: 450px;
-    overflow-y: scroll;
+}
+
+
+
+.info{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.show-colors{
     font-family: $font-content;
+    margin: 0;
+    background-color: $color0;
+    padding: 5px 10px;
+    color: $color4;
+    border-radius: 5px;
+    cursor: help;
+}
+
+.del-type-img{
+    background-color: $color1;
+    border-radius: 50%;
+    padding: 10px;
+    width: 50px;
+}
+
+.mycontainer{
+    width: calc(min(800px, 80%));
+    height: 600px;
+    margin: 0 auto;
+    background-color: $color3;
+    margin-bottom: 70px;
     @include tablet{
         width: 90%;
     }
     @include mobile{
         width: 100%;
-        height: 400px;
+    }
+}
+
+.delivery-container{
+    width: 90%;
+    margin: 0 auto;
+    height: 90%;
+    padding: 10px 0;
+    overflow-x: hidden;
+    background-color: $color3;
+    font-family: $font-content;
+    font-size: 18px;
+    @include mobile{
+        width: 100%;
     }
 }
 
 .delivery-block{
-    border: 2px solid black;
-    height: 100px;
-    margin-bottom: 0px;
-    cursor: pointer;
-}
-
-.delivery-name{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     width: 80%;
-    float: left;
-    height: 100px;
-    padding: 30px 0 10px 10px;
-    @include mobile{
-        width: 70%;
-    }    
-}
-
-.delivery-name p{
-    background-color: azure;
-    color: black;
-    width: fit-content;
-    font-weight: 700;
-    padding: 5px 10px;
-    border-radius: 14px;
-    @include mobile{
-        font-size: $font-smaller;
+    margin: 15px auto;
+    padding: 20px 10px;
+    background-color: $color4;
+    border-radius: 15px;
+    cursor: pointer;
+    @include tablet{
+        padding: 10px 5px;
+        width: 95%;
     }
 }
 
-
-.delivery-date{
-    width: 20%;
-    float: left;
-    height: 100px;
-    vertical-align: middle;
-    display: inline-block;
-    padding-top: 30px;
-    @include mobile{
-        width: 30%;
-    } 
-}
-
-.delivery-date p{
-    background-color: azure;
-    color: black;
-    font-weight: 700;
-    width: fit-content;
-    padding: 5px 10px;
-    border-radius: 14px;
-    @include mobile{
-        font-size: $font-smaller;
+.delivery-name, .delivery-date{
+    p{
+        margin: 0;
+        @include mobile{
+            font-size: 16px;
+        }
     }
 }
 
-.menu{
-    width: calc(min(80%, 900px));
-    margin: 0 auto;
-    height: 70px;
-    @include mobile{
-        height: 40px;
+.container-actions{
+    background-color: $color3;
+    display: flex;
+    justify-content: space-evenly;
+    img{
+        margin: 15px 0px;
+        background-color: cornsilk;
+        border-radius: 50%;
+        width: 50px;
     }
 }

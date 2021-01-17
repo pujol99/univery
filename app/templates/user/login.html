@@ -37,10 +37,12 @@
                 {% endif %}
             </div>
             <div class="form-button">
-                {{ form.submit(class="button") }}
+                {{ form.submit(class="button shadow sm-vr-mg") }}
             </div>
             <div class="form-change">
-                <p>Dont have an account?<br>
+                <p class="text-center">Dont have an account?
+                    <br>
+                    <br>
                     <a href="{{url_for('users.register')}}">Register</a>
                 </p>
             </div>

@@ -4,7 +4,7 @@
     <div class="form-box">
         <form method="POST" action="">
             {{ form.hidden_tag() }}
-            <h1 class="head-legend">Add Delivery</h1>
+            <h1 class="form-title">Add delivery</h1>
             <div class="form-group sm-margin">
                 {{ form.delivery_name.label(class="form-control-label") }}
                 {% if form.delivery_name.errors %}
@@ -57,8 +57,8 @@
                 {{ form.toDate }}
                 {% endif %} 
             </div>
-            <div class="form-button sm-margin">
-                {{ form.submit(class="button") }}
+            <div class="center-text sm-vr-mg">
+                {{ form.submit(class="button shadow") }}
             </div>
         </form>
     </div>

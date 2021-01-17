@@ -26,13 +26,6 @@ function computeTime() {
 computeTime();
 setInterval(computeTime, 1000);
 
-
-/* Change page as dropdown value change */
-function deliveryType() {
-  var dropdown_value = document.getElementById("delivery-type").value;
-  window.location = dropdown_value;
-}
-
 /* Random HEX color picker */
 function randomColor() {
   var color = document.getElementById("color-content");
@@ -64,6 +57,7 @@ function clear_subjects_bg(){
   }
 }
 
+// Change icon to loading
 var loaders = document.getElementsByClassName("loading-icon");
 for (let item of loaders) {
   item.style.display = "none";

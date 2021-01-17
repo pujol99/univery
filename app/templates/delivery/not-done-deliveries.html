@@ -1,41 +1,44 @@
 {% extends "home.html" %}
 {% block deliveries %}
 <div class="menu">
-    <div class="colors">
-        <p id="colors-btn">Show colors</p>
-    </div>
-    <div class="dropdown">
-        <select class="delivery-dropdown" id="delivery-type"  onchange="deliveryType()">
-            <option selected value="/">Deliveries</option>
-            <option value="done">Done deliveries</option>
-            <option value="removed">Removed deliveries</option>
-        </select>
-    </div>
-    {% if current_user.last_update %}
-        <div class="last-update">
-            <p>Last update: <br>{{current_user.last_update.strftime("%H:%M - %d/%m") }}</p>
+    
+    <div class="info">
+        <div>
+            <a href="{{url_for('main.done_deliveries')}}"><img class="del-type-img" src="/static/web_pics/done-del.png" alt=""></a>
         </div>
-    {% endif %}
+        <div>
+            <p id="colors-btn" class="show-colors shadow">Show colors</p>
+        </div>
+        <div>
+            <a href="{{url_for('main.removed_deliveries')}}"><img class="del-type-img" src="/static/web_pics/remove.png" alt=""></a>
+        </div>
+    </div>
 </div>
-<div id="notdone" class="delivery-container">
-    {% if deliveries|length > 0 %}
-        {% for d in deliveries %}
-            <div onclick='openPopup({{ d|tojson }}, "/")' 
-                class="delivery-block" style="background-color: {{d['subject_color']}};">
-                <div class="delivery-name">
-                    <p>{{d["name"]}}</p>
+<div class="mycontainer">
+    <div id="notdone" class="delivery-container">
+        {% if deliveries|length > 0 %}
+            {% for d in deliveries %}
+                <div onclick='openPopup({{ d|tojson }}, "/")' class="delivery-block shadow">
+                    <span style="--color: {{d['subject_color']}};" class="subject-color"></span>
+                    <div class="delivery-name">
+                        <p>{{d["name"]}}</p>
+                    </div>
+                    <div class="delivery-date">
+                        <p class="time">{{d["toDate"]}}</p>
+                    </div>
                 </div>
-                <div class="delivery-date">
-                    <p class="time">{{d["toDate"]}}</p>
+            {% endfor %}
+        {% else %}
+            <div class="delivery-block shadow">
+                    <div class="delivery-name">
+                        <p>No future deliveries</p>
+                    </div>
                 </div>
-            </div>
-        {% endfor %}
-    {% else %}
-        <div class="delivery-block" style="background-color:black">
-            <div class="delivery-name">
-                <p class="vcenter">No future deliveries</p>
-            </div>
-        </div>
-    {% endif %}
+        {% endif %}
+    </div>
+    <div class="container-actions">
+        <a href="{{ url_for('deliveries.update_deliveries', next=request.endpoint) }}"><img class="shadow" src="/static/web_pics/refresh.png" alt=""></a>
+        <a href="{{ url_for('deliveries.add_delivery', next=request.endpoint) }}"><img class="shadow" src="/static/web_pics/add.png" alt=""></a>
+    </div>
 </div>
 {% endblock deliveries %}

@@ -1,17 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="home">
-    <div class="waiting-loading">
-        <div id="waiting" class="refresh-box">    
-            <p>
-                <a id="refresh-text" class="refresh-text" href="{{ url_for('deliveries.update_deliveries', next=request.endpoint) }}">Search new deliveries</a>
-                <a class="refresh-text" href="{{ url_for('deliveries.add_delivery', next=request.endpoint) }}">Add delivery</a>
-            </p>
-        </div>
-        <div id="loading" class="refresh-box">    
-            <p><a id="loading-text">Loading deliveries...</a></p>
-        </div>
-    </div>
     {% block deliveries %}{% endblock deliveries %}
     <div id="popup" class="popup-del">
         <div class="popup-del-name">
@@ -47,11 +36,14 @@
             <a id="popup-restore" href="{{ url_for('deliveries.delivery', action='restore', id=0) }}">Restore</a>
         </div>
     </div>
-    <div id="popup-colors" class="popup-col">
-        <h3>Subjects</h3>
+    <div id="popup-colors" class="popup-col shadow">
+        <h3 class="center-text">Subjects</h3>
         {% for subject in current_user.subjects %}
-        <div class="popup-col-subject" style="background-color: {{subject.color}};">
-            <p>{{subject.subject.name}}</p>
+        <div class="subject-box shadow">
+            <span style="--color: {{subject.color}};" class="subject-color"></span>
+            <div class="subject-name">
+                <p>{{subject.subject.name}}</p>
+            </div>
         </div>
         {% endfor %}
     </div>

@@ -8,6 +8,10 @@ textarea:focus, input:focus{
     outline: none;
 }
 
+body{
+    font-family: $font-content;
+}
+
 .half-rigth{
     width: 50%;
     float: right;

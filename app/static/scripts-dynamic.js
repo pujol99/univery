@@ -21,18 +21,7 @@ $(function () {
   });
 });
 
-/* Waiting Loading state of button */
-var waitin = document.getElementById("waiting");
-var loadin = document.getElementById("loading");
-
-loadin.style.display = "none";
-
-document.getElementById("refresh-text").onclick = function () {
-  waitin.style.display = "none";
-  loadin.style.display = "block";
-};
-
-/* Show colors mouseover detection */
+// Show colors mouseover detection
 var popupColor = document.getElementById("popup-colors");
 var popupColorTrigger = document.getElementById("colors-btn");
 
