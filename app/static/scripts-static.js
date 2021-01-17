@@ -51,6 +51,9 @@ function setSubject(element) {
   document.getElementById("subjectID").style.color = "#fff";
 
   randomColor();
+
+  document.getElementById("hideColor").style.visibility = "visible";
+  document.getElementById("hideColor").style.opacity = "1";
 }
 
 function clear_subjects_bg(){

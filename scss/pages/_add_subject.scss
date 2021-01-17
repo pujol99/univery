@@ -35,6 +35,22 @@
     }
 }
 
+#cachedSubjects{
+    margin: 5px;
+    padding: 5px;
+    justify-content: flex-start;
+    p{
+        width: 80%;
+    }
+    @include mobile{
+        padding: 5px;
+        margin: 2px 5px;
+        p{
+            width: 90%;
+        }
+    }
+}
+
 .subject-color{
     height: 35px;
     width: 35px;
@@ -82,6 +98,7 @@
     margin-bottom: 15px;
     height: 230px;
     overflow-y: scroll;
+    overflow-x: hidden;
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
     @include mobile{
@@ -93,7 +110,7 @@
     padding: 10px 15px;
     margin-bottom: 0;
     @include mobile{
-        padding: 0;
+        font-size: 14px;
     }
     b{
         padding: 2px 4px;
@@ -128,4 +145,17 @@
     img{
         width: 35px;
     }
+    @include mobile{
+        img{
+            width: 28px;
+        }
+        padding: 5px;
+    }
+}
+
+#hideColor{
+    -webkit-transition: opacity 500ms, visibility 500ms;
+    transition: opacity 500ms, visibility 500ms;
+    opacity: 0;
+    visibility: hidden;
 }

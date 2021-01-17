@@ -76,6 +76,10 @@ textarea:focus, input:focus {
   text-decoration: none;
 }
 
+.mg-bt {
+  margin-bottom: 30px !important;
+}
+
 /* width */
 ::-webkit-scrollbar {
   width: 10px;
@@ -113,6 +117,23 @@ textarea:focus, input:focus {
   color: #0e1111;
 }
 
+.button-sec {
+  font-size: 20px;
+  color: #edf5e1;
+  background-color: #0e1111;
+  border: none;
+  border-radius: 20px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  text-decoration: none;
+  padding: 5px 20px;
+}
+
+.button-sec:hover {
+  color: #edf5e1;
+}
+
 .random-button p {
   width: -webkit-fit-content;
   width: -moz-fit-content;
@@ -129,6 +150,11 @@ textarea:focus, input:focus {
 }
 
 .shadow {
+  -webkit-box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+          box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+}
+
+.shadow-sec {
   -webkit-box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
           box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
 }
@@ -232,6 +258,7 @@ textarea:focus, input:focus {
 }
 
 .form-box {
+  position: relative;
   margin: 0 auto;
   background-color: #5cdb95;
   font-family: "Roboto Slab", serif;
@@ -333,6 +360,15 @@ textarea:focus, input:focus {
   margin-bottom: 10px;
 }
 
+.form-out {
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  bottom: -14px;
+  left: 0;
+  right: 0;
+}
+
 .your-subjects {
   width: 95%;
   margin: 0 auto;
@@ -381,6 +417,28 @@ textarea:focus, input:focus {
   .subject-box {
     width: 100%;
     padding: 5px 10px;
+  }
+}
+
+#cachedSubjects {
+  margin: 5px;
+  padding: 5px;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+#cachedSubjects p {
+  width: 80%;
+}
+
+@media (max-width: 500px) {
+  #cachedSubjects {
+    padding: 5px;
+    margin: 2px 5px;
+  }
+  #cachedSubjects p {
+    width: 90%;
   }
 }
 
@@ -446,6 +504,7 @@ textarea:focus, input:focus {
   margin-bottom: 15px;
   height: 230px;
   overflow-y: scroll;
+  overflow-x: hidden;
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;
 }
@@ -463,7 +522,7 @@ textarea:focus, input:focus {
 
 @media (max-width: 500px) {
   .ids {
-    padding: 0;
+    font-size: 14px;
   }
 }
 
@@ -505,6 +564,22 @@ textarea:focus, input:focus {
 
 .color-image img {
   width: 35px;
+}
+
+@media (max-width: 500px) {
+  .color-image {
+    padding: 5px;
+  }
+  .color-image img {
+    width: 28px;
+  }
+}
+
+#hideColor {
+  -webkit-transition: opacity 500ms, visibility 500ms;
+  transition: opacity 500ms, visibility 500ms;
+  opacity: 0;
+  visibility: hidden;
 }
 
 .colors-calendar {

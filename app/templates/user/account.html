@@ -18,17 +18,13 @@
                 {{ form.password(class="form-control form-control-lg") }}
                 {% endif %}
             </div>
-            <div class="form-button">
-                {{ form.submit(class="button") }}
+            <div class="form-button mg-bt">
+                {{ form.submit(class="button shadow md-vr-mg") }}
             </div>
-            <div class="form-button-2">
-                <a href="{{ url_for('users.logout') }}">Logout</a>
+            <div class="form-button form-out">
+                <a class="button-sec" href="{{url_for('users.logout')}}">Logout</a>
             </div>
         </form>
     </div>
-    
 </div>
-<footer class="footer">
-    <p>univeryhelp@gmail.com</p>
-</footer>
 {% endblock content %}

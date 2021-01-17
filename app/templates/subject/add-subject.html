@@ -26,22 +26,22 @@
             <!-- Container of cached subjects --> 
             <div class="subjectsIdsContainer">
             {% for id,name in subjects %}
-                <!-- My subjects -->
-                {% if get_subject(id) %}
-                <span style="--color: {{get_subject(id).color}};" class="subject-color">_</span>
-                <p class="ids" value="{{id}}">
-                    {{name}}
-                </p>
-                <!-- Other subjects -->
-                {% else %}
-                <p class="ids clear" value="{{id}}" onclick="setSubject(this)">{{name}}</p>
-                {% endif %}
+                <div id="cachedSubjects" class="subject-box">
+                    <!-- My subjects -->
+                    <span style="--color: {{get_subject(id).color}};" class="subject-color"></span>
+                    {% if get_subject(id) %}
+                    <p class="ids">{{name}}</p>
+                    <!-- Other subjects -->
+                    {% else %}
+                    <p class="ids clear" value="{{id}}" onclick="setSubject(this)">{{name}}</p>
+                    {% endif %}
+                </div>
             {% endfor %}
             </div>
             
             <!-- Hided subject id input -->
             {{ form.subject_id(id="subjectID", style="display: none") }}
-
+            <div id="hideColor">
             <!-- Change subject color area -->
             <div class="form-group form-element">
                 {{ form.subject_color.label(class="form-label") }}
@@ -65,8 +65,9 @@
             </div>
 
             <!-- Submit area -->
-            <div class="center-text">
+            <div class="center-text sm-vr-mg">
                 {{ form.submit(class="button shadow") }}
+            </div>
             </div>
             {% endif %}
         </form>
