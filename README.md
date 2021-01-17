@@ -1,11 +1,20 @@
-# univery
-Web that keeps track of your university deliveries and tasks
+# Univery
 
-Login with your UPF account, add your subjects and you will see all the ordered deliveries that you have in those subjects
+Organize all your university deliveries in just one page. 
 
-# To run
-Create enviroment with Python 3.x and download the required pip modules
-Run `python run.py` in the root folder
+https://univery.net/
 
-# TODO:
-dummy user for exploring site
+Login with your university account, add your subjects and you will see all the ordered deliveries that you have in those subjects
+You have available a calendar or list view
+
+# Technologies
+ - Python-Flask
+ - sqlite3
+ - scss
+ - Javascript
+
+# Features
+ - Scrape university subjects
+ - Scrape university deliveries
+ - Create your own deliveries
+ - Mark deliveries as done or remove them
