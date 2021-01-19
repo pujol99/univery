@@ -1,6 +1,6 @@
 ### Next TODOS
 
-
+buttons to slide trough deliveries popups
 calendar  * more scrolls to see delivery popup (edge cases in calendar (w:4))
 popup
 header

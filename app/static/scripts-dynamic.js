@@ -5,9 +5,9 @@ var RESTORE_PATH = document.getElementById("popup-restore").href;
 
 /* Popup open and close method */
 var popup = document.getElementById("popup");
-var closePopupBool = false;
 popup.style.display = "none";
 
+var closePopupBool = false;
 $(function () {
   $("body").click(function (e) {
     if (popup.style.display === "block") {
@@ -57,19 +57,15 @@ function openPopup(delivery, next) {
 
   clear_actions();
   var next_url = delivery["id"].toString();
-  if (next) {
-    next_url += "?next=" + next;
-  } 
+  if (next) next_url += "?next=" + next;
 
   if (delivery["type"] === "Undone") {
     blocks = ["popup-done-div", "popup-delete-div"];
     actions = ["popup-done", "popup-delete"];
-  } 
-  else if (delivery["type"] === "Done") {
+  } else if (delivery["type"] === "Done") {
     blocks = ["popup-undone-div", "popup-delete-div"];
     actions = ["popup-undone", "popup-delete"];
-  } 
-  else if (delivery["type"] === "Removed"){
+  } else if (delivery["type"] === "Removed"){
     blocks = ["popup-restore-div"];
     actions = ["popup-restore"];
   }
@@ -94,8 +90,7 @@ function fill_information_popup(name, description, date, url, subject){
   }
   document.getElementById("popup-date").textContent = date;
   document.getElementById("popup-url").href = url;
-  document.getElementById("show-url").style.display =
-    url === "None" ? "none" : "block";
+  document.getElementById("show-url").style.display = url === "None" ? "none" : "block";
   document.getElementById("popup-subject").textContent = subject;
 }
 

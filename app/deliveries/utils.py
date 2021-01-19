@@ -21,14 +21,14 @@ def get_deliveries(subjects, user_password):
     """
     PAYLOAD["adAS_username"] = current_user.identification
     PAYLOAD["adAS_password"] = user_password
-
+    
     with requests.Session() as session:
         session.post(LOGIN, headers=HEADERS, data=PAYLOAD)
     
         deliveries = []
         subject_ids = [subject.subject.identification for subject in subjects]
         subjectObjects = [SubjectObject(REQUEST+id, session, id) for id in subject_ids]
-    
+        
         for subject in subjectObjects:
             subject.scrape_subject()
             for url in subject.deliveries_url:

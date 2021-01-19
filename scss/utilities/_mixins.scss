@@ -22,6 +22,14 @@
     }
 }
 
+@mixin center-popup($top, $width){
+    position: absolute;
+    left: 50%;
+    top: $top;
+    width: $width;
+    transform: translate(-50%, 0);
+}
+
 @mixin center{
     margin: 0 auto;
     width: fit-content;
