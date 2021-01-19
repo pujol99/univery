@@ -3,7 +3,16 @@
     margin: 10px auto;
 }
 
-
+.swapper{
+    display: flex;
+    justify-content: center;
+    img{
+        width: 60px;
+        background-color: $color1;
+        padding: 5px;
+        border-radius: 10px;
+    }
+}
 
 .info{
     display: flex;

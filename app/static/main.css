@@ -572,24 +572,6 @@ body {
   visibility: hidden;
 }
 
-.colors-calendar {
-  width: calc(min(80%,300px));
-  margin: 0 auto;
-  margin-bottom: 20px;
-}
-
-.colors-calendar-content {
-  border: 2px solid black;
-  border-radius: 10px;
-  cursor: help;
-  padding: 5px 10px;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
-  margin: 0 auto;
-  background-color: white;
-}
-
 .calendar-page {
   width: 90%;
   margin: 0 auto;
@@ -672,6 +654,22 @@ body {
 .menu {
   width: calc(min(800px, 80%));
   margin: 10px auto;
+}
+
+.swapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.swapper img {
+  width: 60px;
+  background-color: #53d3d1;
+  padding: 5px;
+  border-radius: 10px;
 }
 
 .info {

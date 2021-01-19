@@ -1,7 +1,9 @@
 {% extends "home.html" %}
 {% block deliveries %}
 <div class="menu">
-    
+    <div class="swapper md-vr-mg">
+        <a href="{{url_for('deliveries.calendar')}}"><img class="shadow" src="/static/web_pics/calendar.png" alt=""></a>
+    </div>
     <div class="info">
         <div>
             <a href="{{url_for('main.done_deliveries')}}"><img class="del-type-img" src="/static/web_pics/done-del.png" alt=""></a>

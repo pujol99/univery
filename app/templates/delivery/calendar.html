@@ -1,15 +1,25 @@
 {% extends "home.html" %}
 {% block deliveries %}
-<div class="calendar-page">
-    <div class="colors-calendar">
-        {% if view > 0 %}
-        <a class="left" href="{{url_for('deliveries.calendar', n=view-1)}}">
-            <img width="40px" height="40px" src="/static/web_pics/prev.png" alt=""></a>
-        {% endif %}
-        <a class="right" href="{{url_for('deliveries.calendar', n=view+1)}}">
-            <img width="40px" height="40px" src="/static/web_pics/next.png" alt=""></a>
-        <p class="colors-calendar-content" id="colors-btn">Show colors</p>
+<div class="menu">
+    <div class="swapper md-vr-mg">
+        <a href="{{url_for('main.home')}}"><img class="shadow" src="/static/web_pics/list.png" alt=""></a>
     </div>
+    <div class="info">
+        <div>
+            <a href="{{url_for('deliveries.calendar', n=view-1)}}"><img class="del-type-img" src="/static/web_pics/prev.png" alt=""></a>
+        </div>
+        <div>
+            <p id="colors-btn" class="show-colors shadow">Show colors</p>
+        </div>
+        <div>
+            <a href="{{url_for('deliveries.calendar', n=view+1)}}"><img class="del-type-img" src="/static/web_pics/next.png" alt=""></a>
+        </div>
+    </div>
+</div>
+
+{% endblock deliveries %}
+
+<!-- <div class="calendar-page">
     <div class="calendar">
         <div class="month-name">
             <p>{{month}}</p>
@@ -29,6 +39,4 @@
         </div>
         {% endfor %}
     </div> 
-</div>
-
-{% endblock deliveries %}
+</div> -->
