@@ -174,7 +174,7 @@ body {
   height: 90px;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 900px) {
   .header {
     height: 140px;
   }
@@ -186,7 +186,7 @@ body {
   float: right;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 900px) {
   .header-right {
     width: 100%;
     height: 50%;
@@ -199,7 +199,7 @@ body {
   float: left;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 900px) {
   .header-left {
     width: 100%;
     height: 50%;
@@ -219,7 +219,7 @@ body {
   display: inline;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 900px) {
   .links li {
     margin-right: 8px;
   }
@@ -234,7 +234,7 @@ body {
   color: #002447;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 900px) {
   .links {
     margin-top: 30px;
     font-size: 26px;
@@ -512,6 +512,13 @@ body {
   overflow-x: hidden;
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 @media (max-width: 550px) {
@@ -593,7 +600,7 @@ body {
 }
 
 .calendar {
-  background-color: #53d3d1;
+  background-color: #edf5e1;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -605,11 +612,37 @@ body {
 
 .day {
   -webkit-box-flex: 1;
-      -ms-flex: 1 0 calc(100%/7);
-          flex: 1 0 calc(100%/7);
-  background-color: white;
+      -ms-flex: 1 0 calc(100%/8);
+          flex: 1 0 calc(100%/8);
+  margin: 5px;
+  padding: 10px 5px;
+  border-radius: 10px;
   height: 250px;
-  border: 1px solid black;
+}
+
+@media (max-width: 1400px) {
+  .day {
+    -webkit-box-flex: 1;
+        -ms-flex: 1 0 calc(100%/5);
+            flex: 1 0 calc(100%/5);
+  }
+}
+
+@media (max-width: 700px) {
+  .day {
+    -webkit-box-flex: 1;
+        -ms-flex: 1 0 calc(100%/2);
+            flex: 1 0 calc(100%/2);
+  }
+}
+
+.day-element {
+  cursor: pointer;
+  border-top: var(--color) 8px solid;
+  background-color: #edf5e1;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  padding: 0 5px;
 }
 
 .action-img {
@@ -620,7 +653,7 @@ body {
 }
 
 .menu {
-  width: calc(min(1200px, 95%));
+  width: 95%;
   margin: 10px auto;
 }
 
@@ -679,7 +712,7 @@ body {
   margin-bottom: 70px;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 900px) {
   .mycontainer {
     width: 90%;
   }
@@ -726,7 +759,7 @@ body {
   cursor: pointer;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 900px) {
   .delivery-block {
     padding: 10px 5px;
     width: 95%;

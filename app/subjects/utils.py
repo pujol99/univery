@@ -75,7 +75,7 @@ class SubjectObject :
         self.url = url
         self.session = session
 
-        self.deliveries_url = None
+        self.deliveries_url = []
         self.id = id
 
     def scrape_subject(self):
@@ -84,5 +84,7 @@ class SubjectObject :
 
         activities = soup.findAll('div', {'class':'activityinstance'})
 
-        self.deliveries_url = [activity.find('a')['href'] for activity in activities 
-                            if "assign" in activity.find('a')['href']]
+        for activity in activities:
+            activity = activity.find('a')
+            if activity and "assign" in activity['href']:
+                self.deliveries_url.append(activity['href'])

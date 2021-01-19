@@ -26,9 +26,13 @@
             <!-- Container of cached subjects --> 
             <div class="subjectsIdsContainer">
             {% for id,name in subjects %}
+            {% if get_subject(id) %}
                 <div id="cachedSubjects" class="subject-box">
-                    <!-- My subjects -->
+            {% else %}
+                <div id="cachedSubjects" class="subject-box" style="order: 1;">
+            {% endif %}
                     <span style="--color: {{get_subject(id).color}};" class="subject-color"></span>
+                    <!-- My subjects -->
                     {% if get_subject(id) %}
                     <p class="ids">{{name}}</p>
                     <!-- Other subjects -->

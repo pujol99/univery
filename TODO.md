@@ -1,10 +1,10 @@
 ### Next TODOS
 
 
-show colors
 calendar  * more scrolls to see delivery popup (edge cases in calendar (w:4))
 popup
-add delivery
+header
+subjects -> home button
 buttons show icon of thinking
 popup with reminder to search new deliveries
 welcome

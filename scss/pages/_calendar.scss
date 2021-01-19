@@ -4,17 +4,29 @@
 }
 
 .calendar{
-    background-color: $color1;
+    background-color: $color4;
     display: flex;
     flex-wrap: wrap;
     align-content: flex-start;
 }
 
 .day{
-    flex: 1 0 calc(100%/7);
-    background-color: white;
+    flex: 1 0 calc(100%/8);
+    @include tabletC{flex: 1 0 calc(100%/5);}
+    @include mobileC{flex: 1 0 calc(100%/2);}
+    margin: 5px;
+    padding: 10px 5px;
+    border-radius: 10px;
     height: 250px;
-    border: 1px solid black;
+}
+
+.day-element{
+    cursor: pointer;
+    border-top: var(--color) 8px solid;
+    background-color: $color4;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    padding: 0 5px;
 }
 
 .action-img{

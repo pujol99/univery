@@ -104,6 +104,8 @@
     @include mobile{
         height: 190px;
     }
+    display: flex;
+    flex-direction: column;
 }
 
 .ids{

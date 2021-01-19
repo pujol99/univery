@@ -10,6 +10,18 @@
     }
 }
 
+@mixin mobileC {
+    @media (max-width: $mobile-calendar) {
+        @content;
+    }
+}
+
+@mixin tabletC {
+    @media (max-width: $tablet-calendar) {
+        @content;
+    }
+}
+
 @mixin center{
     margin: 0 auto;
     width: fit-content;
