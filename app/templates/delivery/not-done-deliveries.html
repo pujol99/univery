@@ -9,7 +9,17 @@
             <a href="{{url_for('main.done_deliveries')}}"><img class="del-type-img" src="/static/web_pics/done-del.png" alt=""></a>
         </div>
         <div>
+            <a href="{{ url_for('deliveries.add_delivery', next=request.endpoint) }}">
+                <img class="shadow action-img" src="/static/web_pics/add.png" alt="">
+            </a>
+        </div>
+        <div>
             <p id="colors-btn" class="show-colors shadow">Show colors</p>
+        </div>
+        <div>
+            <a href="{{ url_for('deliveries.update_deliveries', next=request.endpoint) }}">
+                <img class="shadow action-img" src="/static/web_pics/refresh.png" alt="">
+            </a>
         </div>
         <div>
             <a href="{{url_for('main.removed_deliveries')}}"><img class="del-type-img" src="/static/web_pics/remove.png" alt=""></a>
@@ -37,10 +47,6 @@
                     </div>
                 </div>
         {% endif %}
-    </div>
-    <div class="container-actions">
-        <a href="{{ url_for('deliveries.update_deliveries', next=request.endpoint) }}"><img class="shadow" src="/static/web_pics/refresh.png" alt=""></a>
-        <a href="{{ url_for('deliveries.add_delivery', next=request.endpoint) }}"><img class="shadow" src="/static/web_pics/add.png" alt=""></a>
     </div>
 </div>
 {% endblock deliveries %}

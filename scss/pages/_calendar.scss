@@ -1,62 +1,25 @@
 .calendar-page{
-    width: 90%;
-    margin: 0 auto;
+    background-color: $color3;
+    font-family: $font-content;
 }
 
 .calendar{
-    margin-bottom: 50px;
-    box-shadow: 12px -6px 0px purple;
-    height: 500px+60px;
-    @include tablet{
-        height: 750px+60px;
-    }
-}
-
-.month-name{
-    height: fit-content;
-    background-color: $color4;
-    p{
-        font-size: 40px;
-        font-family: $font-header;
-        text-align: center;
-        margin-bottom: 0;
-    }
+    background-color: $color1;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
 }
 
 .day{
-    width: calc(100%/7);
+    flex: 1 0 calc(100%/7);
+    background-color: white;
     height: 250px;
     border: 1px solid black;
-    float: left;
-    @include tablet{
-        width: calc(100%/4);
-    }
-    @include mobile{
-        width: calc(100%/1);
-        height: 175px;
-    }
 }
 
-.day-element{
-    margin: 10px 0;
-    width: 100%;
-    cursor: pointer;
-    font-size: 14px;
-    @include tablet{
-        font-size: $font-smaller;
-    }
-}
-
-.day-element-name{
-    background-color: white;
-    margin: 0 auto;
-    border-radius: 10px;
-    text-align: center;
-    width: 80%;
-    padding: 2px 10px;
-}
-
-.day-corner{
-    margin-left: 10px;
-    font-weight: bold;
+.action-img{
+    margin: 15px 0px;
+    background-color: $color2;
+    border-radius: 50%;
+    width: 50px;
 }

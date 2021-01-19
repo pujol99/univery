@@ -1,5 +1,5 @@
 .menu{
-    width: calc(min(800px, 80%));
+    width: calc(min(1200px, 95%));
     margin: 10px auto;
 }
 
@@ -15,6 +15,8 @@
 }
 
 .info{
+    width: calc(min(800px, 80%));
+    margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -87,17 +89,5 @@
         @include mobile{
             font-size: 16px;
         }
-    }
-}
-
-.container-actions{
-    background-color: $color3;
-    display: flex;
-    justify-content: space-evenly;
-    img{
-        margin: 15px 0px;
-        background-color: cornsilk;
-        border-radius: 50%;
-        width: 50px;
     }
 }

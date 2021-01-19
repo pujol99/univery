@@ -6,13 +6,40 @@
     </div>
     <div class="info">
         <div>
-            <a href="{{url_for('deliveries.calendar', n=view-1)}}"><img class="del-type-img" src="/static/web_pics/prev.png" alt=""></a>
+            <a href="{{ url_for('deliveries.calendar', n=view-1) if view > 0 else pass}}">
+                <img class="del-type-img" src="/static/web_pics/prev.png" alt="">
+            </a>
+        </div>
+        <div>
+            <a href="{{ url_for('deliveries.add_delivery', next=request.endpoint) }}">
+                <img class="shadow action-img" src="/static/web_pics/add.png" alt="">
+            </a>
         </div>
         <div>
             <p id="colors-btn" class="show-colors shadow">Show colors</p>
         </div>
         <div>
+            <a href="{{ url_for('deliveries.update_deliveries', next=request.endpoint) }}">
+                <img class="shadow action-img" src="/static/web_pics/refresh.png" alt="">
+            </a>
+        </div>
+        <div>
             <a href="{{url_for('deliveries.calendar', n=view+1)}}"><img class="del-type-img" src="/static/web_pics/next.png" alt=""></a>
+        </div>
+    </div>
+    <div class="calendar-page">
+        <h2 class="center-text sm-vr-pd">{{month}}</h2>
+        <div class="calendar">
+            {% for day in days %}
+            <div class="day" style="background-color: {{day['color']}};">
+                <p>{{day['day_name']}}</p>
+                {% for d in day['deliveries'] %}
+                <div style="background-color: {{d['subject_color']}};">
+                    <p>{{d['name']}}</p>
+                </div>
+                {% endfor %}
+            </div>
+            {% endfor %}
         </div>
     </div>
 </div>
