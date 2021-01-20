@@ -846,7 +846,10 @@ body {
 
 .popup-end {
   background-color: #5cdb95;
-  padding-bottom: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 30px;
+  padding-bottom: 10px;
   border-radius: 20px;
 }
 
