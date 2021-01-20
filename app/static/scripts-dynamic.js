@@ -1,6 +1,6 @@
 var DONE_PATH = document.getElementById("popup-done").href;
 var UNDONE_PATH = document.getElementById("popup-undone").href;
-var DELETE_PATH = document.getElementById("popup-delete").href;
+var DELETE_PATH = document.getElementById("popup-remove").href;
 var RESTORE_PATH = document.getElementById("popup-restore").href;
 
 /* Popup open and close method */
@@ -42,7 +42,7 @@ function openPopup(delivery, next) {
   var actions = [], blocks = [];
   document.getElementById("popup-done").href = DONE_PATH;
   document.getElementById("popup-undone").href = UNDONE_PATH;
-  document.getElementById("popup-delete").href = DELETE_PATH;
+  document.getElementById("popup-remove").href = DELETE_PATH;
   document.getElementById("popup-restore").href = RESTORE_PATH;
   
   document.getElementById("popup").style.display = "block";
@@ -60,11 +60,11 @@ function openPopup(delivery, next) {
   if (next) next_url += "?next=" + next;
 
   if (delivery["type"] === "Undone") {
-    blocks = ["popup-done-div", "popup-delete-div"];
-    actions = ["popup-done", "popup-delete"];
+    blocks = ["popup-done-div", "popup-remove-div"];
+    actions = ["popup-done", "popup-remove"];
   } else if (delivery["type"] === "Done") {
-    blocks = ["popup-undone-div", "popup-delete-div"];
-    actions = ["popup-undone", "popup-delete"];
+    blocks = ["popup-undone-div", "popup-remove-div"];
+    actions = ["popup-undone", "popup-remove"];
   } else if (delivery["type"] === "Removed"){
     blocks = ["popup-restore-div"];
     actions = ["popup-restore"];
@@ -98,6 +98,6 @@ function clear_actions(){
   //Clear delivery options
   document.getElementById("popup-done-div").style.display = "none";
   document.getElementById("popup-undone-div").style.display = "none";
-  document.getElementById("popup-delete-div").style.display = "none";
+  document.getElementById("popup-remove-div").style.display = "none";
   document.getElementById("popup-restore-div").style.display = "none";
 }

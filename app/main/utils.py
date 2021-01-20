@@ -20,6 +20,8 @@ MONTHS = {
 
 DATE_FORMAT = "%d-%m %H:%M"
 
+ACTIONS = ["done", "undone", "remove", "restore"]
+
 from flask import render_template
 
 class MaintenanceModeHandler:

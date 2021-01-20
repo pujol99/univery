@@ -61,7 +61,7 @@ def calendar(n=0):
         lambda ud, i_day: ud.delivery.toDateStr == str(i_day.date()))
 
     return render_template('delivery/calendar.html', title="Calendar",
-        days=days, month=month, view=n)
+        days=days, month=month, view=n, actions=ACTIONS)
 
 
 @deliveries.route("/update-deliveries")

@@ -4,39 +4,30 @@
     {% block deliveries %}{% endblock deliveries %}
     <div class="popup-del shadow" id="popup">
         <div class="popup-del-element">
-            <p id="popup-name">Delivery 1</p>
+            <p id="popup-name"></p>
         </div>
         <div class="popup-del-element">
-            <p id="popup-subject">Artificial intelligence</p>
+            <p id="popup-subject"></p>
         </div>
         <div class="popup-del-element">
             <p><b>Description:</b></p>
-            <textarea disabled id="popup-descr">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eius quae recusandae atque quasi asperiores nihil laboriosam exercitationem sint sequi voluptates.
-            </textarea>
+            <textarea disabled id="popup-descr"></textarea>
         </div>
-        <div class="popup-del-element">
-            <p id="popup-date">13:10 12/10</p>
-        </div>
-        <div id="show-url" class="popup-del-url center-text">
-            <a id="popup-url" target="_blank" href="#"><img src="../static/web_pics/link.png" alt=""></a></div>
-        <div class="popup-actions">
-            <div id="popup-done-div" class="popup-del-action">
-                <a id="popup-done" href="{{ url_for('deliveries.delivery', action='done', id=0) }}">
-                    <img src="/static/web_pics/done-del.png" alt="" srcset="">
-                </a></div>
-            <div id="popup-undone-div" class="popup-del-action">
-                <a id="popup-undone" href="{{ url_for('deliveries.delivery', action='undone', id=0) }}">
-                    <img src="/static/web_pics/undone.png" alt="" srcset="">
-                </a></div>
-            <div  id="popup-delete-div" class="popup-del-action">
-                <a id="popup-delete" href="{{ url_for('deliveries.delivery', action='remove', id=0) }}">
-                    <img src="/static/web_pics/remove.png" alt="" srcset="">
-                </a></div>
-            <div  id="popup-restore-div" class="popup-del-action">
-                <a id="popup-restore" href="{{ url_for('deliveries.delivery', action='restore', id=0) }}">
-                    <img src="/static/web_pics/restore.png" alt="" srcset="">
-                </a></div>
-                
+        <div class="popup-end">
+            <div class="popup-del-element">
+                <p id="popup-date">13:10 12/10</p>
+            </div>
+            <div id="show-url" class="popup-del-url center-text">
+                <a id="popup-url" target="_blank" href="#">
+                    <img class="shadow" src="../static/web_pics/link.png" alt=""></a></div>
+            <div class="popup-actions">
+                {% for action in actions %}
+                <div id="popup-{{action}}-div">
+                    <a id="popup-{{action}}" href="{{ url_for('deliveries.delivery', action=action, id=0) }}">
+                        <img class="shadow" src="/static/web_pics/{{action}}.png" alt="" srcset="">
+                    </a></div>
+                {% endfor %}
+            </div>
         </div>
     </div>
     <div id="popup-colors" class="popup-col shadow">
