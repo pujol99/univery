@@ -9,6 +9,29 @@
     font-family: $font-content;
 }
 
+.popup-rem{
+    @include popup(80%, 50%, 300px);
+    background-color: $color1;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-family: $font-content;
+
+    img{width: 35px;border-radius: 50%;}
+    p{margin-bottom: 0;width: 95%;}
+    .action-img{margin-top: 0;}
+}
+
+.close{
+    position: absolute;
+    right: -5px;
+    top: -5px;
+    cursor: pointer;
+    img{
+        background-color: white;
+        width: 35px;
+    }
+}
+
 
 .popup-del{
     @include center-popup(300px, calc(min(70%, 500px)));

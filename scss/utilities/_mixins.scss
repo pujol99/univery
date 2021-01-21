@@ -30,6 +30,14 @@
     transform: translate(-50%, 0);
 }
 
+@mixin popup($top, $left, $width){
+    position: fixed;
+    left: $left;
+    top: $top;
+    width: $width;
+    transform: translate(-50%, 0);
+}
+
 @mixin center{
     margin: 0 auto;
     width: fit-content;

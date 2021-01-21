@@ -21,6 +21,11 @@ $(function () {
   });
 });
 
+//Popup closer
+function closePopup() {
+  document.getElementById("popup-reminder").style.display = "none";
+}
+
 // Show colors mouseover detection
 var popupColor = document.getElementById("popup-colors");
 var popupColorTrigger = document.getElementById("colors-btn");

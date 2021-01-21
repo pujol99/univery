@@ -11,25 +11,23 @@
     </head>
     <body>
         <header class="header">
-            <div class="header-left">
-                <a href="{{ url_for('main.home') }}">
-                    <img id="logo" src="/static/web_pics/logo.png" alt="">
+            <div>
+                <a class="logo" href="{{ url_for('main.home') }}">
+                    Univery
                 </a>
-        </div>
-        <div class="header-right">
-            <ul class="links">
+            </div>
+            <div class="header-right">
                 {% if current_user.is_authenticated %}
-                <li><a href="{{ url_for('subjects.subjects_list') }}">Subjects</a></li>
-                <li><a href="{{ url_for('users.account') }}">Account</a></li>
+                <div><a href="{{ url_for('subjects.subjects_list') }}">Subjects</a></div>
+                <div><a href="{{ url_for('users.account') }}">Account</a></div>
                 {% else %}
-                <li><a href="{{ url_for('users.login') }}">Login</a></li>
-                <li><a href="{{ url_for('users.register') }}">Register</a></li>
+                <div><a href="{{ url_for('users.login') }}">Login</a></div>
+                <div><a href="{{ url_for('users.register') }}">Register</a></div>
                 {% endif %}
-            </ul>
-        </div>
-    </header>
+            </div>
+        </header>
     {% block content %}{% endblock %}
-</body>
+    </body>
 <script type="text/javascript" src="/static/scripts-dynamic.js"></script>
 <script type="text/javascript" src="/static/scripts-static.js"></script>
 </html>

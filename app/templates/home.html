@@ -2,6 +2,16 @@
 {% block content %}
 <div class="home">
     {% block deliveries %}{% endblock deliveries %}
+    <div class="popup-rem shadow" id="popup-reminder">
+        <div style="flex-grow: 5;">
+            <p>Remember to periodically update the deliveries 
+                with <img class="action-img" src="/static/web_pics/refresh.png" alt=""></p>
+            
+        </div>
+        <div onclick="closePopup()" class="close" style="flex-grow: 2;">
+            <img src="/static/web_pics/close.png" alt="" srcset="">
+        </div>
+    </div>
     <div class="popup-del shadow" id="popup">
         <div class="popup-del-element">
             <p id="popup-name"></p>
@@ -29,7 +39,7 @@
             </div>
         </div>
     </div>
-    <div id="popup-colors" class="popup-col shadow">
+    <div class="popup-col shadow" id="popup-colors">
         <h3 class="center-text">Subjects</h3>
         {% for subject in current_user.subjects %}
         <div class="subject-box shadow">

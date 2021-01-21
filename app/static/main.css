@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;500;600;700&display=swap");
 * {
@@ -170,80 +171,57 @@ body {
 
 .header {
   background-color: #5cdb95;
-  width: 100%;
-  height: 90px;
+  padding: 10px 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
-@media (max-width: 900px) {
+.header a, .header a:hover {
+  text-decoration: none;
+  color: #002447;
+}
+
+@media (max-width: 550px) {
   .header {
-    height: 140px;
+    padding: 10px 10px;
   }
 }
 
 .header-right {
-  width: 70%;
-  height: 100%;
-  float: right;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-family: "Roboto Slab", serif;
 }
 
-@media (max-width: 900px) {
-  .header-right {
-    width: 100%;
-    height: 50%;
+.header-right div {
+  margin-left: 40px;
+  font-size: 22px;
+}
+
+@media (max-width: 550px) {
+  .header-right div {
+    margin-left: 10px;
+    font-size: 17px;
   }
 }
 
-.header-left {
-  width: 30%;
-  height: 100%;
-  float: left;
+.logo {
+  font-family: "Yusei Magic", sans-serif;
+  font-size: 40px;
 }
 
-@media (max-width: 900px) {
-  .header-left {
-    width: 100%;
-    height: 50%;
+@media (max-width: 550px) {
+  .logo {
+    font-size: 25px;
   }
-}
-
-.links {
-  font-size: 30px;
-  font-family: "Bebas Neue", cursive;
-  float: right;
-  margin-right: 20px;
-  margin-top: 50px;
-}
-
-.links li {
-  margin-right: 20px;
-  display: inline;
-}
-
-@media (max-width: 900px) {
-  .links li {
-    margin-right: 8px;
-  }
-}
-
-.links li a {
-  color: #002447;
-  text-decoration: none;
-}
-
-.links li a:hover {
-  color: #002447;
-}
-
-@media (max-width: 900px) {
-  .links {
-    margin-top: 30px;
-    font-size: 26px;
-  }
-}
-
-#logo {
-  -webkit-transform: translate(0, -150px);
-          transform: translate(0, -150px);
 }
 
 .form-page {
@@ -846,6 +824,45 @@ body {
     -webkit-transform: translate(-50%, 0);
             transform: translate(-50%, 0);
   }
+}
+
+.popup-rem {
+  position: fixed;
+  left: 50%;
+  top: 80%;
+  width: 300px;
+  -webkit-transform: translate(-50%, 0);
+          transform: translate(-50%, 0);
+  background-color: #53d3d1;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-family: "Roboto Slab", serif;
+}
+
+.popup-rem img {
+  width: 35px;
+  border-radius: 50%;
+}
+
+.popup-rem p {
+  margin-bottom: 0;
+  width: 95%;
+}
+
+.popup-rem .action-img {
+  margin-top: 0;
+}
+
+.close {
+  position: absolute;
+  right: -5px;
+  top: -5px;
+  cursor: pointer;
+}
+
+.close img {
+  background-color: white;
+  width: 35px;
 }
 
 .popup-del {
