@@ -77,20 +77,12 @@
         width: 27px;
     }
 }
-
-.add{
+.img-nice{
+    width: 50px;
     background-color: $color4;
-    margin: 15px auto;
     border-radius: 50%;
-    width: fit-content;
-    img{
-        width: 60px;
-        display: block;
-        margin: auto;
-        @include mobile{
-            width: 40px;
-        }
-    }
+    padding: 5px;
+    @include mobile{width: 40px;}
 }
 
 .subjectsIdsContainer{

@@ -483,23 +483,15 @@ body {
   }
 }
 
-.add {
+.img-nice {
+  width: 50px;
   background-color: #edf5e1;
-  margin: 15px auto;
   border-radius: 50%;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
-}
-
-.add img {
-  width: 60px;
-  display: block;
-  margin: auto;
+  padding: 5px;
 }
 
 @media (max-width: 550px) {
-  .add img {
+  .img-nice {
     width: 40px;
   }
 }
@@ -597,6 +589,7 @@ body {
 .calendar-page {
   background-color: #5cdb95;
   font-family: "Roboto Slab", serif;
+  margin-bottom: 100px;
 }
 
 .calendar {
@@ -611,13 +604,14 @@ body {
 }
 
 .day {
-  -webkit-box-flex: 1;
-      -ms-flex: 1 0 calc(100%/8);
-          flex: 1 0 calc(100%/8);
   margin: 5px;
   padding: 10px 5px;
   border-radius: 10px;
   height: 250px;
+  overflow-y: auto;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 0 calc(100%/8);
+          flex: 1 0 calc(100%/8);
 }
 
 @media (max-width: 1400px) {
@@ -633,6 +627,19 @@ body {
     -webkit-box-flex: 1;
         -ms-flex: 1 0 calc(100%/2);
             flex: 1 0 calc(100%/2);
+    height: 175px;
+  }
+}
+
+.day-name {
+  padding: 0px;
+  margin-bottom: 5px;
+  margin-left: 10px;
+}
+
+@media (max-width: 700px) {
+  .hideCalendarMobile {
+    display: none;
   }
 }
 
@@ -642,8 +649,17 @@ body {
   background-color: #edf5e1;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
-  padding: 0 5px;
+  padding: 0 2px;
   text-align: center;
+}
+
+@media (max-width: 700px) {
+  .day-element {
+    padding: 3px 5px;
+  }
+  .day-element p {
+    margin-bottom: 0;
+  }
 }
 
 .action-img {
@@ -674,8 +690,17 @@ body {
   border-radius: 10px;
 }
 
+@media (max-width: 550px) {
+  .swapper {
+    margin: 5px 0px;
+  }
+  .swapper img {
+    width: 50px;
+  }
+}
+
 .info {
-  width: calc(min(800px, 80%));
+  width: calc(min(800px, 90%));
   margin: 0 auto;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -688,6 +713,16 @@ body {
           align-items: center;
 }
 
+@media (max-width: 550px) {
+  .info {
+    width: 100%;
+    height: 50px;
+  }
+  .info img {
+    width: 40px;
+  }
+}
+
 .show-colors {
   font-family: "Roboto Slab", serif;
   margin: 0;
@@ -696,6 +731,13 @@ body {
   color: #edf5e1;
   border-radius: 5px;
   cursor: help;
+}
+
+@media (max-width: 550px) {
+  .show-colors {
+    padding: 5px 6px;
+    font-size: 15px;
+  }
 }
 
 .del-type-img {
@@ -767,8 +809,13 @@ body {
   }
 }
 
+.delivery-name {
+  max-width: 75%;
+}
+
 .delivery-name p, .delivery-date p {
   margin: 0;
+  text-align: center;
 }
 
 @media (max-width: 550px) {
@@ -790,6 +837,17 @@ body {
   font-family: "Roboto Slab", serif;
 }
 
+@media (max-width: 550px) {
+  .popup-col {
+    position: absolute;
+    left: 50%;
+    top: 300px;
+    width: 90%;
+    -webkit-transform: translate(-50%, 0);
+            transform: translate(-50%, 0);
+  }
+}
+
 .popup-del {
   position: absolute;
   left: 50%;
@@ -803,20 +861,19 @@ body {
   font-family: "Roboto Slab", serif;
 }
 
-.popup-del p {
-  margin-bottom: 0;
+@media (max-width: 550px) {
+  .popup-del {
+    position: absolute;
+    left: 50%;
+    top: 300px;
+    width: 90%;
+    -webkit-transform: translate(-50%, 0);
+            transform: translate(-50%, 0);
+  }
 }
 
-.popup-del textarea {
-  width: 80%;
-  margin: 10px auto;
-  min-height: 100px;
-  max-height: 150px;
-  border: none;
-  border-radius: 10px;
-  padding: 10px;
-  background-color: #feb249;
-  color: #0e1111;
+.popup-del p {
+  margin-bottom: 0;
 }
 
 .popup-del img {
@@ -824,6 +881,12 @@ body {
   background-color: #feb249;
   border-radius: 50%;
   padding: 5px;
+}
+
+@media (max-width: 550px) {
+  .popup-del img {
+    width: 40px;
+  }
 }
 
 .popup-del-element {
@@ -836,21 +899,63 @@ body {
   padding: 0 10px;
 }
 
+@media (max-width: 550px) {
+  #popup-name {
+    font-size: 22px;
+  }
+}
+
 #popup-subject {
   font-size: 20px;
+}
+
+@media (max-width: 550px) {
+  #popup-subject {
+    font-size: 16px;
+  }
 }
 
 #popup-date {
   font-size: 25px;
 }
 
+@media (max-width: 550px) {
+  #popup-date {
+    font-size: 20px;
+  }
+}
+
+#popup-descr {
+  width: 80%;
+  margin: 10px auto;
+  min-height: 100px;
+  max-height: 150px;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: #feb249;
+  color: #0e1111;
+}
+
+@media (max-width: 550px) {
+  #popup-descr {
+    height: 70px;
+    font-size: 15px;
+    width: 95%;
+  }
+}
+
 .popup-end {
   background-color: #5cdb95;
-  margin-left: 20px;
-  margin-right: 20px;
-  margin-bottom: 30px;
+  margin: 30px 20px 0;
   padding-bottom: 10px;
   border-radius: 20px;
+}
+
+@media (max-width: 550px) {
+  .popup-end {
+    margin: 0;
+  }
 }
 
 .popup-actions {

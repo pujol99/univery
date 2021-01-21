@@ -1,6 +1,7 @@
 .calendar-page{
     background-color: $color3;
     font-family: $font-content;
+    margin-bottom: 100px;
 }
 
 .calendar{
@@ -11,13 +12,29 @@
 }
 
 .day{
-    flex: 1 0 calc(100%/8);
-    @include tabletC{flex: 1 0 calc(100%/5);}
-    @include mobileC{flex: 1 0 calc(100%/2);}
     margin: 5px;
     padding: 10px 5px;
     border-radius: 10px;
     height: 250px;
+    overflow-y: auto;
+    flex: 1 0 calc(100%/8);
+    @include tabletC{flex: 1 0 calc(100%/5);}
+    @include mobileC{
+        flex: 1 0 calc(100%/2);
+        height: 175px;
+    }
+}
+
+.day-name{
+    padding: 0px;
+    margin-bottom: 5px;
+    margin-left: 10px;
+}
+
+.hideCalendarMobile{
+    @include mobileC{
+        display: none;
+    }
 }
 
 .day-element{
@@ -26,8 +43,9 @@
     background-color: $color4;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
-    padding: 0 5px;
+    padding: 0 2px;
     text-align: center;
+    @include mobileC{padding: 3px 5px;p{margin-bottom: 0;}}
 }
 
 .action-img{

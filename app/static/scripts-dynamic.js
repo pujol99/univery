@@ -35,10 +35,7 @@ popupColorTrigger.onmouseout = function () {
 };
 
 /* Delivery popup information */
-function openPopup(delivery, next) {
-  if(next.includes("calendar") && window.innerWidth < 500){
-    window.scrollTo(0, 100);
-  }
+function openPopup(delivery, next, divId) {
   var actions = [], blocks = [];
   document.getElementById("popup-done").href = DONE_PATH;
   document.getElementById("popup-undone").href = UNDONE_PATH;
@@ -46,6 +43,11 @@ function openPopup(delivery, next) {
   document.getElementById("popup-restore").href = RESTORE_PATH;
   
   document.getElementById("popup").style.display = "block";
+  //set element height in calendar
+  if(divId)
+    document.getElementById("popup").style.top = document.getElementById(
+      divId.toString()
+    ).parentNode.offsetTop - 200;
 
   fill_information_popup(
     delivery["name"],

@@ -29,8 +29,9 @@ def add_delivery(day=0,month=0):
         delivery = addDeliveryDB(
             name=form.delivery_name.data, 
             description=form.delivery_description.data,
-            toDate=form.toDate.data, 
-            subject_name=form.subject_name.data)
+            toDate=form.toDate.data,
+            subject_name=form.subject_name.data, 
+            url="None")
         addUserDeliveryDB(delivery.id)
 
         return redirect_to('main.home')

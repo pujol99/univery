@@ -12,14 +12,27 @@
         padding: 5px;
         border-radius: 10px;
     }
+    @include mobile{
+        margin: 5px 0px;
+        img{
+            width: 50px;
+        }
+    }
 }
 
 .info{
-    width: calc(min(800px, 80%));
+    width: calc(min(800px, 90%));
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    @include mobile{
+        width: 100%;
+        height: 50px;
+        img{
+            width: 40px;
+        }
+    }
 }
 
 .show-colors{
@@ -30,6 +43,10 @@
     color: $color4;
     border-radius: 5px;
     cursor: help;
+    @include mobile{
+        padding: 5px 6px;
+        font-size: 15px;
+    }
 }
 
 .del-type-img{
@@ -83,9 +100,14 @@
     }
 }
 
+.delivery-name{
+    max-width: 75%;
+}
+
 .delivery-name, .delivery-date{
     p{
         margin: 0;
+        text-align: center;
         @include mobile{
             font-size: 16px;
         }

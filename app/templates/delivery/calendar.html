@@ -31,10 +31,10 @@
         <h2 class="center-text sm-vr-pd">{{month}}</h2>
         <div class="calendar">
             {% for day in days %}
-            <div class="day shadow" style="background-color: {{day['color']}};">
-                <p>{{day['day_name']}}</p>
+            <div class="day shadow {{day['class']}}" style="background-color: {{day['color']}};">
+                <p class="day-name">{{day['day_name']}}</p>
                 {% for d in day['deliveries'] %}
-                <div class="day-element shadow" onclick='openPopup({{ d|tojson }}, "/calendar/{{view}}")'
+                <div id="{{day['id']}}" class="day-element shadow" onclick='openPopup({{ d|tojson }}, "/calendar/{{view}}", this.id)'
                      style="--color: {{d['subject_color']}};">
                     <p>{{d['name']}}</p>
                 </div>
@@ -46,25 +46,3 @@
 </div>
 
 {% endblock deliveries %}
-
-<!-- <div class="calendar-page">
-    <div class="calendar">
-        <div class="month-name">
-            <p>{{month}}</p>
-        </div>
-        {% for day in days %}
-        <div class="day" style="background-color: {{day['color']}};">
-            <p class="day-corner">{{day['day_name']}}</p>
-            {% for d in day['deliveries'] %}
-            <div onclick='openPopup({{ d|tojson }}, "/calendar/{{view}}")'
-            class="day-element" style="background-color: {{d['subject_color']}};">
-                <p class="day-element-name small-font">{{d['name']}}</p>
-            </div>
-            {% endfor %}
-            <a href="{{url_for('deliveries.add_delivery', day=day['day'], month=day['month'])}}">
-                <img width="30px" src="/static/web_pics/add.png" alt="">
-            </a>
-        </div>
-        {% endfor %}
-    </div> 
-</div> -->

@@ -100,9 +100,9 @@ def get_days(view, restriction):
                 ud for ud in UDnotDone() if restriction(ud, i_day)
             ]) if i_day >= today else [],
             'day_name': i_day.strftime("%A") + " " + str(i_day.day),
-            'day': i_day.day,
-            'month': i_day.month,
-            'color': day_color(today, i_day)}
+            'color': day_color(today, i_day),
+            'class': "hideCalendarMobile" if i_day < today else "",
+            'id': str(i_day.day)+"-"+str(i_day.month)}
         days.append(elements)
     return days, "/".join(list(months))
 
