@@ -30,8 +30,9 @@ class User(db.Model, UserMixin):
     fullname = db.Column(db.String(70), nullable=False)
     identification = db.Column(db.String(15), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
-    last_update = db.Column(db.DateTime, nullable=True)
 
+    last_update = db.Column(db.DateTime, nullable=True)
+    
     deliveries = db.relationship("UserDelivery", back_populates="user")
     subjects = db.relationship("UserSubject", back_populates="user")
 
