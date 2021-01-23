@@ -1,6 +1,6 @@
 .popup-col{
     @include center-popup(300px, 400px);
-    @include mobile{@include center-popup(300px, 90%);}
+    @include mobile{@include center-popup(200px, 90%);}
 
     background-color: $color2;
     padding: 5px;
@@ -36,7 +36,7 @@
 .popup-del{
     @include center-popup(300px, calc(min(70%, 500px)));
     @include mobile{@include center-popup(300px, 90%);}
-    background-color: $color4;
+    background-color: $color2;
     color: $color5;
     border-radius: 20px;
 
@@ -85,7 +85,7 @@
     border: none;
     border-radius: 10px;
     padding: 10px;
-    background-color: $color2;
+    background-color: $color4;
     color: $color5;
     @include mobile{
         height: 70px;

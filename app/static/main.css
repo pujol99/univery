@@ -659,6 +659,7 @@ body {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  margin: 5px 0px;
 }
 
 .swapper img {
@@ -669,9 +670,6 @@ body {
 }
 
 @media (max-width: 550px) {
-  .swapper {
-    margin: 5px 0px;
-  }
   .swapper img {
     width: 50px;
   }
@@ -727,7 +725,10 @@ body {
 
 .mycontainer {
   width: calc(min(800px, 80%));
-  height: 600px;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  max-height: 600px;
   margin: 0 auto;
   background-color: #5cdb95;
   margin-bottom: 70px;
@@ -742,15 +743,17 @@ body {
 @media (max-width: 550px) {
   .mycontainer {
     width: 100%;
+    max-height: 400px;
   }
 }
 
 .delivery-container {
   width: 90%;
-  margin: 0 auto;
   height: 90%;
+  margin: 0 auto;
   padding: 10px 0;
   overflow-x: hidden;
+  overflow-y: auto;
   background-color: #5cdb95;
   font-family: "Roboto Slab", serif;
   font-size: 18px;
@@ -819,7 +822,7 @@ body {
   .popup-col {
     position: absolute;
     left: 50%;
-    top: 300px;
+    top: 200px;
     width: 90%;
     -webkit-transform: translate(-50%, 0);
             transform: translate(-50%, 0);
@@ -872,7 +875,7 @@ body {
   width: calc(min(70%, 500px));
   -webkit-transform: translate(-50%, 0);
           transform: translate(-50%, 0);
-  background-color: #edf5e1;
+  background-color: #feb249;
   color: #0e1111;
   border-radius: 20px;
   font-family: "Roboto Slab", serif;
@@ -950,7 +953,7 @@ body {
   border: none;
   border-radius: 10px;
   padding: 10px;
-  background-color: #feb249;
+  background-color: #edf5e1;
   color: #0e1111;
 }
 

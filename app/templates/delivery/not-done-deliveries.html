@@ -29,23 +29,23 @@
 <div class="mycontainer">
     <div id="notdone" class="delivery-container">
         {% if deliveries|length > 0 %}
-            {% for d in deliveries %}
-                <div onclick='openPopup({{ d|tojson }}, "/")' class="delivery-block shadow">
-                    <span style="--color: {{d['subject_color']}};" class="subject-color"></span>
-                    <div class="delivery-name">
-                        <p>{{d["name"]}}</p>
-                    </div>
-                    <div class="delivery-date">
-                        <p class="time">{{d["toDate"]}}</p>
-                    </div>
+        {% for d in deliveries %}
+            <div onclick='openPopup({{ d|tojson }}, "/")' class="delivery-block shadow">
+                <span style="--color: {{d['subject_color']}};" class="subject-color"></span>
+                <div class="delivery-name">
+                    <p>{{d["name"]}}</p>
                 </div>
-            {% endfor %}
+                <div class="delivery-date">
+                    <p class="time">{{d["toDate"]}}</p>
+                </div>
+            </div>
+        {% endfor %}
         {% else %}
             <div class="delivery-block shadow">
-                    <div class="delivery-name">
-                        <p>No future deliveries</p>
-                    </div>
+                <div class="delivery-name">
+                    <p>No future deliveries</p>
                 </div>
+            </div>
         {% endif %}
     </div>
 </div>

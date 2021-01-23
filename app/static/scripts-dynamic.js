@@ -5,8 +5,6 @@ var RESTORE_PATH = document.getElementById("popup-restore").href;
 
 /* Popup open and close method */
 var popup = document.getElementById("popup");
-popup.style.display = "none";
-
 var closePopupBool = false;
 $(function () {
   $("body").click(function (e) {
@@ -29,8 +27,6 @@ function closePopup() {
 // Show colors mouseover detection
 var popupColor = document.getElementById("popup-colors");
 var popupColorTrigger = document.getElementById("colors-btn");
-
-popupColor.style.display = "none";
 
 popupColorTrigger.onmouseover = function () {
   popupColor.style.display = "block";
