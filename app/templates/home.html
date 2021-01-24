@@ -4,8 +4,7 @@
     {% block deliveries %}{% endblock deliveries %}
     <div class="popup-rem shadow" id="popup-reminder" style="display:none">
         <div style="flex-grow: 5;">
-            <p>Remember to periodically update the deliveries 
-                with <img class="action-img" src="/static/web_pics/refresh.png" alt=""></p>
+            <p>{{lenguages["Remember to periodically update the deliveries with"][cl]}} <img class="action-img" src="/static/web_pics/refresh.png" alt=""></p>
             
         </div>
         <div onclick="closePopup()" class="close" style="flex-grow: 2;">
@@ -40,7 +39,7 @@
         </div>
     </div>
     <div class="popup-col shadow" id="popup-colors" style="display:none">
-        <h3 class="center-text">Subjects</h3>
+        <h3 class="center-text">{{lenguages["Subjects"][cl]}}</h3>
         {% for subject in current_user.subjects %}
         <div class="subject-box shadow">
             <span style="--color: {{subject.color}};" class="subject-color"></span>

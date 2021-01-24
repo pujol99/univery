@@ -2,6 +2,7 @@ from ..models import *
 from .forms import *
 from ..global_utils import *
 from .utils import *
+from ..main.utils import *
 from app import db
 
 from flask_login import current_user, login_required
@@ -12,7 +13,7 @@ subjects = Blueprint('subjects', __name__)
 @subjects.route("/subjects")
 @login_required
 def subjects_list():
-    return render_template('subject/subjects.html', title="Subjects")
+    return render_template('subject/subjects.html', lenguages=LANGUAGES, cl=get_lenguage(), title="Subjects")
     
 
 @subjects.route("/subject-remove/<int:id>")
@@ -39,7 +40,7 @@ def add_subject():
             return redirect(url_for('subjects.subjects_list'))
 
     subjects = session["subjects"] if session.get("subjects") else []
-    return render_template('subject/add-subject.html', title="Subjects", 
+    return render_template('subject/add-subject.html', lenguages=LANGUAGES, cl=get_lenguage(), title="Subjects", 
         form=form, 
         subjects=list(reversed(subjects)), 
         get_subject=USbySubject,

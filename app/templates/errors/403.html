@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="error">
-    <h1>Oops. You don't have permission (403)</h1>
-    <p>Please check your account and try again</p>
-    <a href="{{url_for('main.home')}}">Home</a>
+    <h1>{{lenguages["Oops. You don't have permission"][cl]}} (403)</h1>
+    <p>{{lenguages["Please check your account and try again"][cl]}}</p>
+    <a href="{{url_for('main.home')}}">{{lenguages["Home"][cl]}}</a>
 </div>
 {% endblock content %}

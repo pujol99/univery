@@ -14,7 +14,7 @@
             </a>
         </div>
         <div>
-            <p id="colors-btn" class="show-colors shadow">Show subjects</p>
+            <p id="colors-btn" class="show-colors shadow">{{lenguages["Show subjects"][cl]}}</p>
         </div>
         <div>
             <a href="{{ url_for('deliveries.update_deliveries', next=request.endpoint) }}">
@@ -43,7 +43,7 @@
         {% else %}
             <div class="delivery-block shadow">
                 <div class="delivery-name">
-                    <p>No future deliveries</p>
+                    <p>{{lenguages["No future deliveries"][cl]}}</p>
                 </div>
             </div>
         {% endif %}

@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, url_for, redirect, request, session
 from app import db, bcrypt
 from .utils import check_user
+from ..main.utils import *
 from .forms import *
 from app.models import *
 from flask_login import login_user, current_user, logout_user, login_required
@@ -23,10 +24,10 @@ def register():
             login_user(user)
             session["password"] = form.password.data
             return redirect(url_for('subjects.subjects_list'))
-        return render_template('user/register.html', title='Register', form=form, 
+        return render_template('user/register.html', lenguages=LANGUAGES, cl=get_lenguage(), title='Register', form=form, 
                 message="Incorrect identification or password for universty login")
     
-    return render_template('user/register.html', title='Register', form=form)
+    return render_template('user/register.html', lenguages=LANGUAGES, cl=get_lenguage(), title='Register', form=form)
 
 
 @users.route("/login", methods=['GET', 'POST'])
@@ -42,10 +43,10 @@ def login():
             login_user(user)
             session["password"] = form.password.data
             return redirect(url_for('main.home'))
-        return render_template('user/login.html', title="Login", form=form,
+        return render_template('user/login.html', lenguages=LANGUAGES, cl=get_lenguage(), title="Login", form=form,
             message="Incorrect identification or password")
 
-    return render_template('user/login.html', title="Login", form=form)
+    return render_template('user/login.html', lenguages=LANGUAGES, cl=get_lenguage(), title="Login", form=form)
 
 @users.route("/account", methods=['GET', 'POST'])
 @login_required
@@ -56,7 +57,7 @@ def account():
         db.session.commit()
         return redirect(url_for('main.home'))
     
-    return render_template('user/account.html', title="Account", form=form)
+    return render_template('user/account.html', lenguages=LANGUAGES, cl=get_lenguage(), title="Account", form=form)
     
 
 

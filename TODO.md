@@ -14,5 +14,5 @@
 
 (other features)
 
-more languages 
+more lenguages 
 schedules??

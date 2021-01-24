@@ -38,7 +38,7 @@ def add_delivery(day=0,month=0):
 
     # GET method
     form.toDate.data = build_date(day, month)
-    return render_template('delivery/add-delivery.html', title="Add delivery", form=form)
+    return render_template('delivery/add-delivery.html', lenguages=LANGUAGES, cl=get_lenguage(), title="Add delivery", form=form)
 
 @deliveries.route("/delivery/<string:action>/<int:id>")
 @login_required
@@ -61,7 +61,7 @@ def calendar(n=0):
     days, month = get_days(n,
         lambda ud, i_day: ud.delivery.toDateStr == str(i_day.date()))
 
-    return render_template('delivery/calendar.html', title="Calendar",
+    return render_template('delivery/calendar.html', lenguages=LANGUAGES, cl=get_lenguage(), title="Calendar",
         days=days, month=month, view=n, actions=ACTIONS)
 
 

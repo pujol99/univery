@@ -4,7 +4,7 @@
     <div class="form-box">
         <form method="POST" action="">
             {{ form.hidden_tag() }}
-            <h1 class="form-title">Update password</h1>
+            <h1 class="form-title">{{lenguages["Update password"][cl]}}</h1>
             <div class="form-group form-element">
                 {{ form.password.label(class="form-control-label") }}
                 {% if form.password.errors %}
@@ -22,7 +22,7 @@
                 {{ form.submit(class="button shadow md-vr-mg") }}
             </div>
             <div class="form-button form-out">
-                <a class="button-sec" href="{{url_for('users.logout')}}">Logout</a>
+                <a class="button-sec" href="{{url_for('users.logout')}}">{{lenguages["Logout"][cl]}}</a>
             </div>
         </form>
     </div>

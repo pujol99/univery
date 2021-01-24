@@ -2,7 +2,7 @@ import requests
 import random
 from bs4 import BeautifulSoup
 from flask_login import current_user
-from ..main.utils import LOGIN, PAYLOAD, HEADERS
+from ..main.utils import *
 from ..global_utils import *
 from app import db
 

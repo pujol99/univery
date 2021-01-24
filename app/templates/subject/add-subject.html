@@ -4,13 +4,13 @@
     <div class="form-box">
         <form method="POST" action="">
             {{ form.hidden_tag() }}
-            <h1 class="form-title">Select Subject</h1>
+            <h1 class="form-title">{{lenguages["Select subject"][cl]}}</h1>
             
             <!-- If user has no cached subjects from uni ask user to search them -->
             {% if not subjects|length %}
             <div class="center-text lg-vr-mg slow-tr">
                 <a class="button shadow" onclick="toLoading()" href="{{url_for('subjects.subject_search')}}">
-                    <span class="bloading">Find Subjects</span>
+                    <span class="bloading">{{lenguages["Find subjects"][cl]}}</span>
                     <img class="loading-icon" id="search-subjects-button" src="/static/web_pics/loading.gif">
                 </a>
             </div>

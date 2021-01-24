@@ -5,18 +5,19 @@ from wtforms.validators import DataRequired, EqualTo, Length, Email, ValidationE
 from app import bcrypt
 
 from .utils import *
+from ..main.utils import *
 from ..global_utils import *
 from ..models import *
 
 
 class RegistrationForm(FlaskForm):
-    fullname = StringField('Fullname',
+    fullname = StringField(LANGUAGES['Fullname'][get_lenguage()],
         validators=[DataRequired(), Length(max=40)])
-    identification = StringField('University identification', 
+    identification = StringField(LANGUAGES['University identification'][get_lenguage()], 
         validators=[DataRequired(), Length(max=15)])
-    password = PasswordField('University password', 
+    password = PasswordField(LANGUAGES['University password'][get_lenguage()], 
         validators=[DataRequired()])
-    submit = SubmitField('Sign up')
+    submit = SubmitField(LANGUAGES['Sign up'][get_lenguage()])
 
     def validate_identification(self, identification):
         # If user identification exists -> error
@@ -24,19 +25,19 @@ class RegistrationForm(FlaskForm):
             raise ValidationError('That identification is taken.')
 
 class LoginForm(FlaskForm):
-    identification = StringField('University identification', 
+    identification = StringField(LANGUAGES['University identification'][get_lenguage()], 
         validators=[DataRequired(), Length(max=15)])
-    password = PasswordField('University password', 
+    password = PasswordField(LANGUAGES['University password'][get_lenguage()], 
         validators=[DataRequired()])
-    submit = SubmitField('Login')
+    submit = SubmitField(LANGUAGES['Login'][get_lenguage()])
 
 class UpdatePassword(FlaskForm):
-    password = PasswordField('Password', 
+    password = PasswordField(LANGUAGES['Password'][get_lenguage()], 
         validators=[DataRequired()])
-    submit = SubmitField('Update')
+    submit = SubmitField(LANGUAGES['Update'][get_lenguage()])
 
     def validate_password(self, password):
         if bcrypt.check_password_hash(current_user.password, password.data):
-            raise ValidationError('That is your current password')
+            raise ValidationError(LANGUAGES['That is your current password'][get_lenguage()])
         if not check_user(current_user.identification, password.data):
-            raise ValidationError('That password doesnt pass the login in the university')
+            raise ValidationError(LANGUAGES['That password doesnt pass the login in the university'][get_lenguage()])

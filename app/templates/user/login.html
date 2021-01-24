@@ -4,7 +4,7 @@
     <div class="form-box">
         <form method="POST" action="">
             {{ form.hidden_tag() }}
-            <h1 class="form-title"><b>Login Form</b></h1>
+            <h1 class="form-title"><b>{{lenguages["Login"][cl]}}</b></h1>
             {% if message %}
             <div id="warning-message" class="alert alert-danger" role="alert">
                 {{message}}
@@ -40,10 +40,10 @@
                 {{ form.submit(class="button shadow sm-vr-mg") }}
             </div>
             <div class="form-change">
-                <p class="text-center">Dont have an account?
+                <p class="text-center">{{lenguages["Dont have an account?"][cl]}}
                     <br>
                     <br>
-                    <a href="{{url_for('users.register')}}">Register</a>
+                    <a href="{{url_for('users.register')}}">{{lenguages["Register"][cl]}}</a>
                 </p>
             </div>
         </form>

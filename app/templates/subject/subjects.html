@@ -2,7 +2,7 @@
 {% block content %}
 <div class="form-page">
     <div class="form-box">
-        <h1 class="form-title">Your subjects</h1>
+        <h1 class="form-title">{{lenguages["Your subjects"][cl]}}</h1>
             <!-- User subjects area -->
             <div class="your-subjects">
                 {% for subject in current_user.subjects %}

@@ -18,11 +18,16 @@
             </div>
             <div class="header-right">
                 {% if current_user.is_authenticated %}
-                <div><a href="{{ url_for('subjects.subjects_list') }}">Subjects</a></div>
-                <div><a href="{{ url_for('users.account') }}">Account</a></div>
+                <select id="selectLanguage">
+                    <option value="ca"></option>
+                    <option value="es"></option>
+                    <option value="en"></option>
+                </select>
+                <div><a href="{{ url_for('subjects.subjects_list') }}">{{lenguages["Subjects"][cl]}}</a></div>
+                <div><a href="{{ url_for('users.account') }}">{{lenguages["Account"][cl]}}</a></div>
                 {% else %}
-                <div><a href="{{ url_for('users.login') }}">Login</a></div>
-                <div><a href="{{ url_for('users.register') }}">Register</a></div>
+                <div><a href="{{ url_for('users.login') }}">{{lenguages["Login"][cl]}}</a></div>
+                <div><a href="{{ url_for('users.register') }}">{{lenguages["Register"][cl]}}</a></div>
                 {% endif %}
             </div>
         </header>

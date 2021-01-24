@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="error">
-    <h1>Oops... Page Not Found (404)</h1>
-    <p>Try another one</p>
+    <h1>{{lenguages["Oops... Page Not Found"][cl]}} (404)</h1>
+    <p>{{lenguages["Try another one"][cl]}}</p>
     <a href="{{url_for('main.home')}}">Home</a>
 </div>
 
