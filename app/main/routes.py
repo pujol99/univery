@@ -33,5 +33,5 @@ def removed_deliveries():
 
 @main.route("/language/<lan>")
 def language(lan):
-    update_lenguage(str(lan))
+    update_lenguage(lan)
     return redirect(url_for('main.home'))

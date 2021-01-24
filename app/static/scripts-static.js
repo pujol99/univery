@@ -60,10 +60,7 @@ function clear_subjects_bg(){
 //change selected language
 function setLanguage() {
   var l = document.getElementById('selectLanguage').value;
-  console.log(l);
-  if ((l === "ca") || (l === "es") || (l === "en")){
-    document.location.href = document.location.origin + "/language/" + l;
-  }
+  document.location.href = document.location.origin + "/language/" + l;
 }
 
 
