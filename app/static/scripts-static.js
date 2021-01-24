@@ -57,6 +57,16 @@ function clear_subjects_bg(){
   }
 }
 
+//change selected language
+function setLanguage() {
+  var l = document.getElementById('selectLanguage').value;
+  console.log(l);
+  if ((l === "ca") || (l === "es") || (l === "en")){
+    document.location.href = document.location.origin + "/language/" + l;
+  }
+}
+
+
 // Change icon to loading
 var loaders = document.getElementsByClassName("loading-icon");
 for (let item of loaders) {

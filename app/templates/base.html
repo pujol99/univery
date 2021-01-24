@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link rel="stylesheet" type="text/css" href="/static/main.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"> 
         <title>Univery | {{title}}</title>
         <link rel="icon" href="../static/web_pics/favicon.png">
     </head>
@@ -18,10 +18,11 @@
             </div>
             <div class="header-right">
                 {% if current_user.is_authenticated %}
-                <select id="selectLanguage">
-                    <option value="ca"></option>
-                    <option value="es"></option>
-                    <option value="en"></option>
+                <select id="selectLanguage" onchange="setLanguage()">
+                    <option>{{lenguages["Language"][cl]}}</option>
+                    <option value="ca">CA</option>
+                    <option value="es">ES</option>
+                    <option value="en">EN</option>
                 </select>
                 <div><a href="{{ url_for('subjects.subjects_list') }}">{{lenguages["Subjects"][cl]}}</a></div>
                 <div><a href="{{ url_for('users.account') }}">{{lenguages["Account"][cl]}}</a></div>

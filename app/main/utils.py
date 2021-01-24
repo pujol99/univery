@@ -222,4 +222,9 @@ LANGUAGES = {
         "es": "Esta contraseña no entra en la universidad",
         "en": "That password doesnt pass the login in the university",
     },
+    "Language": {
+        "ca": "Idioma",
+        "es": "Idioma",
+        "en": "Language"
+    }
 }

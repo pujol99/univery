@@ -988,6 +988,11 @@ body {
   margin-top: 10px;
 }
 
+#selectLanguage {
+  background-color: #feb249;
+  border-radius: 10px;
+}
+
 .error {
   color: #edf5e1;
   font-family: "Bebas Neue", cursive;

@@ -30,3 +30,8 @@ def removed_deliveries():
             deliveries=filter_deliveries(
                 lambda d: d.isEliminated and is_future(d.delivery.toDate)),
             date_format=DATE_FORMAT)
+
+@main.route("/language/<lan>")
+def language(lan):
+    update_lenguage(str(lan))
+    return redirect(url_for('main.home'))
