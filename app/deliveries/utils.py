@@ -115,10 +115,10 @@ def build_date(day, month):
 def day_color(today, iday):
     if iday == today: 
         return '#d6ceba'    # Color for today 
-    elif iday.weekday() > 4:
-        return '#ffb600'    # Color for weekend 
     elif iday < today:
         return '#000'       # Color for past   
+    elif iday.weekday() > 4:
+        return '#ffb600'    # Color for weekend 
     else:
         return '#fff'       # Color for future
 

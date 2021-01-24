@@ -27,12 +27,9 @@
     background-color: $color4;
     width: 90%;
     margin: 10px auto;
-    padding: 10px 20px;
+    padding: 5px 20px;
     border-radius: 20px;
-    @include mobile{
-        width: 100%;
-        padding: 5px 10px;
-    }
+    @include mobile{width: 100%;}
 }
 
 #cachedSubjects{

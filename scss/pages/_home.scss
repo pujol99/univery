@@ -1,5 +1,5 @@
 .popup-col{
-    @include center-popup(300px, 400px);
+    @include center-popup(260px, 400px);
     @include mobile{@include center-popup(200px, 90%);}
 
     background-color: $color2;
